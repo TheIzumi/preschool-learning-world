@@ -1,1797 +1,1985 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#fff8ed">
-  <meta name="description" content="A happy and interactive preschool learning game by TheIz.">
-  <title>Preschool Learning World | TheIz</title>
-
-  <style>
-    :root {
-      --cream: #fff8ed;
-      --ink: #35334a;
-      --muted: #77758b;
-      --purple: #8175e8;
-      --pink: #ff9eb5;
-      --yellow: #ffce65;
-      --green: #7bc9a5;
-      --blue: #87c8f4;
-      --white: #ffffff;
-      --border: #eee8f5;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      background: var(--cream);
-      color: var(--ink);
-      font-family: "Trebuchet MS", Arial, sans-serif;
-      min-height: 100vh;
-    }
-
-    button {
-      font: inherit;
-      cursor: pointer;
-      touch-action: manipulation;
-    }
-
-    button:focus-visible {
-      outline: 3px solid var(--purple);
-      outline-offset: 3px;
-    }
-
-    button:disabled {
-      cursor: not-allowed;
-      opacity: 0.75;
-    }
-
-    .app {
-      width: 100%;
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 16px;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 22px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      min-width: 0;
-    }
-
-    .brand-icon {
-      width: 47px;
-      height: 47px;
-      flex-shrink: 0;
-      display: grid;
-      place-items: center;
-      background: #eeeaff;
-      border-radius: 16px;
-      font-size: 27px;
-    }
-
-    .brand h1 {
-      margin: 0;
-      font-size: clamp(16px, 3.5vw, 23px);
-      line-height: 1.2;
-    }
-
-    .brand p {
-      color: var(--muted);
-      font-size: 12px;
-      margin: 4px 0 0;
-    }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      flex-shrink: 0;
-    }
-
-    .star-counter,
-    .sound-button {
-      border: 2px solid var(--border);
-      background: white;
-      border-radius: 14px;
-      min-height: 44px;
-      padding: 9px 11px;
-      font-weight: bold;
-      color: var(--ink);
-    }
-
-    .star-counter {
-      background: #fff0bd;
-      border-color: #ffe4a0;
-    }
-
-    .sound-button[aria-pressed="true"] {
-      background: #e5f7eb;
-      border-color: #b6e7c8;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 26px 12px;
-      background: #eeeaff;
-      border-radius: 27px;
-      margin-bottom: 24px;
-    }
-
-    .hero-characters {
-      font-size: clamp(36px, 8vw, 58px);
-      margin-bottom: 8px;
-      letter-spacing: 3px;
-    }
-
-    .hero h2 {
-      font-size: clamp(27px, 6vw, 39px);
-      margin: 8px 0;
-      line-height: 1.2;
-    }
-
-    .hero p {
-      max-width: 510px;
-      margin: 10px auto 0;
-      line-height: 1.6;
-      color: #625e80;
-      font-size: 15px;
-    }
-
-    .section-heading {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin: 24px 2px 14px;
-    }
-
-    .section-heading h2 {
-      font-size: 21px;
-      margin: 0;
-    }
-
-    .section-heading span {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .world-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .world-card {
-      border: 2px solid transparent;
-      border-radius: 22px;
-      padding: 17px 14px;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      text-align: left;
-      color: var(--ink);
-      min-height: 190px;
-      transition: transform 0.15s ease;
-    }
-
-    .world-card:active {
-      transform: scale(0.98);
-    }
-
-    .world-card:nth-child(1) {
-      background: #ffe8ef;
-      border-color: #ffd6e2;
-    }
-
-    .world-card:nth-child(2) {
-      background: #fff0c9;
-      border-color: #ffe4a2;
-    }
-
-    .world-card:nth-child(3) {
-      background: #e1f5e9;
-      border-color: #c8ecd8;
-    }
-
-    .world-card:nth-child(4) {
-      background: #dff1ff;
-      border-color: #c9e8ff;
-    }
-
-    .world-card:nth-child(5) {
-      background: #eee8ff;
-      border-color: #ded4ff;
-      grid-column: 1 / -1;
-      min-height: 150px;
-    }
-
-    .world-icon {
-      font-size: 42px;
-      margin-bottom: 10px;
-    }
-
-    .world-title {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 6px;
-    }
-
-    .world-description {
-      font-size: 13px;
-      line-height: 1.5;
-      color: #615f76;
-      margin-bottom: 14px;
-    }
-
-    .world-action {
-      margin-top: auto;
-      background: rgba(255,255,255,0.8);
-      padding: 9px 12px;
-      border-radius: 12px;
-      font-weight: bold;
-      font-size: 13px;
-    }
-
-    .notice {
-      text-align: center;
-      padding: 18px 8px 6px;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.6;
-    }
-
-    .screen {
-      display: none;
-    }
-
-    .screen.active {
-      display: block;
-    }
-
-    .game-panel {
-      max-width: 650px;
-      margin: 10px auto 0;
-      background: white;
-      padding: clamp(16px, 5vw, 30px);
-      border: 2px solid var(--border);
-      border-radius: 27px;
-      text-align: center;
-    }
-
-    .back-button {
-      display: inline-block;
-      border: 2px solid var(--border);
-      background: white;
-      border-radius: 13px;
-      padding: 10px 14px;
-      color: var(--ink);
-      font-weight: bold;
-      margin-bottom: 18px;
-      min-height: 44px;
-    }
-
-    .game-topline {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 12px;
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: bold;
-    }
-
-    .progress-track {
-      height: 10px;
-      border-radius: 99px;
-      background: #f0eef5;
-      overflow: hidden;
-      margin-bottom: 25px;
-    }
-
-    .progress-fill {
-      height: 100%;
-      width: 0%;
-      background: var(--green);
-      border-radius: inherit;
-      transition: width 0.3s ease;
-    }
-
-    .question-label {
-      font-size: 12px;
-      color: var(--purple);
-      font-weight: bold;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      margin: 0 0 10px;
-    }
-
-    .question-title {
-      font-size: clamp(23px, 5vw, 31px);
-      line-height: 1.35;
-      margin: 0 auto 15px;
-    }
-
-    .question-actions {
-      display: flex;
-      justify-content: center;
-      margin: 8px 0 12px;
-    }
-
-    .hear-button {
-      border: 2px solid #e8e1ff;
-      background: #f5f1ff;
-      color: #5b4ac6;
-      border-radius: 13px;
-      min-height: 44px;
-      padding: 10px 14px;
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    .question-visual {
-      min-height: 100px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 7px;
-      margin: 18px 0;
-      font-size: clamp(38px, 9vw, 58px);
-      line-height: 1.4;
-    }
-
-    .count-object {
-      display: inline-block;
-      animation: pop 0.25s ease;
-    }
-
-    @keyframes pop {
-      from { transform: scale(0.7); }
-      to { transform: scale(1); }
-    }
-
-    .answer-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .answer-button {
-      min-width: 0;
-      min-height: 78px;
-      padding: 12px 6px;
-      background: #f7f4ff;
-      border: 2px solid #e9e2ff;
-      border-radius: 17px;
-      color: var(--ink);
-      font-size: 16px;
-      font-weight: bold;
-      overflow-wrap: anywhere;
-    }
-
-    .answer-button .option-icon {
-      display: block;
-      font-size: 27px;
-      margin-bottom: 6px;
-    }
-
-    .answer-button .color-dot {
-      display: block;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      margin: 0 auto 6px;
-      border: 2px solid rgba(0,0,0,0.12);
-    }
-
-    .answer-button.correct {
-      background: #ddf7e9;
-      border-color: #70c99b;
-    }
-
-    .answer-button.incorrect {
-      background: #ffeaed;
-      border-color: #f5a0ae;
-    }
-
-    .feedback {
-      min-height: 58px;
-      padding: 13px 5px 5px;
-      font-weight: bold;
-      font-size: 15px;
-      line-height: 1.6;
-    }
-
-    .feedback.good {
-      color: #25865a;
-    }
-
-    .feedback.try-again {
-      color: #c26b57;
-    }
-
-    .next-button,
-    .primary-button {
-      width: 100%;
-      min-height: 52px;
-      border: 0;
-      border-radius: 16px;
-      padding: 14px 18px;
-      background: var(--purple);
-      color: white;
-      font-weight: bold;
-      font-size: 17px;
-      margin-top: 12px;
-    }
-
-    .next-button:disabled {
-      background: #e6e2f3;
-      color: #77718f;
-    }
-
-    .completion-emoji {
-      font-size: clamp(60px, 15vw, 90px);
-      margin: 10px 0;
-    }
-
-    .completion-title {
-      font-size: clamp(28px, 6vw, 38px);
-      margin: 12px 0;
-    }
-
-    .completion-text {
-      line-height: 1.7;
-      color: var(--muted);
-      margin: 12px auto 18px;
-      max-width: 430px;
-    }
-
-    .reward-stars {
-      color: #f3b629;
-      font-size: clamp(24px, 6vw, 37px);
-      letter-spacing: 3px;
-      margin: 12px 0;
-      overflow-wrap: anywhere;
-    }
-
-    .secondary-button {
-      width: 100%;
-      min-height: 50px;
-      border: 2px solid var(--border);
-      border-radius: 15px;
-      padding: 12px 16px;
-      margin-top: 10px;
-      background: white;
-      color: var(--ink);
-      font-weight: bold;
-    }
-
-    footer {
-      padding: 25px 8px 12px;
-      text-align: center;
-      font-size: 12px;
-      color: #918da2;
-    }
-
-    @media (min-width: 650px) {
-      .app {
-        padding: 25px;
-      }
-
-      .world-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-
-      .world-card:nth-child(5) {
-        grid-column: auto;
-        min-height: 190px;
-      }
-    }
-
-    @media (max-width: 360px) {
-      .app {
-        padding: 10px;
-      }
-
-      .brand-icon {
-        width: 39px;
-        height: 39px;
-        font-size: 22px;
-      }
-
-      .brand p {
-        font-size: 10px;
-      }
-
-      .star-counter,
-      .sound-button {
-        padding: 8px;
-        font-size: 13px;
-      }
-
-      .world-card {
-        padding: 13px 10px;
-      }
-
-      .world-title {
-        font-size: 16px;
-      }
-
-      .answer-grid {
-        gap: 6px;
-      }
-
-      .answer-button {
-        font-size: 14px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fff8ed">
+<meta name="description" content="Preschool Learning World by TheIz. Learn letters, numbers, colors, animals and first words through play.">
+<title>Preschool Learning World | TheIz</title>
+
+<style>
+:root {
+  --cream: #fff8ed;
+  --ink: #35334a;
+  --muted: #77758b;
+  --purple: #8175e8;
+  --pink: #ff9eb5;
+  --yellow: #ffce65;
+  --green: #7bc9a5;
+  --blue: #87c8f4;
+  --white: #ffffff;
+  --border: #eee8f5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: "Trebuchet MS", Arial, sans-serif;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+button:focus-visible {
+  outline: 3px solid var(--purple);
+  outline-offset: 3px;
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.app {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+
+.brand-icon {
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  background: #eeeaff;
+  border-radius: 15px;
+  font-size: 27px;
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: clamp(15px, 3.5vw, 22px);
+  line-height: 1.2;
+}
+
+.brand p {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.header-actions {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.star-counter,
+.sound-button {
+  min-height: 44px;
+  padding: 9px 11px;
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  background: white;
+  color: var(--ink);
+  font-weight: bold;
+}
+
+.star-counter {
+  background: #fff0bd;
+  border-color: #ffe4a0;
+}
+
+.sound-button[aria-pressed="true"] {
+  background: #e5f7eb;
+  border-color: #b6e7c8;
+}
+
+.screen {
+  display: none;
+}
+
+.screen.active {
+  display: block;
+}
+
+.hero {
+  padding: 27px 15px;
+  margin-bottom: 24px;
+  text-align: center;
+  background: #eeeaff;
+  border-radius: 27px;
+}
+
+.hero-characters {
+  margin-bottom: 8px;
+  font-size: clamp(36px, 8vw, 58px);
+  letter-spacing: 3px;
+}
+
+.hero h2 {
+  margin: 8px 0;
+  font-size: clamp(27px, 6vw, 39px);
+  line-height: 1.2;
+}
+
+.hero p {
+  max-width: 520px;
+  margin: 10px auto 0;
+  color: #625e80;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin: 24px 2px 14px;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: 21px;
+}
+
+.section-heading span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.world-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.world-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  min-height: 190px;
+  padding: 17px 14px;
+  text-align: left;
+  color: var(--ink);
+  border: 2px solid transparent;
+  border-radius: 22px;
+  transition: transform .15s ease;
+}
+
+.world-card:active {
+  transform: scale(.98);
+}
+
+.world-card:nth-child(1) {
+  background: #ffe8ef;
+  border-color: #ffd6e2;
+}
+
+.world-card:nth-child(2) {
+  background: #fff0c9;
+  border-color: #ffe4a2;
+}
+
+.world-card:nth-child(3) {
+  background: #e1f5e9;
+  border-color: #c8ecd8;
+}
+
+.world-card:nth-child(4) {
+  background: #dff1ff;
+  border-color: #c9e8ff;
+}
+
+.world-card:nth-child(5) {
+  background: #eee8ff;
+  border-color: #ded4ff;
+  grid-column: 1 / -1;
+}
+
+.world-icon {
+  margin-bottom: 9px;
+  font-size: 41px;
+}
+
+.world-title {
+  margin-bottom: 6px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.world-description {
+  margin-bottom: 14px;
+  color: #615f76;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.world-action {
+  margin-top: auto;
+  padding: 9px 12px;
+  background: rgba(255,255,255,.8);
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.notice,
+footer {
+  padding: 20px 8px 7px;
+  color: #918da2;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+footer {
+  padding-top: 26px;
+}
+
+/* Common panels and navigation */
+
+.panel {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: clamp(16px, 5vw, 30px);
+  background: white;
+  border: 2px solid var(--border);
+  border-radius: 27px;
+  text-align: center;
+}
+
+.back-button {
+  min-height: 44px;
+  margin-bottom: 18px;
+  padding: 10px 14px;
+  background: white;
+  color: var(--ink);
+  border: 2px solid var(--border);
+  border-radius: 13px;
+  font-weight: bold;
+}
+
+.world-menu-hero {
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #eeeaff;
+  border-radius: 20px;
+}
+
+.world-menu-icon {
+  font-size: 55px;
+}
+
+.world-menu-hero h2 {
+  margin: 8px 0;
+  font-size: clamp(25px, 6vw, 34px);
+}
+
+.world-menu-hero p {
+  margin: 8px auto;
+  max-width: 430px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.mode-card {
+  width: 100%;
+  min-height: 95px;
+  margin-top: 12px;
+  padding: 16px;
+  border: 2px solid var(--border);
+  border-radius: 19px;
+  text-align: left;
+  background: #fffaf3;
+  color: var(--ink);
+}
+
+.mode-card.learn-mode {
+  background: #e7f7ed;
+  border-color: #c9ecd6;
+}
+
+.mode-card.quiz-mode {
+  background: #eeeaff;
+  border-color: #dcd4ff;
+}
+
+.mode-card strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 18px;
+}
+
+.mode-card span {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #625e80;
+}
+
+/* Learning cards */
+
+.learning-panel {
+  overflow: hidden;
+}
+
+.learning-kicker,
+.question-label {
+  margin: 0 0 10px;
+  color: var(--purple);
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+}
+
+.topline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 13px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.progress-track {
+  height: 10px;
+  margin-bottom: 24px;
+  overflow: hidden;
+  background: #f0eef5;
+  border-radius: 99px;
+}
+
+.progress-fill {
+  width: 0;
+  height: 100%;
+  background: var(--green);
+  border-radius: inherit;
+  transition: width .25s ease;
+}
+
+.learn-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-height: 120px;
+  margin: 15px 0;
+  font-size: clamp(38px, 9vw, 58px);
+  line-height: 1.4;
+}
+
+.learn-visual.number-visual {
+  font-size: clamp(31px, 7vw, 43px);
+}
+
+.learn-letter {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  min-height: 100px;
+  padding: 10px 22px;
+  background: #fff0f4;
+  border-radius: 22px;
+  color: #dd608c;
+  font-size: clamp(52px, 13vw, 78px);
+  font-weight: bold;
+}
+
+.learn-letter span:last-child {
+  color: #8b81e9;
+}
+
+.learn-main {
+  margin: 12px 0 5px;
+  font-size: clamp(27px, 6vw, 37px);
+  line-height: 1.3;
+}
+
+.learn-sub {
+  margin: 8px 0;
+  color: #69647e;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.learn-fact {
+  max-width: 450px;
+  min-height: 48px;
+  margin: 12px auto;
+  color: #625e80;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.color-swatch {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin-left: 7px;
+  vertical-align: middle;
+  border: 2px solid rgba(0,0,0,.12);
+  border-radius: 50%;
+}
+
+.hear-button {
+  min-height: 44px;
+  padding: 10px 14px;
+  background: #f5f1ff;
+  color: #5b4ac6;
+  border: 2px solid #e8e1ff;
+  border-radius: 13px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.learn-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.secondary-button,
+.primary-button,
+.next-button {
+  min-height: 50px;
+  padding: 13px 15px;
+  border-radius: 15px;
+  font-weight: bold;
+}
+
+.secondary-button {
+  background: white;
+  color: var(--ink);
+  border: 2px solid var(--border);
+}
+
+.primary-button,
+.next-button {
+  background: var(--purple);
+  color: white;
+  border: 0;
+}
+
+.primary-button {
+  width: 100%;
+  margin-top: 12px;
+  font-size: 16px;
+}
+
+.skip-quiz-button {
+  width: 100%;
+  margin-top: 11px;
+  padding: 10px;
+  background: transparent;
+  border: 0;
+  color: #6d62c9;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+/* Quiz */
+
+.question-title {
+  margin: 0 auto 12px;
+  font-size: clamp(23px, 5vw, 31px);
+  line-height: 1.35;
+}
+
+.question-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-height: 105px;
+  margin: 16px 0;
+  font-size: clamp(37px, 9vw, 56px);
+  line-height: 1.4;
+}
+
+.count-object {
+  display: inline-block;
+  animation: pop .22s ease;
+}
+
+@keyframes pop {
+  from { transform: scale(.7); }
+  to { transform: scale(1); }
+}
+
+.question-actions {
+  display: flex;
+  justify-content: center;
+  margin: 8px 0;
+}
+
+.answer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.answer-button {
+  min-width: 0;
+  min-height: 78px;
+  padding: 12px 6px;
+  overflow-wrap: anywhere;
+  background: #f7f4ff;
+  border: 2px solid #e9e2ff;
+  border-radius: 17px;
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.answer-button .option-icon {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 27px;
+}
+
+.answer-button .color-dot {
+  display: block;
+  width: 29px;
+  height: 29px;
+  margin: 0 auto 6px;
+  border: 2px solid rgba(0,0,0,.12);
+  border-radius: 50%;
+}
+
+.answer-button.correct {
+  background: #ddf7e9;
+  border-color: #70c99b;
+}
+
+.answer-button.incorrect {
+  background: #ffeaed;
+  border-color: #f5a0ae;
+}
+
+.feedback {
+  min-height: 58px;
+  padding: 13px 5px 5px;
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 1.6;
+}
+
+.feedback.good {
+  color: #25865a;
+}
+
+.feedback.try-again {
+  color: #c26b57;
+}
+
+.next-button {
+  width: 100%;
+  margin-top: 12px;
+  font-size: 17px;
+}
+
+.next-button:disabled {
+  background: #e6e2f3;
+  color: #77718f;
+}
+
+/* Rewards */
+
+.completion-emoji {
+  margin: 10px 0;
+  font-size: clamp(60px, 15vw, 90px);
+}
+
+.completion-title {
+  margin: 12px 0;
+  font-size: clamp(28px, 6vw, 38px);
+}
+
+.completion-text {
+  max-width: 440px;
+  margin: 12px auto 18px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.reward-stars {
+  margin: 12px 0;
+  color: #f3b629;
+  font-size: 30px;
+}
+
+@media (min-width: 650px) {
+  .app {
+    padding: 25px;
+  }
+
+  .world-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .world-card:nth-child(5) {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 360px) {
+  .app {
+    padding: 10px;
+  }
+
+  .brand-icon {
+    width: 38px;
+    height: 38px;
+    font-size: 22px;
+  }
+
+  .brand p {
+    font-size: 10px;
+  }
+
+  .star-counter,
+  .sound-button {
+    padding: 8px;
+    font-size: 13px;
+  }
+
+  .world-card {
+    padding: 13px 10px;
+  }
+
+  .world-title {
+    font-size: 16px;
+  }
+
+  .answer-grid {
+    gap: 6px;
+  }
+
+  .answer-button {
+    font-size: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
 </head>
 
 <body>
-  <div class="app">
+<div class="app">
 
-    <header>
-      <div class="brand">
-        <div class="brand-icon" aria-hidden="true">🌈</div>
-        <div>
-          <h1>Preschool Learning World</h1>
-          <p>Learn & Play · by TheIz</p>
-        </div>
-      </div>
-
-      <div class="header-actions">
-        <div class="star-counter" aria-label="Total stars">
-          ⭐ <span id="totalStars">0</span>
-        </div>
-
-        <button
-          class="sound-button"
-          id="soundButton"
-          type="button"
-          aria-pressed="false"
-          aria-label="Turn sound on">
-          🔇
-        </button>
-      </div>
-    </header>
-
-    <main>
-      <!-- HOME SCREEN -->
-      <section id="homeScreen" class="screen active">
-
-        <div class="hero">
-          <div class="hero-characters" aria-hidden="true">
-            🐻 🌟 🐰
-          </div>
-
-          <h2>Let's Learn & Play!</h2>
-
-          <p>
-            Explore a happy little world full of letters, numbers,
-            colors, animals and first words. Every little step is a
-            big achievement!
-          </p>
-        </div>
-
-        <div class="section-heading">
-          <h2>Choose Your World</h2>
-          <span>5 adventures to explore</span>
-        </div>
-
-        <div class="world-grid" id="worldGrid"></div>
-
-        <div class="notice">
-          Made for little learners aged 4–6.<br>
-          Play, learn and collect stars! ⭐
-        </div>
-      </section>
-
-      <!-- GAME SCREEN -->
-      <section id="gameScreen" class="screen">
-
-        <button class="back-button" id="backButton" type="button">
-          ← All Worlds
-        </button>
-
-        <div class="game-panel">
-
-          <div class="game-topline">
-            <span id="worldLabel">Alphabet World</span>
-            <span id="questionCount">Question 1 of 5</span>
-          </div>
-
-          <div
-            class="progress-track"
-            id="progressTrack"
-            role="progressbar"
-            aria-label="Activity progress"
-            aria-valuemin="0"
-            aria-valuemax="100"
-            aria-valuenow="0">
-
-            <div class="progress-fill" id="progressFill"></div>
-          </div>
-
-          <p class="question-label">Little Learner Challenge</p>
-
-          <h2 class="question-title" id="questionTitle">
-            Let's get started!
-          </h2>
-
-          <div class="question-actions">
-            <button
-              class="hear-button"
-              id="hearQuestionButton"
-              type="button">
-              🔊 Hear Question Again
-            </button>
-          </div>
-
-          <div
-            class="question-visual"
-            id="questionVisual"
-            aria-label="Question illustration">
-          </div>
-
-          <div class="answer-grid" id="answerGrid"></div>
-
-          <div class="feedback" id="feedback" aria-live="polite">
-            Choose the best answer!
-          </div>
-
-          <button
-            class="next-button"
-            id="nextButton"
-            type="button"
-            disabled>
-            Choose an Answer
-          </button>
-        </div>
-      </section>
-
-      <!-- REWARD SCREEN -->
-      <section id="rewardScreen" class="screen">
-        <div class="game-panel">
-
-          <div class="completion-emoji" aria-hidden="true">🎉</div>
-
-          <h2 class="completion-title">Amazing Job!</h2>
-
-          <p class="completion-text" id="completionText">
-            You finished your learning adventure!
-          </p>
-
-          <div class="reward-stars" id="rewardStars">
-            ⭐ ⭐ ⭐
-          </div>
-
-          <p>
-            <strong id="earnedText">You earned 0 stars!</strong>
-          </p>
-
-          <p class="completion-text">
-            Keep exploring and learning something new every day.
-            You are doing great!
-          </p>
-
-          <button class="primary-button" id="replayButton" type="button">
-            🔄 Play Again
-          </button>
-
-          <button class="secondary-button" id="homeButton" type="button">
-            🏠 Back to All Worlds
-          </button>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      Preschool Learning World · TheIz
-    </footer>
+<header>
+  <div class="brand">
+    <div class="brand-icon" aria-hidden="true">🌈</div>
+    <div>
+      <h1>Preschool Learning World</h1>
+      <p>Learn &amp; Play · by TheIz</p>
+    </div>
   </div>
 
-  <script>
-    "use strict";
+  <div class="header-actions">
+    <div class="star-counter" aria-label="Total stars">
+      ⭐ <span id="totalStars">0</span>
+    </div>
+    <button
+      class="sound-button"
+      id="soundButton"
+      type="button"
+      aria-pressed="false"
+      aria-label="Turn sound on">🔇</button>
+  </div>
+</header>
 
-    // =============================================
-    // LEARNING CONTENT
-    // =============================================
+<main>
 
-    const worlds = [
-      {
-        id: "alphabet",
-        title: "Alphabet World",
-        icon: "🔤",
-        description: "Discover letters and the words they begin.",
-        questions: [
-          {
-            prompt: "Which letter does Apple begin with?",
-            visual: "🍎",
-            options: [
-              { label: "A", icon: "🔤" },
-              { label: "B", icon: "🔤" },
-              { label: "C", icon: "🔤" }
-            ],
-            answer: "A",
-            fact: "A is for Apple!"
-          },
-          {
-            prompt: "Which letter does Ball begin with?",
-            visual: "⚽",
-            options: [
-              { label: "D", icon: "🔤" },
-              { label: "B", icon: "🔤" },
-              { label: "A", icon: "🔤" }
-            ],
-            answer: "B",
-            fact: "B is for Ball!"
-          },
-          {
-            prompt: "Which letter does Cat begin with?",
-            visual: "🐱",
-            options: [
-              { label: "C", icon: "🔤" },
-              { label: "K", icon: "🔤" },
-              { label: "T", icon: "🔤" }
-            ],
-            answer: "C",
-            fact: "C is for Cat!"
-          },
-          {
-            prompt: "Which letter does Dog begin with?",
-            visual: "🐶",
-            options: [
-              { label: "G", icon: "🔤" },
-              { label: "D", icon: "🔤" },
-              { label: "B", icon: "🔤" }
-            ],
-            answer: "D",
-            fact: "D is for Dog!"
-          },
-          {
-            prompt: "Which letter does Elephant begin with?",
-            visual: "🐘",
-            options: [
-              { label: "E", icon: "🔤" },
-              { label: "F", icon: "🔤" },
-              { label: "L", icon: "🔤" }
-            ],
-            answer: "E",
-            fact: "E is for Elephant!"
-          }
-        ]
-      },
+<!-- HOME -->
+<section id="homeScreen" class="screen active">
+  <div class="hero">
+    <div class="hero-characters" aria-hidden="true">🐻 🌟 🐰</div>
+    <h2>Let's Learn &amp; Play!</h2>
+    <p>
+      Explore a happy little world full of letters, numbers,
+      colors, animals and first words. Every little step is
+      a big achievement!
+    </p>
+  </div>
 
-      {
-        id: "numbers",
-        title: "Number World",
-        icon: "🔢",
-        description: "Count cute objects and practise numbers.",
-        questions: [
-          {
-            prompt: "How many apples can you count?",
-            visual: "🍎",
-            count: 2,
-            options: [
-              { label: "1" },
-              { label: "2" },
-              { label: "3" }
-            ],
-            answer: "2",
-            fact: "Wonderful! There are two apples."
-          },
-          {
-            prompt: "How many stars can you count?",
-            visual: "⭐",
-            count: 4,
-            options: [
-              { label: "3" },
-              { label: "5" },
-              { label: "4" }
-            ],
-            answer: "4",
-            fact: "You counted four stars!"
-          },
-          {
-            prompt: "How many ducks can you count?",
-            visual: "🦆",
-            count: 3,
-            options: [
-              { label: "3" },
-              { label: "2" },
-              { label: "5" }
-            ],
-            answer: "3",
-            fact: "Quack, quack! There are three ducks."
-          },
-          {
-            prompt: "How many balloons can you count?",
-            visual: "🎈",
-            count: 5,
-            options: [
-              { label: "4" },
-              { label: "5" },
-              { label: "6" }
-            ],
-            answer: "5",
-            fact: "Fantastic! You counted five balloons."
-          },
-          {
-            prompt: "How many butterflies can you count?",
-            visual: "🦋",
-            count: 1,
-            options: [
-              { label: "2" },
-              { label: "3" },
-              { label: "1" }
-            ],
-            answer: "1",
-            fact: "Yes! One beautiful butterfly."
-          }
-        ]
-      },
+  <div class="section-heading">
+    <h2>Choose Your World</h2>
+    <span>5 adventures</span>
+  </div>
 
-      {
-        id: "colors",
-        title: "Color World",
-        icon: "🎨",
-        description: "Explore colors through fun challenges.",
-        questions: [
-          {
-            prompt: "Which color is a banana?",
-            visual: "🍌",
-            options: [
-              { label: "Blue", color: "#54a8f5" },
-              { label: "Yellow", color: "#ffd447" },
-              { label: "Purple", color: "#a47bea" }
-            ],
-            answer: "Yellow",
-            fact: "A banana is yellow!"
-          },
-          {
-            prompt: "What color is the sky on a clear day?",
-            visual: "☀️ ☁️",
-            options: [
-              { label: "Blue", color: "#54a8f5" },
-              { label: "Green", color: "#50b978" },
-              { label: "Pink", color: "#ff91b9" }
-            ],
-            answer: "Blue",
-            fact: "The sky often looks blue on a clear day!"
-          },
-          {
-            prompt: "Which color is a strawberry?",
-            visual: "🍓",
-            options: [
-              { label: "Orange", color: "#ff963f" },
-              { label: "Red", color: "#f04455" },
-              { label: "Blue", color: "#54a8f5" }
-            ],
-            answer: "Red",
-            fact: "A ripe strawberry is usually red!"
-          },
-          {
-            prompt: "What color are many leaves?",
-            visual: "🍃",
-            options: [
-              { label: "Green", color: "#50b978" },
-              { label: "Purple", color: "#a47bea" },
-              { label: "Pink", color: "#ff91b9" }
-            ],
-            answer: "Green",
-            fact: "Many leaves are green!"
-          },
-          {
-            prompt: "Which color is a carrot?",
-            visual: "🥕",
-            options: [
-              { label: "Black", color: "#454545" },
-              { label: "Orange", color: "#ff963f" },
-              { label: "Blue", color: "#54a8f5" }
-            ],
-            answer: "Orange",
-            fact: "A carrot is usually orange!"
-          }
-        ]
-      },
+  <div class="world-grid" id="worldGrid"></div>
 
-      {
-        id: "animals",
-        title: "Animal World",
-        icon: "🐻",
-        description: "Meet animals and learn fun facts.",
-        questions: [
-          {
-            prompt: "Which animal says meow?",
-            visual: "🐾",
-            options: [
-              { label: "Dog", icon: "🐶" },
-              { label: "Cat", icon: "🐱" },
-              { label: "Duck", icon: "🦆" }
-            ],
-            answer: "Cat",
-            fact: "Cats often say meow!"
-          },
-          {
-            prompt: "Which animal grows wool?",
-            visual: "🌿",
-            options: [
-              { label: "Sheep", icon: "🐑" },
-              { label: "Fish", icon: "🐟" },
-              { label: "Frog", icon: "🐸" }
-            ],
-            answer: "Sheep",
-            fact: "Sheep grow wool on their bodies!"
-          },
-          {
-            prompt: "Which animal has a long trunk?",
-            visual: "🌳",
-            options: [
-              { label: "Rabbit", icon: "🐰" },
-              { label: "Elephant", icon: "🐘" },
-              { label: "Penguin", icon: "🐧" }
-            ],
-            answer: "Elephant",
-            fact: "An elephant uses its trunk to smell and pick things up!"
-          },
-          {
-            prompt: "Which animal hops and has long ears?",
-            visual: "🥕",
-            options: [
-              { label: "Rabbit", icon: "🐰" },
-              { label: "Lion", icon: "🦁" },
-              { label: "Turtle", icon: "🐢" }
-            ],
-            answer: "Rabbit",
-            fact: "Rabbits have powerful back legs for hopping!"
-          },
-          {
-            prompt: "Which animal has fins and lives in water?",
-            visual: "🌊",
-            options: [
-              { label: "Chicken", icon: "🐔" },
-              { label: "Fish", icon: "🐠" },
-              { label: "Horse", icon: "🐴" }
-            ],
-            answer: "Fish",
-            fact: "Fish use their fins to move through water!"
-          }
-        ]
-      },
+  <div class="notice">
+    Made for little learners aged 4–6.<br>
+    Play, learn and collect stars! ⭐
+  </div>
+</section>
 
-      {
-        id: "words",
-        title: "Word World",
-        icon: "🧩",
-        description: "Match simple English words to pictures.",
-        questions: [
-          {
-            prompt: "Which word matches this picture?",
-            visual: "☀️",
-            options: [
-              { label: "Sun" },
-              { label: "Bus" },
-              { label: "Cup" }
-            ],
-            answer: "Sun",
-            fact: "S-U-N spells Sun!"
-          },
-          {
-            prompt: "Which word matches this picture?",
-            visual: "🐟",
-            options: [
-              { label: "Fan" },
-              { label: "Fish" },
-              { label: "Fox" }
-            ],
-            answer: "Fish",
-            fact: "F-I-S-H spells Fish!"
-          },
-          {
-            prompt: "Which word matches this picture?",
-            visual: "📚",
-            options: [
-              { label: "Book" },
-              { label: "Ball" },
-              { label: "Duck" }
-            ],
-            answer: "Book",
-            fact: "B-O-O-K spells Book!"
-          },
-          {
-            prompt: "Which word matches this picture?",
-            visual: "🚗",
-            options: [
-              { label: "Cat" },
-              { label: "Car" },
-              { label: "Cake" }
-            ],
-            answer: "Car",
-            fact: "C-A-R spells Car!"
-          },
-          {
-            prompt: "Which word matches this picture?",
-            visual: "🏠",
-            options: [
-              { label: "Hat" },
-              { label: "Tree" },
-              { label: "House" }
-            ],
-            answer: "House",
-            fact: "H-O-U-S-E spells House!"
-          }
-        ]
-      }
-    ];
+<!-- CHOOSE LEARNING OR QUIZ -->
+<section id="worldMenuScreen" class="screen">
+  <button class="back-button" id="worldMenuBack" type="button">
+    ← All Worlds
+  </button>
 
-    // =============================================
-    // ELEMENTS AND GAME STATE
-    // =============================================
+  <div class="panel">
+    <div class="world-menu-hero">
+      <div class="world-menu-icon" id="worldMenuIcon">🔤</div>
+      <h2 id="worldMenuTitle">Alphabet World</h2>
+      <p id="worldMenuDescription"></p>
+    </div>
 
-    const homeScreen = document.getElementById("homeScreen");
-    const gameScreen = document.getElementById("gameScreen");
-    const rewardScreen = document.getElementById("rewardScreen");
+    <h3>How would you like to play?</h3>
 
-    const worldGrid = document.getElementById("worldGrid");
-    const totalStarsDisplay = document.getElementById("totalStars");
-    const soundButton = document.getElementById("soundButton");
-    const backButton = document.getElementById("backButton");
-    const worldLabel = document.getElementById("worldLabel");
-    const questionCount = document.getElementById("questionCount");
-    const questionTitle = document.getElementById("questionTitle");
-    const questionVisual = document.getElementById("questionVisual");
-    const answerGrid = document.getElementById("answerGrid");
-    const feedback = document.getElementById("feedback");
-    const nextButton = document.getElementById("nextButton");
-    const progressFill = document.getElementById("progressFill");
-    const progressTrack = document.getElementById("progressTrack");
-    const hearQuestionButton = document.getElementById("hearQuestionButton");
+    <button class="mode-card learn-mode" id="startLearningButton" type="button">
+      <strong>📚 Learn First</strong>
+      <span>
+        Explore picture cards, learn new words and listen to the voice.
+        Go at your own pace!
+      </span>
+    </button>
 
-    let currentWorld = null;
-    let currentIndex = 0;
-    let activityStars = 0;
-    let answered = false;
-    let soundEnabled = false;
-    let questionSpeechTimer = null;
+    <button class="mode-card quiz-mode" id="startQuizButton" type="button">
+      <strong>🎯 Play Quiz</strong>
+      <span>
+        Answer fun questions and earn stars. You can learn first
+        or play the quiz straight away.
+      </span>
+    </button>
+  </div>
+</section>
 
-    let totalStars = 0;
+<!-- LEARNING MODE -->
+<section id="learnScreen" class="screen">
+  <button class="back-button" id="learnBackButton" type="button">
+    ← Learning Menu
+  </button>
 
-    try {
-      const savedStars = Number(
-        localStorage.getItem("theizPreschoolStars")
-      );
+  <div class="panel learning-panel">
+    <div class="topline">
+      <span id="learnWorldLabel">Alphabet World</span>
+      <span id="learnCount">Card 1 of 26</span>
+    </div>
 
-      if (Number.isFinite(savedStars) && savedStars >= 0) {
-        totalStars = Math.floor(savedStars);
-      }
-    } catch (error) {
-      // The game still works when local storage is unavailable.
+    <div
+      class="progress-track"
+      role="progressbar"
+      id="learnProgressTrack"
+      aria-label="Learning progress"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="0">
+      <div class="progress-fill" id="learnProgressFill"></div>
+    </div>
+
+    <p class="learning-kicker" id="learnKicker">MEET THE LETTER</p>
+
+    <div
+      class="learn-visual"
+      id="learnVisual"
+      aria-label="Learning illustration"></div>
+
+    <h2 class="learn-main" id="learnMain">A a</h2>
+    <p class="learn-sub" id="learnSub">Apple</p>
+    <p class="learn-fact" id="learnFact"></p>
+
+    <button class="hear-button" id="hearLearningButton" type="button">
+      🔊 Listen Again
+    </button>
+
+    <div class="learn-controls">
+      <button class="secondary-button" id="learnPrevButton" type="button">
+        ← Previous
+      </button>
+      <button class="primary-button" id="learnNextButton" type="button">
+        Next →
+      </button>
+    </div>
+
+    <button class="skip-quiz-button" id="skipToQuizButton" type="button">
+      Skip Learning and Go to Quiz →
+    </button>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quizScreen" class="screen">
+  <button class="back-button" id="quizBackButton" type="button">
+    ← Learning Menu
+  </button>
+
+  <div class="panel">
+    <div class="topline">
+      <span id="quizWorldLabel">Alphabet World</span>
+      <span id="questionCount">Question 1 of 10</span>
+    </div>
+
+    <div
+      class="progress-track"
+      id="quizProgressTrack"
+      role="progressbar"
+      aria-label="Quiz progress"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="0">
+      <div class="progress-fill" id="quizProgressFill"></div>
+    </div>
+
+    <p class="question-label">Little Learner Challenge</p>
+    <h2 class="question-title" id="questionTitle">
+      Let's get started!
+    </h2>
+
+    <div class="question-actions">
+      <button class="hear-button" id="hearQuestionButton" type="button">
+        🔊 Hear Question Again
+      </button>
+    </div>
+
+    <div
+      class="question-visual"
+      id="questionVisual"
+      aria-label="Question illustration"></div>
+
+    <div class="answer-grid" id="answerGrid"></div>
+
+    <div class="feedback" id="feedback" aria-live="polite">
+      Listen and choose the best answer!
+    </div>
+
+    <button class="next-button" id="nextButton" type="button" disabled>
+      Choose an Answer
+    </button>
+  </div>
+</section>
+
+<!-- REWARDS -->
+<section id="rewardScreen" class="screen">
+  <div class="panel">
+    <div class="completion-emoji" aria-hidden="true">🎉</div>
+    <h2 class="completion-title">Amazing Job!</h2>
+
+    <p class="completion-text" id="completionText">
+      You finished your learning adventure!
+    </p>
+
+    <div class="reward-stars" id="rewardStars">⭐</div>
+    <p><strong id="earnedText">You earned 0 stars!</strong></p>
+
+    <p class="completion-text">
+      Keep exploring and learning something new every day.
+      You are doing great!
+    </p>
+
+    <button class="primary-button" id="replayButton" type="button">
+      🔄 Play Quiz Again
+    </button>
+
+    <button class="secondary-button" id="reviewButton" type="button">
+      📚 Review Learning Cards
+    </button>
+
+    <button class="secondary-button" id="homeButton" type="button">
+      🏠 Back to All Worlds
+    </button>
+  </div>
+</section>
+
+</main>
+
+<footer>Preschool Learning World · TheIz</footer>
+</div>
+
+<script>
+"use strict";
+
+/* ===================================================
+   CONTENT: ALL LEARNING MATERIAL
+=================================================== */
+
+const worlds = [
+  {
+    id: "alphabet",
+    title: "Alphabet World",
+    icon: "🔤",
+    description: "Learn all 26 letters, from A to Z, and discover a word for each letter.",
+    lessonCount: 26,
+    items: [
+      {name:"A",lower:"a",word:"Apple",icon:"🍎",fact:"A is for Apple!",voice:"Letter A. Big A, little a. A is for apple."},
+      {name:"B",lower:"b",word:"Ball",icon:"⚽",fact:"B is for Ball!",voice:"Letter B. Big B, little b. B is for ball."},
+      {name:"C",lower:"c",word:"Cat",icon:"🐱",fact:"C is for Cat!",voice:"Letter C. Big C, little c. C is for cat."},
+      {name:"D",lower:"d",word:"Dog",icon:"🐶",fact:"D is for Dog!",voice:"Letter D. Big D, little d. D is for dog."},
+      {name:"E",lower:"e",word:"Elephant",icon:"🐘",fact:"E is for Elephant!",voice:"Letter E. Big E, little e. E is for elephant."},
+      {name:"F",lower:"f",word:"Fish",icon:"🐟",fact:"F is for Fish!",voice:"Letter F. Big F, little f. F is for fish."},
+      {name:"G",lower:"g",word:"Grapes",icon:"🍇",fact:"G is for Grapes!",voice:"Letter G. Big G, little g. G is for grapes."},
+      {name:"H",lower:"h",word:"House",icon:"🏠",fact:"H is for House!",voice:"Letter H. Big H, little h. H is for house."},
+      {name:"I",lower:"i",word:"Ice cream",icon:"🍦",fact:"I is for Ice cream!",voice:"Letter I. Big I, little i. I is for ice cream."},
+      {name:"J",lower:"j",word:"Juice",icon:"🧃",fact:"J is for Juice!",voice:"Letter J. Big J, little j. J is for juice."},
+      {name:"K",lower:"k",word:"Kite",icon:"🪁",fact:"K is for Kite!",voice:"Letter K. Big K, little k. K is for kite."},
+      {name:"L",lower:"l",word:"Lion",icon:"🦁",fact:"L is for Lion!",voice:"Letter L. Big L, little l. L is for lion."},
+      {name:"M",lower:"m",word:"Moon",icon:"🌙",fact:"M is for Moon!",voice:"Letter M. Big M, little m. M is for moon."},
+      {name:"N",lower:"n",word:"Nest",icon:"🪺",fact:"N is for Nest!",voice:"Letter N. Big N, little n. N is for nest."},
+      {name:"O",lower:"o",word:"Orange",icon:"🍊",fact:"O is for Orange!",voice:"Letter O. Big O, little o. O is for orange."},
+      {name:"P",lower:"p",word:"Penguin",icon:"🐧",fact:"P is for Penguin!",voice:"Letter P. Big P, little p. P is for penguin."},
+      {name:"Q",lower:"q",word:"Queen",icon:"👑",fact:"Q is for Queen!",voice:"Letter Q. Big Q, little q. Q is for queen."},
+      {name:"R",lower:"r",word:"Rabbit",icon:"🐰",fact:"R is for Rabbit!",voice:"Letter R. Big R, little r. R is for rabbit."},
+      {name:"S",lower:"s",word:"Sun",icon:"☀️",fact:"S is for Sun!",voice:"Letter S. Big S, little s. S is for sun."},
+      {name:"T",lower:"t",word:"Tiger",icon:"🐯",fact:"T is for Tiger!",voice:"Letter T. Big T, little t. T is for tiger."},
+      {name:"U",lower:"u",word:"Umbrella",icon:"☂️",fact:"U is for Umbrella!",voice:"Letter U. Big U, little u. U is for umbrella."},
+      {name:"V",lower:"v",word:"Violin",icon:"🎻",fact:"V is for Violin!",voice:"Letter V. Big V, little v. V is for violin."},
+      {name:"W",lower:"w",word:"Whale",icon:"🐳",fact:"W is for Whale!",voice:"Letter W. Big W, little w. W is for whale."},
+      {name:"X",lower:"x",word:"Xylophone",icon:"🎼",fact:"X is for Xylophone!",voice:"Letter X. Big X, little x. X is for xylophone."},
+      {name:"Y",lower:"y",word:"Yo-yo",icon:"🪀",fact:"Y is for Yo-yo!",voice:"Letter Y. Big Y, little y. Y is for yo-yo."},
+      {name:"Z",lower:"z",word:"Zebra",icon:"🦓",fact:"Z is for Zebra!",voice:"Letter Z. Big Z, little z. Z is for zebra."}
+    ]
+  },
+
+  {
+    id: "numbers",
+    title: "Number World",
+    icon: "🔢",
+    description: "Meet numbers 1–10 and count objects together.",
+    lessonCount: 10,
+    items: [
+      {name:"1",word:"One",noun:"apple",plural:"apples",icon:"🍎",fact:"One apple. You counted one!",voice:"Number one. One apple."},
+      {name:"2",word:"Two",noun:"ball",plural:"balls",icon:"⚽",fact:"Two balls. Let's count: one, two!",voice:"Number two. One, two balls."},
+      {name:"3",word:"Three",noun:"duck",plural:"ducks",icon:"🦆",fact:"Three ducks. Let's count: one, two, three!",voice:"Number three. One, two, three ducks."},
+      {name:"4",word:"Four",noun:"star",plural:"stars",icon:"⭐",fact:"Four stars. You counted four!",voice:"Number four. One, two, three, four stars."},
+      {name:"5",word:"Five",noun:"flower",plural:"flowers",icon:"🌸",fact:"Five flowers. Let's count to five!",voice:"Number five. One, two, three, four, five flowers."},
+      {name:"6",word:"Six",noun:"fish",plural:"fish",icon:"🐟",fact:"Six fish. You counted six!",voice:"Number six. Six fish."},
+      {name:"7",word:"Seven",noun:"butterfly",plural:"butterflies",icon:"🦋",fact:"Seven butterflies. Wonderful counting!",voice:"Number seven. Seven butterflies."},
+      {name:"8",word:"Eight",noun:"balloon",plural:"balloons",icon:"🎈",fact:"Eight balloons. You counted eight!",voice:"Number eight. Eight balloons."},
+      {name:"9",word:"Nine",noun:"cookie",plural:"cookies",icon:"🍪",fact:"Nine cookies. Great counting!",voice:"Number nine. Nine cookies."},
+      {name:"10",word:"Ten",noun:"teddy bear",plural:"teddy bears",icon:"🧸",fact:"Ten teddy bears. You reached ten!",voice:"Number ten. Ten teddy bears."}
+    ]
+  },
+
+  {
+    id: "colors",
+    title: "Color World",
+    icon: "🎨",
+    description: "Discover colors using familiar objects.",
+    lessonCount: 10,
+    items: [
+      {name:"Red",example:"strawberry",icon:"🍓",color:"#e84555",prompt:"What color is a strawberry?",fact:"A ripe strawberry can be red!",voice:"Red. A strawberry can be red."},
+      {name:"Blue",example:"blueberry",icon:"🫐",color:"#438fe5",prompt:"What color is a blueberry?",fact:"Blueberries are usually blue or purple!",voice:"Blue. Blueberries can look blue."},
+      {name:"Yellow",example:"banana",icon:"🍌",color:"#ffd447",prompt:"What color is a banana?",fact:"A ripe banana is usually yellow!",voice:"Yellow. A ripe banana is usually yellow."},
+      {name:"Green",example:"leaf",icon:"🍃",color:"#50b978",prompt:"What color is a leaf?",fact:"Many leaves are green!",voice:"Green. Many leaves are green."},
+      {name:"Orange",example:"carrot",icon:"🥕",color:"#ff963f",prompt:"What color is a carrot?",fact:"A carrot is often orange!",voice:"Orange. A carrot is often orange."},
+      {name:"Purple",example:"grapes",icon:"🍇",color:"#9462d8",prompt:"What color are these grapes?",fact:"Some grapes are purple!",voice:"Purple. Some grapes are purple."},
+      {name:"Pink",example:"flower",icon:"🌸",color:"#ff91b9",prompt:"What color is this flower?",fact:"Flowers can be pink!",voice:"Pink. This flower is pink."},
+      {name:"Brown",example:"bear",icon:"🐻",color:"#996548",prompt:"What color is this bear?",fact:"Many teddy bears are brown!",voice:"Brown. This teddy bear is brown."},
+      {name:"Black",example:"cat",icon:"🐈‍⬛",color:"#34343d",prompt:"What color is this cat?",fact:"This cat is black!",voice:"Black. This cat is black."},
+      {name:"White",example:"cloud",icon:"☁️",color:"#ffffff",prompt:"What color is this cloud?",fact:"Clouds can look white!",voice:"White. Clouds can look white."}
+    ]
+  },
+
+  {
+    id: "animals",
+    title: "Animal World",
+    icon: "🐻",
+    description: "Meet animals and discover what makes them special.",
+    lessonCount: 15,
+    items: [
+      {name:"Cat",icon:"🐱",fact:"Cats often say meow!",voice:"This is a cat. Cats often say meow."},
+      {name:"Dog",icon:"🐶",fact:"Dogs often bark!",voice:"This is a dog. Dogs often bark."},
+      {name:"Elephant",icon:"🐘",fact:"An elephant has a long trunk!",voice:"This is an elephant. It has a long trunk."},
+      {name:"Lion",icon:"🦁",fact:"Lions are big cats!",voice:"This is a lion. Lions are big cats."},
+      {name:"Rabbit",icon:"🐰",fact:"Rabbits can hop!",voice:"This is a rabbit. Rabbits can hop."},
+      {name:"Fish",icon:"🐠",fact:"Fish use fins to move through water!",voice:"This is a fish. Fish use fins to move through water."},
+      {name:"Turtle",icon:"🐢",fact:"A turtle has a protective shell!",voice:"This is a turtle. It has a protective shell."},
+      {name:"Monkey",icon:"🐒",fact:"Many monkeys can climb trees!",voice:"This is a monkey. Many monkeys can climb trees."},
+      {name:"Giraffe",icon:"🦒",fact:"Giraffes have very long necks!",voice:"This is a giraffe. It has a very long neck."},
+      {name:"Penguin",icon:"🐧",fact:"Penguins are birds that cannot fly!",voice:"This is a penguin. Penguins are birds that cannot fly."},
+      {name:"Duck",icon:"🦆",fact:"Ducks have webbed feet!",voice:"This is a duck. Ducks have webbed feet."},
+      {name:"Frog",icon:"🐸",fact:"Frogs can jump!",voice:"This is a frog. Frogs can jump."},
+      {name:"Bear",icon:"🐻",fact:"Bears are strong mammals!",voice:"This is a bear. Bears are strong mammals."},
+      {name:"Butterfly",icon:"🦋",fact:"Butterflies have colorful wings!",voice:"This is a butterfly. Butterflies have colorful wings."},
+      {name:"Owl",icon:"🦉",fact:"Owls have large eyes!",voice:"This is an owl. Owls have large eyes."}
+    ]
+  },
+
+  {
+    id: "words",
+    title: "Word World",
+    icon: "🧩",
+    description: "Learn useful first words and connect words to pictures.",
+    lessonCount: 20,
+    items: [
+      {name:"Sun",icon:"☀️",spelling:"S-U-N",fact:"S-U-N spells Sun!",voice:"The word is sun. S U N spells sun."},
+      {name:"Bus",icon:"🚌",spelling:"B-U-S",fact:"B-U-S spells Bus!",voice:"The word is bus. B U S spells bus."},
+      {name:"Cup",icon:"🥤",spelling:"C-U-P",fact:"C-U-P spells Cup!",voice:"The word is cup. C U P spells cup."},
+      {name:"Book",icon:"📚",spelling:"B-O-O-K",fact:"B-O-O-K spells Book!",voice:"The word is book. B O O K spells book."},
+      {name:"Ball",icon:"⚽",spelling:"B-A-L-L",fact:"B-A-L-L spells Ball!",voice:"The word is ball. B A L L spells ball."},
+      {name:"Cat",icon:"🐱",spelling:"C-A-T",fact:"C-A-T spells Cat!",voice:"The word is cat. C A T spells cat."},
+      {name:"Fish",icon:"🐟",spelling:"F-I-S-H",fact:"F-I-S-H spells Fish!",voice:"The word is fish. F I S H spells fish."},
+      {name:"Hat",icon:"🧢",spelling:"H-A-T",fact:"H-A-T spells Hat!",voice:"The word is hat. H A T spells hat."},
+      {name:"Car",icon:"🚗",spelling:"C-A-R",fact:"C-A-R spells Car!",voice:"The word is car. C A R spells car."},
+      {name:"House",icon:"🏠",spelling:"H-O-U-S-E",fact:"H-O-U-S-E spells House!",voice:"The word is house. H O U S E spells house."},
+      {name:"Tree",icon:"🌳",spelling:"T-R-E-E",fact:"T-R-E-E spells Tree!",voice:"The word is tree. T R E E spells tree."},
+      {name:"Milk",icon:"🥛",spelling:"M-I-L-K",fact:"M-I-L-K spells Milk!",voice:"The word is milk. M I L K spells milk."},
+      {name:"Cake",icon:"🎂",spelling:"C-A-K-E",fact:"C-A-K-E spells Cake!",voice:"The word is cake. C A K E spells cake."},
+      {name:"Shoe",icon:"👟",spelling:"S-H-O-E",fact:"S-H-O-E spells Shoe!",voice:"The word is shoe. S H O E spells shoe."},
+      {name:"Star",icon:"⭐",spelling:"S-T-A-R",fact:"S-T-A-R spells Star!",voice:"The word is star. S T A R spells star."},
+      {name:"Moon",icon:"🌙",spelling:"M-O-O-N",fact:"M-O-O-N spells Moon!",voice:"The word is moon. M O O N spells moon."},
+      {name:"Duck",icon:"🦆",spelling:"D-U-C-K",fact:"D-U-C-K spells Duck!",voice:"The word is duck. D U C K spells duck."},
+      {name:"Apple",icon:"🍎",spelling:"A-P-P-L-E",fact:"A-P-P-L-E spells Apple!",voice:"The word is apple. A P P L E spells apple."},
+      {name:"Door",icon:"🚪",spelling:"D-O-O-R",fact:"D-O-O-R spells Door!",voice:"The word is door. D O O R spells door."},
+      {name:"Bed",icon:"🛏️",spelling:"B-E-D",fact:"B-E-D spells Bed!",voice:"The word is bed. B E D spells bed."}
+    ]
+  }
+];
+
+/* ===================================================
+   STATE AND ELEMENTS
+=================================================== */
+
+const $ = id => document.getElementById(id);
+
+const screens = [
+  $("homeScreen"),
+  $("worldMenuScreen"),
+  $("learnScreen"),
+  $("quizScreen"),
+  $("rewardScreen")
+];
+
+let currentWorld = null;
+let learnIndex = 0;
+let quizIndex = 0;
+let quizQuestions = [];
+let activityStars = 0;
+let totalStars = 0;
+let answered = false;
+let soundEnabled = false;
+let speechTimer = null;
+
+try {
+  const saved = Number(localStorage.getItem("theizPreschoolStars"));
+  if (Number.isFinite(saved) && saved >= 0) {
+    totalStars = Math.floor(saved);
+  }
+} catch (error) {
+  // The game continues if local storage is unavailable.
+}
+
+$("totalStars").textContent = String(totalStars);
+
+/* ===================================================
+   GENERAL HELPERS
+=================================================== */
+
+function shuffle(array) {
+  const result = [...array];
+
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+
+  return result;
+}
+
+function showScreen(screen) {
+  clearTimeout(speechTimer);
+
+  if (speechSupported) {
+    window.speechSynthesis.cancel();
+  }
+
+  screens.forEach(item => item.classList.remove("active"));
+  screen.classList.add("active");
+
+  window.scrollTo({top: 0, behavior: "auto"});
+}
+
+function saveStars() {
+  try {
+    localStorage.setItem("theizPreschoolStars", String(totalStars));
+  } catch (error) {
+    // Score remains available for the current session.
+  }
+
+  $("totalStars").textContent = String(totalStars);
+}
+
+function updateProgress(fillElement, trackElement, current, total) {
+  const percent = total > 0
+    ? Math.round((current / total) * 100)
+    : 0;
+
+  fillElement.style.width = percent + "%";
+  trackElement.setAttribute("aria-valuenow", String(percent));
+}
+
+/* ===================================================
+   SPEECH: PREFER A FEMININE ENGLISH VOICE WHEN AVAILABLE
+=================================================== */
+
+const speechSupported =
+  "speechSynthesis" in window &&
+  "SpeechSynthesisUtterance" in window;
+
+let availableVoices = [];
+
+function refreshVoices() {
+  if (speechSupported) {
+    availableVoices = window.speechSynthesis.getVoices();
+  }
+}
+
+if (speechSupported) {
+  refreshVoices();
+  window.speechSynthesis.addEventListener("voiceschanged", refreshVoices);
+}
+
+function chooseEnglishVoice() {
+  refreshVoices();
+
+  const englishVoices = availableVoices.filter(voice =>
+    /^en([-_]|$)/i.test(voice.lang)
+  );
+
+  const feminineNamePattern =
+    /samantha|ava|allison|karen|serena|victoria|tessa|moira|jenny|aria|zira|susan|hazel|libby|sonia|female/i;
+
+  return (
+    englishVoices.find(voice =>
+      feminineNamePattern.test(voice.name)
+    ) ||
+    englishVoices.find(voice =>
+      /google us english/i.test(voice.name)
+    ) ||
+    englishVoices.find(voice =>
+      /^en[-_]us/i.test(voice.lang) && voice.default
+    ) ||
+    englishVoices.find(voice => voice.default) ||
+    englishVoices[0] ||
+    null
+  );
+}
+
+function speak(text) {
+  if (!soundEnabled || !speechSupported || !text) {
+    return;
+  }
+
+  const synth = window.speechSynthesis;
+  synth.cancel();
+
+  const message = new SpeechSynthesisUtterance(text);
+  const chosenVoice = chooseEnglishVoice();
+
+  message.lang = chosenVoice ? chosenVoice.lang : "en-US";
+
+  if (chosenVoice) {
+    message.voice = chosenVoice;
+  }
+
+  message.rate = 0.86;
+  message.pitch = 1.22;
+  message.volume = 1;
+
+  synth.speak(message);
+}
+
+function scheduleSpeech(text) {
+  clearTimeout(speechTimer);
+
+  if (!soundEnabled) {
+    return;
+  }
+
+  speechTimer = window.setTimeout(() => {
+    speak(text);
+  }, 350);
+}
+
+/* ===================================================
+   BACKGROUND MUSIC AND SOUND EFFECTS
+=================================================== */
+
+let audioContext = null;
+let musicTimer = null;
+let musicStep = 0;
+
+function getAudioContext() {
+  const AudioContextClass =
+    window.AudioContext || window.webkitAudioContext;
+
+  if (!AudioContextClass) {
+    return null;
+  }
+
+  try {
+    if (!audioContext) {
+      audioContext = new AudioContextClass();
     }
 
-    updateStarCounter();
-
-    // =============================================
-    // SPEECH: PREFER A FEMININE ENGLISH VOICE
-    // =============================================
-
-    const speechSupported =
-      "speechSynthesis" in window &&
-      "SpeechSynthesisUtterance" in window;
-
-    let cachedVoices = [];
-
-    function refreshVoices() {
-      if (!speechSupported) {
-        return;
-      }
-
-      cachedVoices = window.speechSynthesis.getVoices();
+    if (audioContext.state === "suspended") {
+      audioContext.resume().catch(() => {});
     }
 
-    if (speechSupported) {
-      refreshVoices();
+    return audioContext;
+  } catch (error) {
+    return null;
+  }
+}
 
-      window.speechSynthesis.addEventListener(
-        "voiceschanged",
-        refreshVoices
-      );
-    }
+function playTone(frequency, duration, volume, delay = 0) {
+  if (!soundEnabled) {
+    return;
+  }
 
-    function chooseEnglishVoice() {
-      refreshVoices();
+  const context = getAudioContext();
 
-      const englishVoices = cachedVoices.filter(voice =>
-        /^en([-_]|$)/i.test(voice.lang)
-      );
+  if (!context) {
+    return;
+  }
 
-      // Voice names differ between phones and browsers.
-      // These names are suggestions, not a guarantee of gender.
-      const feminineNamePattern =
-        /samantha|ava|allison|karen|serena|victoria|tessa|moira|jenny|aria|zira|susan|hazel|libby|sonia|female/i;
+  try {
+    const oscillator = context.createOscillator();
+    const gain = context.createGain();
 
-      return (
-        englishVoices.find(voice =>
-          feminineNamePattern.test(voice.name)
-        ) ||
-        englishVoices.find(voice =>
-          /google us english/i.test(voice.name)
-        ) ||
-        englishVoices.find(voice =>
-          /^en[-_]us/i.test(voice.lang) && voice.default
-        ) ||
-        englishVoices.find(voice => voice.default) ||
-        englishVoices[0] ||
-        null
-      );
-    }
+    const startTime = context.currentTime + delay;
+    const endTime = startTime + duration;
 
-    function speak(text) {
-      if (!soundEnabled || !speechSupported || !text) {
-        return;
-      }
+    oscillator.type = "sine";
+    oscillator.frequency.setValueAtTime(frequency, startTime);
 
-      const synth = window.speechSynthesis;
-      synth.cancel();
+    gain.gain.setValueAtTime(0.0001, startTime);
+    gain.gain.exponentialRampToValueAtTime(
+      Math.max(volume, 0.0002),
+      startTime + Math.min(0.035, duration / 3)
+    );
+    gain.gain.exponentialRampToValueAtTime(0.0001, endTime);
 
-      const message = new SpeechSynthesisUtterance(text);
-      const chosenVoice = chooseEnglishVoice();
+    oscillator.connect(gain);
+    gain.connect(context.destination);
 
-      message.lang = chosenVoice ? chosenVoice.lang : "en-US";
+    oscillator.start(startTime);
+    oscillator.stop(endTime + 0.025);
+  } catch (error) {
+    // Audio effects are optional.
+  }
+}
 
-      if (chosenVoice) {
-        message.voice = chosenVoice;
-      }
+function playCorrectSound() {
+  if (!soundEnabled) return;
 
-      // Child-friendly pace and a slightly brighter pitch.
-      message.rate = 0.86;
-      message.pitch = 1.22;
-      message.volume = 1;
+  playTone(659.25, 0.22, 0.06, 0);
+  playTone(783.99, 0.25, 0.06, 0.11);
+  playTone(1046.5, 0.32, 0.065, 0.22);
+}
 
-      synth.speak(message);
-    }
+function playWrongSound() {
+  if (!soundEnabled) return;
 
-    function scheduleQuestionSpeech() {
-      clearTimeout(questionSpeechTimer);
+  playTone(392, 0.16, 0.03, 0);
+  playTone(329.63, 0.20, 0.03, 0.14);
+}
 
-      questionSpeechTimer = setTimeout(() => {
-        if (
-          soundEnabled &&
-          currentWorld &&
-          gameScreen.classList.contains("active")
-        ) {
-          speakQuestion();
-        }
-      }, 350);
-    }
+function playMusicStep() {
+  if (!soundEnabled || !audioContext) return;
 
-    function speakQuestion() {
-      if (!soundEnabled || !currentWorld) {
-        return;
-      }
+  const melody = [
+    523.25, 659.25, 783.99, 659.25,
+    587.33, 698.46, 880, 698.46
+  ];
 
-      const question = currentWorld.questions[currentIndex];
+  const chords = [
+    [261.63, 329.63, 392],
+    [220, 261.63, 329.63],
+    [174.61, 220, 261.63],
+    [196, 246.94, 293.66]
+  ];
 
-      if (question) {
-        speak(question.prompt);
-      }
-    }
+  playTone(melody[musicStep % melody.length], 0.48, 0.008, 0);
 
-    // =============================================
-    // AUDIO ENGINE: NO EXTRA SOUND FILES REQUIRED
-    // =============================================
+  if (musicStep % 4 === 0) {
+    const chord = chords[Math.floor(musicStep / 4) % chords.length];
 
-    let audioContext = null;
-    let musicTimer = null;
-    let musicStep = 0;
-
-    function getAudioContext() {
-      if (audioContext) {
-        if (audioContext.state === "suspended") {
-          audioContext.resume().catch(() => {});
-        }
-
-        return audioContext;
-      }
-
-      const AudioContextClass =
-        window.AudioContext || window.webkitAudioContext;
-
-      if (!AudioContextClass) {
-        return null;
-      }
-
-      try {
-        audioContext = new AudioContextClass();
-
-        if (audioContext.state === "suspended") {
-          audioContext.resume().catch(() => {});
-        }
-
-        return audioContext;
-      } catch (error) {
-        return null;
-      }
-    }
-
-    function playTone(
-      frequency,
-      duration = 0.2,
-      volume = 0.05,
-      wave = "sine",
-      delay = 0
-    ) {
-      const context = getAudioContext();
-
-      if (!context || !soundEnabled) {
-        return;
-      }
-
-      try {
-        const oscillator = context.createOscillator();
-        const gain = context.createGain();
-
-        const startTime = context.currentTime + delay;
-        const endTime = startTime + duration;
-
-        oscillator.type = wave;
-        oscillator.frequency.setValueAtTime(
-          frequency,
-          startTime
-        );
-
-        gain.gain.setValueAtTime(0.0001, startTime);
-        gain.gain.exponentialRampToValueAtTime(
-          Math.max(volume, 0.0002),
-          startTime + Math.min(0.035, duration / 3)
-        );
-        gain.gain.exponentialRampToValueAtTime(
-          0.0001,
-          endTime
-        );
-
-        oscillator.connect(gain);
-        gain.connect(context.destination);
-
-        oscillator.start(startTime);
-        oscillator.stop(endTime + 0.025);
-      } catch (error) {
-        // Sound is optional; learning activities still work.
-      }
-    }
-
-    // Soft, short ascending chimes for a correct answer.
-    function playCorrectSound() {
-      if (!soundEnabled) {
-        return;
-      }
-
-      playTone(659.25, 0.22, 0.065, "sine", 0);
-      playTone(783.99, 0.25, 0.065, "sine", 0.11);
-      playTone(1046.5, 0.32, 0.07, "sine", 0.22);
-    }
-
-    // Gentle descending tones: a retry cue, not a harsh buzzer.
-    function playWrongSound() {
-      if (!soundEnabled) {
-        return;
-      }
-
-      playTone(392.00, 0.16, 0.035, "sine", 0);
-      playTone(329.63, 0.20, 0.035, "sine", 0.14);
-    }
-
-    // A subtle synthesized melody for background ambience.
-    // Music starts only after the user turns sound on.
-    function playMusicStep() {
-      if (!soundEnabled || !audioContext) {
-        return;
-      }
-
-      const melody = [
-        523.25, 659.25, 783.99, 659.25,
-        587.33, 698.46, 880.00, 698.46
-      ];
-
-      const chords = [
-        [261.63, 329.63, 392.00],
-        [220.00, 261.63, 329.63],
-        [174.61, 220.00, 261.63],
-        [196.00, 246.94, 293.66]
-      ];
-
-      const note = melody[musicStep % melody.length];
-
-      // Quiet melody notes.
-      playTone(note, 0.48, 0.009, "sine", 0);
-
-      // Very quiet sustained chord tones every four beats.
-      if (musicStep % 4 === 0) {
-        const chordIndex =
-          Math.floor(musicStep / 4) % chords.length;
-
-        chords[chordIndex].forEach(frequency => {
-          playTone(frequency, 2.5, 0.0022, "sine", 0);
-        });
-      }
-
-      musicStep++;
-    }
-
-    function startMusic() {
-      if (!soundEnabled || musicTimer !== null) {
-        return;
-      }
-
-      if (!getAudioContext()) {
-        return;
-      }
-
-      musicStep = 0;
-      playMusicStep();
-
-      // A slow melody with plenty of space between notes.
-      musicTimer = window.setInterval(playMusicStep, 720);
-    }
-
-    function stopMusic() {
-      if (musicTimer !== null) {
-        clearInterval(musicTimer);
-        musicTimer = null;
-      }
-    }
-
-    function turnSoundOn() {
-      soundEnabled = true;
-
-      getAudioContext();
-      startMusic();
-
-      soundButton.textContent = "🔊";
-      soundButton.setAttribute("aria-pressed", "true");
-      soundButton.setAttribute("aria-label", "Turn sound off");
-
-      speak("Hello, little learner! Let's learn and play!");
-    }
-
-    function turnSoundOff() {
-      soundEnabled = false;
-
-      stopMusic();
-
-      if (speechSupported) {
-        window.speechSynthesis.cancel();
-      }
-
-      soundButton.textContent = "🔇";
-      soundButton.setAttribute("aria-pressed", "false");
-      soundButton.setAttribute("aria-label", "Turn sound on");
-    }
-
-    soundButton.addEventListener("click", () => {
-      if (soundEnabled) {
-        turnSoundOff();
-      } else {
-        turnSoundOn();
-      }
+    chord.forEach(frequency => {
+      playTone(frequency, 2.5, 0.0018, 0);
     });
+  }
 
-    // =============================================
-    // HOME SCREEN
-    // =============================================
+  musicStep++;
+}
 
-    function buildWorldCards() {
-      worldGrid.innerHTML = "";
+function startMusic() {
+  if (!soundEnabled || musicTimer !== null || !getAudioContext()) {
+    return;
+  }
 
-      worlds.forEach(world => {
-        const button = document.createElement("button");
+  musicStep = 0;
+  playMusicStep();
 
-        button.type = "button";
-        button.className = "world-card";
-        button.setAttribute(
-          "aria-label",
-          "Play " + world.title
-        );
+  musicTimer = window.setInterval(playMusicStep, 720);
+}
 
-        const icon = document.createElement("span");
-        icon.className = "world-icon";
-        icon.textContent = world.icon;
+function stopMusic() {
+  if (musicTimer !== null) {
+    clearInterval(musicTimer);
+    musicTimer = null;
+  }
+}
 
-        const title = document.createElement("span");
-        title.className = "world-title";
-        title.textContent = world.title;
+function turnSoundOn() {
+  soundEnabled = true;
+  getAudioContext();
+  startMusic();
 
-        const description = document.createElement("span");
-        description.className = "world-description";
-        description.textContent = world.description;
+  $("soundButton").textContent = "🔊";
+  $("soundButton").setAttribute("aria-pressed", "true");
+  $("soundButton").setAttribute("aria-label", "Turn sound off");
 
-        const action = document.createElement("span");
-        action.className = "world-action";
-        action.textContent = "Let's Play! →";
+  speak("Hello, little learner! Let's learn and play!");
+}
 
-        button.append(
-          icon,
-          title,
-          description,
-          action
-        );
+function turnSoundOff() {
+  soundEnabled = false;
+  stopMusic();
 
-        button.addEventListener("click", () => {
-          startWorld(world.id);
-        });
+  if (speechSupported) {
+    window.speechSynthesis.cancel();
+  }
 
-        worldGrid.appendChild(button);
-      });
+  $("soundButton").textContent = "🔇";
+  $("soundButton").setAttribute("aria-pressed", "false");
+  $("soundButton").setAttribute("aria-label", "Turn sound on");
+}
+
+$("soundButton").addEventListener("click", () => {
+  if (soundEnabled) {
+    turnSoundOff();
+  } else {
+    turnSoundOn();
+  }
+});
+
+/* ===================================================
+   HOME AND WORLD MENU
+=================================================== */
+
+function buildWorldCards() {
+  const grid = $("worldGrid");
+  grid.innerHTML = "";
+
+  worlds.forEach(world => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "world-card";
+
+    const icon = document.createElement("span");
+    icon.className = "world-icon";
+    icon.textContent = world.icon;
+
+    const title = document.createElement("span");
+    title.className = "world-title";
+    title.textContent = world.title;
+
+    const description = document.createElement("span");
+    description.className = "world-description";
+    description.textContent = world.description;
+
+    const action = document.createElement("span");
+    action.className = "world-action";
+    action.textContent = "Let's Play! →";
+
+    button.append(icon, title, description, action);
+    button.addEventListener("click", () => openWorldMenu(world.id));
+
+    grid.appendChild(button);
+  });
+}
+
+function openWorldMenu(worldId) {
+  const chosen = worlds.find(world => world.id === worldId);
+
+  if (!chosen) return;
+
+  currentWorld = chosen;
+
+  $("worldMenuIcon").textContent = chosen.icon;
+  $("worldMenuTitle").textContent = chosen.title;
+  $("worldMenuDescription").textContent = chosen.description;
+
+  showScreen($("worldMenuScreen"));
+}
+
+$("worldMenuBack").addEventListener("click", () => {
+  showScreen($("homeScreen"));
+});
+
+$("startLearningButton").addEventListener("click", startLearning);
+$("startQuizButton").addEventListener("click", startQuiz);
+
+/* ===================================================
+   LEARNING MODE
+=================================================== */
+
+function startLearning() {
+  if (!currentWorld) return;
+
+  learnIndex = 0;
+
+  $("learnWorldLabel").textContent =
+    currentWorld.icon + " " + currentWorld.title;
+
+  showScreen($("learnScreen"));
+  renderLearningCard();
+}
+
+function renderLearningVisual(item) {
+  const visual = $("learnVisual");
+  visual.innerHTML = "";
+  visual.className = "learn-visual";
+
+  if (currentWorld.id === "alphabet") {
+    const pair = document.createElement("div");
+    pair.className = "learn-letter";
+
+    const upper = document.createElement("span");
+    upper.textContent = item.name;
+
+    const lower = document.createElement("span");
+    lower.textContent = item.lower;
+
+    pair.append(upper, lower);
+    visual.appendChild(pair);
+    return;
+  }
+
+  if (currentWorld.id === "numbers") {
+    visual.classList.add("number-visual");
+
+    for (let index = 0; index < Number(item.name); index++) {
+      const object = document.createElement("span");
+      object.className = "count-object";
+      object.textContent = item.icon;
+      object.setAttribute("aria-hidden", "true");
+      visual.appendChild(object);
     }
 
-    function showScreen(screen) {
-      [homeScreen, gameScreen, rewardScreen].forEach(item => {
-        item.classList.remove("active");
-      });
-
-      screen.classList.add("active");
-
-      window.scrollTo({
-        top: 0,
-        behavior: "auto"
-      });
-    }
-
-    // =============================================
-    // START AND DISPLAY A WORLD
-    // =============================================
-
-    function startWorld(worldId) {
-      const selectedWorld = worlds.find(
-        world => world.id === worldId
-      );
-
-      if (!selectedWorld) {
-        return;
-      }
-
-      clearTimeout(questionSpeechTimer);
-
-      currentWorld = selectedWorld;
-      currentIndex = 0;
-      activityStars = 0;
-      answered = false;
-
-      worldLabel.textContent =
-        currentWorld.icon + " " + currentWorld.title;
-
-      showScreen(gameScreen);
-      renderQuestion();
-    }
-
-    function renderQuestion() {
-      const question = currentWorld.questions[currentIndex];
-
-      if (!question) {
-        finishWorld();
-        return;
-      }
-
-      clearTimeout(questionSpeechTimer);
-      answered = false;
-
-      questionCount.textContent =
-        "Question " + (currentIndex + 1) +
-        " of " + currentWorld.questions.length;
-
-      questionTitle.textContent = question.prompt;
-
-      const completedProgress = Math.round(
-        (currentIndex / currentWorld.questions.length) * 100
-      );
-
-      progressFill.style.width = completedProgress + "%";
-
-      progressTrack.setAttribute(
-        "aria-valuenow",
-        String(completedProgress)
-      );
-
-      renderVisual(question);
-      renderAnswers(question);
-
-      feedback.textContent = soundEnabled
-        ? "Listen and choose the best answer!"
-        : "Choose the best answer!";
-
-      feedback.className = "feedback";
-
-      nextButton.disabled = true;
-      nextButton.textContent = "Choose an Answer";
-
-      // Automatically speak the question when sound is on.
-      scheduleQuestionSpeech();
-    }
-
-    function renderVisual(question) {
-      questionVisual.innerHTML = "";
-
-      if (question.count && question.visual) {
-        for (let i = 0; i < question.count; i++) {
-          const object = document.createElement("span");
-
-          object.className = "count-object";
-          object.textContent = question.visual;
-          object.setAttribute("aria-hidden", "true");
-
-          questionVisual.appendChild(object);
-        }
-      } else {
-        const visual = document.createElement("span");
-
-        visual.textContent = question.visual || "🌟";
-        visual.setAttribute("aria-hidden", "true");
-
-        questionVisual.appendChild(visual);
-      }
-    }
-
-    function renderAnswers(question) {
-      answerGrid.innerHTML = "";
-
-      question.options.forEach(option => {
-        const button = document.createElement("button");
-
-        button.type = "button";
-        button.className = "answer-button";
-
-        if (option.color) {
-          const dot = document.createElement("span");
-
-          dot.className = "color-dot";
-          dot.style.backgroundColor = option.color;
-          dot.setAttribute("aria-hidden", "true");
-
-          button.appendChild(dot);
-        } else if (option.icon) {
-          const icon = document.createElement("span");
-
-          icon.className = "option-icon";
-          icon.textContent = option.icon;
-          icon.setAttribute("aria-hidden", "true");
-
-          button.appendChild(icon);
-        }
-
-        const label = document.createElement("span");
-        label.textContent = option.label;
-
-        button.appendChild(label);
-
-        button.addEventListener("click", () => {
-          chooseAnswer(option.label, button);
-        });
-
-        answerGrid.appendChild(button);
-      });
-    }
-
-    // =============================================
-    // ANSWER FEEDBACK
-    // =============================================
-
-    function chooseAnswer(selected, selectedButton) {
-      if (answered) {
-        return;
-      }
-
-      const question = currentWorld.questions[currentIndex];
-
-      if (selected === question.answer) {
-        answered = true;
-        activityStars++;
-        totalStars++;
-
-        saveStars();
-        updateStarCounter();
-
-        answerGrid.querySelectorAll("button").forEach(button => {
-          button.disabled = true;
-
-          const label = button.querySelector("span:last-child");
-
-          if (label && label.textContent === question.answer) {
-            button.classList.add("correct");
-          }
-        });
-
-        selectedButton.classList.add("correct");
-
-        feedback.textContent = "⭐ Correct! " + question.fact;
-        feedback.className = "feedback good";
-
-        nextButton.disabled = false;
-
-        if (currentIndex === currentWorld.questions.length - 1) {
-          nextButton.textContent = "See My Reward! 🎉";
-        } else {
-          nextButton.textContent = "Next Question →";
-        }
-
-        // Play the reward chime first, then speak the praise.
-        playCorrectSound();
-
-        const praise = "Great job! " + question.fact;
-
-        window.setTimeout(() => {
-          if (soundEnabled && gameScreen.classList.contains("active")) {
-            speak(praise);
-          }
-        }, 250);
-
-      } else {
-        selectedButton.classList.add("incorrect");
-
-        feedback.textContent =
-          "Almost! Try again. You can do it! 💛";
-
-        feedback.className = "feedback try-again";
-
-        playWrongSound();
-
-        window.setTimeout(() => {
-          if (soundEnabled && gameScreen.classList.contains("active")) {
-            speak("Oops! Not quite. Try again. You can do it!");
-          }
-        }, 220);
-      }
-    }
-
-    // =============================================
-    // NEXT QUESTION AND REWARD
-    // =============================================
-
-    function nextQuestion() {
-      if (!answered) {
-        return;
-      }
-
-      clearTimeout(questionSpeechTimer);
-      currentIndex++;
-
-      if (currentIndex >= currentWorld.questions.length) {
-        finishWorld();
-      } else {
-        renderQuestion();
-      }
-    }
-
-    function finishWorld() {
-      clearTimeout(questionSpeechTimer);
-      showScreen(rewardScreen);
-
-      progressFill.style.width = "100%";
-
-      progressTrack.setAttribute("aria-valuenow", "100");
-
-      document.getElementById("completionText").textContent =
-        "You completed " + currentWorld.title +
-        " and answered all " +
-        currentWorld.questions.length +
-        " questions! Keep up the great work!";
-
-      document.getElementById("earnedText").textContent =
-        "You earned " + activityStars +
-        (activityStars === 1 ? " star!" : " stars!");
-
-      const starsDisplay =
-        document.getElementById("rewardStars");
-
-      starsDisplay.textContent = activityStars > 0
-        ? Array(activityStars).fill("⭐").join(" ")
-        : "🌱 Keep practising!";
-
-      if (soundEnabled) {
-        playCorrectSound();
-
-        window.setTimeout(() => {
-          if (soundEnabled && rewardScreen.classList.contains("active")) {
-            speak("Amazing job! You finished " + currentWorld.title + "!");
-          }
-        }, 250);
-      }
-    }
-
-    function saveStars() {
-      try {
-        localStorage.setItem(
-          "theizPreschoolStars",
-          String(totalStars)
-        );
-      } catch (error) {
-        // Scores still work during the current session.
-      }
-    }
-
-    function updateStarCounter() {
-      totalStarsDisplay.textContent = String(totalStars);
-    }
-
-    // =============================================
-    // REPEAT QUESTION BUTTON
-    // =============================================
-
-    hearQuestionButton.addEventListener("click", () => {
-      if (!soundEnabled) {
-        feedback.textContent =
-          "Tap the 🔇 button above to turn sound on first!";
-
-        feedback.className = "feedback";
-        return;
-      }
-
-      speakQuestion();
-    });
-
-    // =============================================
-    // NAVIGATION
-    // =============================================
-
-    backButton.addEventListener("click", () => {
-      clearTimeout(questionSpeechTimer);
-
-      if (speechSupported) {
-        window.speechSynthesis.cancel();
-      }
-
-      showScreen(homeScreen);
-    });
-
-    nextButton.addEventListener("click", nextQuestion);
-
-    document.getElementById("replayButton").addEventListener(
-      "click",
-      () => {
-        if (currentWorld) {
-          startWorld(currentWorld.id);
-        }
-      }
+    return;
+  }
+
+  const icon = document.createElement("span");
+  icon.textContent = item.icon;
+  visual.appendChild(icon);
+
+  if (currentWorld.id === "colors") {
+    const swatch = document.createElement("span");
+    swatch.className = "color-swatch";
+    swatch.style.backgroundColor = item.color;
+    swatch.setAttribute("aria-label", item.name + " color");
+    visual.appendChild(swatch);
+  }
+}
+
+function renderLearningCard() {
+  const item = currentWorld.items[learnIndex];
+
+  if (!item) return;
+
+  const total = currentWorld.items.length;
+
+  $("learnCount").textContent =
+    "Card " + (learnIndex + 1) + " of " + total;
+
+  updateProgress(
+    $("learnProgressFill"),
+    $("learnProgressTrack"),
+    learnIndex + 1,
+    total
+  );
+
+  const kickers = {
+    alphabet: "MEET THE LETTER",
+    numbers: "LET'S COUNT",
+    colors: "DISCOVER A COLOR",
+    animals: "MEET AN ANIMAL",
+    words: "LET'S LEARN A WORD"
+  };
+
+  $("learnKicker").textContent = kickers[currentWorld.id];
+
+  renderLearningVisual(item);
+
+  if (currentWorld.id === "alphabet") {
+    $("learnMain").textContent = item.name + " " + item.lower;
+    $("learnSub").textContent = "Word: " + item.word;
+  } else if (currentWorld.id === "numbers") {
+    $("learnMain").textContent = item.name + " — " + item.word;
+
+    $("learnSub").textContent =
+      item.name + (item.name === "1" ? " " + item.noun : " " + item.plural);
+  } else if (currentWorld.id === "colors") {
+    $("learnMain").textContent = item.name;
+    $("learnSub").textContent = "Example: " + item.example;
+  } else if (currentWorld.id === "animals") {
+    $("learnMain").textContent = item.name;
+    $("learnSub").textContent = "Animal friend";
+  } else {
+    $("learnMain").textContent = item.name;
+    $("learnSub").textContent = "Spelling: " + item.spelling;
+  }
+
+  $("learnFact").textContent = item.fact;
+
+  $("learnPrevButton").disabled = learnIndex === 0;
+
+  $("learnNextButton").textContent =
+    learnIndex === total - 1 ? "Start Quiz 🎯" : "Next →";
+
+  scheduleSpeech(item.voice);
+}
+
+$("learnPrevButton").addEventListener("click", () => {
+  if (learnIndex <= 0) return;
+
+  learnIndex--;
+  renderLearningCard();
+});
+
+$("learnNextButton").addEventListener("click", () => {
+  if (!currentWorld) return;
+
+  if (learnIndex >= currentWorld.items.length - 1) {
+    startQuiz();
+  } else {
+    learnIndex++;
+    renderLearningCard();
+  }
+});
+
+$("hearLearningButton").addEventListener("click", () => {
+  if (!soundEnabled) {
+    $("learnFact").textContent =
+      "Tap the 🔇 button at the top to turn sound on first.";
+    return;
+  }
+
+  const item = currentWorld.items[learnIndex];
+  speak(item.voice);
+});
+
+$("skipToQuizButton").addEventListener("click", startQuiz);
+
+$("learnBackButton").addEventListener("click", () => {
+  openWorldMenu(currentWorld.id);
+});
+
+/* ===================================================
+   QUIZ GENERATION
+=================================================== */
+
+function optionForItem(world, item) {
+  if (world.id === "alphabet") {
+    return {value:item.name, label:item.name, icon:"🔤"};
+  }
+
+  if (world.id === "numbers") {
+    return {value:item.name, label:item.name};
+  }
+
+  if (world.id === "colors") {
+    return {
+      value:item.name,
+      label:item.name,
+      color:item.color
+    };
+  }
+
+  if (world.id === "animals") {
+    return {
+      value:item.name,
+      label:item.name,
+      icon:item.icon
+    };
+  }
+
+  return {value:item.name, label:item.name};
+}
+
+function buildOptions(world, target) {
+  let alternatives;
+
+  if (world.id === "numbers") {
+    alternatives = world.items.filter(item =>
+      item.name !== target.name &&
+      Math.abs(Number(item.name) - Number(target.name)) <= 2
     );
 
-    document.getElementById("homeButton").addEventListener(
-      "click",
-      () => {
-        clearTimeout(questionSpeechTimer);
-
-        if (speechSupported) {
-          window.speechSynthesis.cancel();
-        }
-
-        showScreen(homeScreen);
-      }
+    if (alternatives.length < 2) {
+      alternatives = world.items.filter(item =>
+        item.name !== target.name
+      );
+    }
+  } else {
+    alternatives = world.items.filter(item =>
+      item.name !== target.name
     );
+  }
 
-    // =============================================
-    // INITIALISE GAME
-    // =============================================
+  const distractors = shuffle(alternatives).slice(0, 2);
 
-    buildWorldCards();
-  </script>
+  return shuffle([target, ...distractors]).map(item =>
+    optionForItem(world, item)
+  );
+}
+
+function makeQuizQuestion(world, item) {
+  let prompt;
+  let visual = item.icon;
+  let count = 0;
+  let feedbackText = item.fact;
+
+  switch (world.id) {
+    case "alphabet":
+      prompt = "Which letter does " + item.word + " begin with?";
+      feedbackText = item.fact;
+      break;
+
+    case "numbers":
+      prompt = "How many " + item.plural + " can you count?";
+      count = Number(item.name);
+      feedbackText = item.fact;
+      break;
+
+    case "colors":
+      prompt = item.prompt;
+      feedbackText = item.fact;
+      break;
+
+    case "animals":
+      prompt = "Which animal is this?";
+      feedbackText = item.fact;
+      break;
+
+    case "words":
+      prompt = "Which word matches this picture?";
+      feedbackText = item.fact;
+      break;
+  }
+
+  return {
+    prompt,
+    visual,
+    count,
+    answer: item.name,
+    options: buildOptions(world, item),
+    fact: feedbackText
+  };
+}
+
+function startQuiz() {
+  if (!currentWorld) return;
+
+  quizIndex = 0;
+  activityStars = 0;
+  answered = false;
+
+  /*
+    Alphabet: 10 random questions from all 26 letters.
+    Numbers: all 10 numbers.
+    Other worlds: up to 10 questions per round.
+    All learning cards remain available in Learning Mode.
+  */
+  const amount = currentWorld.id === "numbers"
+    ? 10
+    : Math.min(10, currentWorld.items.length);
+
+  const selectedItems = shuffle(currentWorld.items).slice(0, amount);
+
+  quizQuestions = selectedItems.map(item =>
+    makeQuizQuestion(currentWorld, item)
+  );
+
+  $("quizWorldLabel").textContent =
+    currentWorld.icon + " " + currentWorld.title;
+
+  showScreen($("quizScreen"));
+  renderQuestion();
+}
+
+/* ===================================================
+   QUIZ DISPLAY AND ANSWERS
+=================================================== */
+
+function renderQuestionVisual(question) {
+  const visual = $("questionVisual");
+  visual.innerHTML = "";
+
+  if (question.count > 0) {
+    for (let index = 0; index < question.count; index++) {
+      const object = document.createElement("span");
+      object.className = "count-object";
+      object.textContent = question.visual;
+      object.setAttribute("aria-hidden", "true");
+      visual.appendChild(object);
+    }
+  } else {
+    const icon = document.createElement("span");
+    icon.textContent = question.visual;
+    icon.setAttribute("aria-hidden", "true");
+    visual.appendChild(icon);
+  }
+}
+
+function renderAnswerOptions(question) {
+  const grid = $("answerGrid");
+  grid.innerHTML = "";
+
+  question.options.forEach(option => {
+    const button = document.createElement("button");
+
+    button.type = "button";
+    button.className = "answer-button";
+    button.dataset.answer = option.value;
+
+    if (option.color) {
+      const dot = document.createElement("span");
+      dot.className = "color-dot";
+      dot.style.backgroundColor = option.color;
+      dot.setAttribute("aria-hidden", "true");
+      button.appendChild(dot);
+    } else if (option.icon) {
+      const icon = document.createElement("span");
+      icon.className = "option-icon";
+      icon.textContent = option.icon;
+      icon.setAttribute("aria-hidden", "true");
+      button.appendChild(icon);
+    }
+
+    const label = document.createElement("span");
+    label.textContent = option.label;
+    button.appendChild(label);
+
+    button.addEventListener("click", () => {
+      chooseAnswer(option.value, button);
+    });
+
+    grid.appendChild(button);
+  });
+}
+
+function renderQuestion() {
+  const question = quizQuestions[quizIndex];
+
+  if (!question) {
+    finishQuiz();
+    return;
+  }
+
+  answered = false;
+
+  $("questionCount").textContent =
+    "Question " + (quizIndex + 1) +
+    " of " + quizQuestions.length;
+
+  $("questionTitle").textContent = question.prompt;
+
+  updateProgress(
+    $("quizProgressFill"),
+    $("quizProgressTrack"),
+    quizIndex,
+    quizQuestions.length
+  );
+
+  renderQuestionVisual(question);
+  renderAnswerOptions(question);
+
+  $("feedback").textContent =
+    "Listen and choose the best answer!";
+
+  $("feedback").className = "feedback";
+  $("nextButton").disabled = true;
+  $("nextButton").textContent = "Choose an Answer";
+
+  scheduleSpeech(question.prompt);
+}
+
+function chooseAnswer(selected, selectedButton) {
+  if (answered) return;
+
+  const question = quizQuestions[quizIndex];
+
+  if (selected === question.answer) {
+    answered = true;
+    activityStars++;
+    totalStars++;
+    saveStars();
+
+    $("answerGrid").querySelectorAll("button").forEach(button => {
+      button.disabled = true;
+
+      if (button.dataset.answer === question.answer) {
+        button.classList.add("correct");
+      }
+    });
+
+    selectedButton.classList.add("correct");
+
+    $("feedback").textContent = "⭐ Correct! " + question.fact;
+    $("feedback").className = "feedback good";
+
+    $("nextButton").disabled = false;
+    $("nextButton").textContent =
+      quizIndex === quizQuestions.length - 1
+        ? "See My Reward! 🎉"
+        : "Next Question →";
+
+    playCorrectSound();
+
+    window.setTimeout(() => {
+      if ($("quizScreen").classList.contains("active")) {
+        speak("Great job! " + question.fact);
+      }
+    }, 260);
+
+  } else {
+    selectedButton.classList.add("incorrect");
+
+    $("feedback").textContent =
+      "Almost! Try again. You can do it! 💛";
+
+    $("feedback").className = "feedback try-again";
+
+    playWrongSound();
+
+    window.setTimeout(() => {
+      if ($("quizScreen").classList.contains("active")) {
+        speak("Not quite. Try again. You can do it!");
+      }
+    }, 220);
+  }
+}
+
+$("hearQuestionButton").addEventListener("click", () => {
+  if (!soundEnabled) {
+    $("feedback").textContent =
+      "Tap the 🔇 button at the top to turn sound on first.";
+
+    $("feedback").className = "feedback";
+    return;
+  }
+
+  speak(quizQuestions[quizIndex].prompt);
+});
+
+$("nextButton").addEventListener("click", () => {
+  if (!answered) return;
+
+  quizIndex++;
+
+  if (quizIndex >= quizQuestions.length) {
+    finishQuiz();
+  } else {
+    renderQuestion();
+  }
+});
+
+$("quizBackButton").addEventListener("click", () => {
+  openWorldMenu(currentWorld.id);
+});
+
+/* ===================================================
+   REWARD SCREEN
+=================================================== */
+
+function finishQuiz() {
+  showScreen($("rewardScreen"));
+
+  updateProgress(
+    $("quizProgressFill"),
+    $("quizProgressTrack"),
+    quizQuestions.length,
+    quizQuestions.length
+  );
+
+  $("completionText").textContent =
+    "You finished " + currentWorld.title +
+    " and answered " + activityStars +
+    " out of " + quizQuestions.length +
+    " questions correctly on your first try.";
+
+  $("earnedText").textContent =
+    "You earned " + activityStars +
+    (activityStars === 1 ? " star!" : " stars!");
+
+  $("rewardStars").textContent =
+    activityStars > 0
+      ? "⭐ × " + activityStars
+      : "🌱 Keep practising!";
+
+  if (soundEnabled) {
+    playCorrectSound();
+
+    window.setTimeout(() => {
+      if ($("rewardScreen").classList.contains("active")) {
+        speak("Amazing job! You finished " + currentWorld.title + "!");
+      }
+    }, 260);
+  }
+}
+
+$("replayButton").addEventListener("click", startQuiz);
+$("reviewButton").addEventListener("click", startLearning);
+
+$("homeButton").addEventListener("click", () => {
+  showScreen($("homeScreen"));
+});
+
+/* ===================================================
+   START
+=================================================== */
+
+buildWorldCards();
+</script>
 </body>
 </html>
