@@ -714,6 +714,25 @@ footer {
     font-size: 12px;
   }
 }
+
+  .bobo-intro-button {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 13px 18px;
+  background: #fff;
+  border-color: #dcd4ff;
+  color: #5b4ac6;
+  font-size: 15px;
+  border-radius: 16px;
+}
+
+#boboIntroStatus {
+  min-height: 22px;
+  margin-top: 10px;
+  color: #77758b;
+  font-size: 12px;
+  line-height: 1.5;
+}
   
 @media (min-width: 650px) {
   .app {
@@ -811,6 +830,18 @@ footer {
     <div class="hero-characters" aria-hidden="true">🐻 🌟 🐰</div>
     <h2>Let's Learn &amp; Play!</h2>
     <p>
+
+      <button
+  class="hear-button bobo-intro-button"
+  id="boboIntroButton"
+  type="button">
+  🎧 Meet Bobo — Hear My Voice!
+</button>
+
+<p id="boboIntroStatus" aria-live="polite">
+  Meet your friendly learning buddy! 🐻
+</p>
+      
       Explore a happy little world full of letters, numbers,
       colors, animals and first words. Every little step is
       a big achievement!
@@ -1197,6 +1228,12 @@ let speechTimer = null;
 let speechPauseTimer = null;
 let speechToken = 0;
 
+  // Bobo's recorded voice.
+const boboIntroAudio = new Audio("./bobo-intro.mp3");
+
+boboIntroAudio.preload = "auto";
+boboIntroAudio.volume = 1;
+
   /* SAVED BADGES */
 
 let earnedBadges = [];
@@ -1576,6 +1613,9 @@ function turnSoundOff() {
   stopMusic();
   stopSpeech();
 
+  boboIntroAudio.pause();
+boboIntroAudio.currentTime = 0;
+
   $("soundButton").textContent = "🔇";
   $("soundButton").setAttribute("aria-pressed", "false");
   $("soundButton").setAttribute("aria-label", "Turn sound on");
@@ -1587,6 +1627,45 @@ $("soundButton").addEventListener("click", () => {
   } else {
     turnSoundOn();
   }
+});
+
+  // Play Bobo's recorded voice when the child taps the button.
+$("boboIntroButton").addEventListener("click", async () => {
+  clearTimeout(speechTimer);
+
+  // Stop browser-generated speech and background music.
+  stopSpeech();
+  stopMusic();
+
+  // Restart the recording from the beginning.
+  boboIntroAudio.pause();
+  boboIntroAudio.currentTime = 0;
+
+  $("boboIntroStatus").textContent =
+    "🐻 Bobo is talking! Let's listen together.";
+
+  try {
+    await boboIntroAudio.play();
+  } catch (error) {
+    $("boboIntroStatus").textContent =
+      "Unable to play the recording. Please check the audio file.";
+  }
+});
+
+// Resume background music after Bobo finishes, if sound is enabled.
+boboIntroAudio.addEventListener("ended", () => {
+  $("boboIntroStatus").textContent =
+    "🌟 Are you ready to learn with Bobo?";
+
+  if (soundEnabled) {
+    startMusic();
+  }
+});
+
+// Show a helpful message if the audio file cannot be loaded.
+boboIntroAudio.addEventListener("error", () => {
+  $("boboIntroStatus").textContent =
+    "The voice recording could not be loaded. Please check bobo-intro.mp3.";
 });
 
 /* ======================================================
