@@ -608,6 +608,113 @@ footer {
   font-size: 30px;
 }
 
+  /* BADGES AND STICKER COLLECTION */
+
+.badge-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.badge-card {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-width: 0;
+  min-height: 104px;
+  padding: 13px 11px;
+  background: #f5f3f8;
+  border: 2px solid #e8e3ef;
+  border-radius: 18px;
+}
+
+.badge-card.unlocked {
+  background: #fff4cf;
+  border-color: #ffdc83;
+}
+
+.badge-emoji {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  background: rgba(255,255,255,.8);
+  border-radius: 15px;
+  font-size: 29px;
+}
+
+.badge-card.locked .badge-emoji {
+  filter: grayscale(1);
+  opacity: .55;
+}
+
+.badge-info {
+  min-width: 0;
+}
+
+.badge-info strong {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 13px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.badge-info span {
+  display: block;
+  color: #77758b;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.badge-reward {
+  margin: 16px 0;
+  padding: 16px 10px;
+  background: #fff4cf;
+  border: 2px solid #ffdc83;
+  border-radius: 18px;
+}
+
+.badge-reward .badge-reward-icon {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 48px;
+}
+
+.badge-reward strong {
+  display: block;
+  font-size: 18px;
+}
+
+.badge-reward p {
+  margin: 7px 0 0;
+  color: #625e80;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+@media (max-width: 360px) {
+  .badge-grid {
+    gap: 7px;
+  }
+
+  .badge-card {
+    gap: 7px;
+    padding: 9px 7px;
+  }
+
+  .badge-emoji {
+    width: 36px;
+    height: 36px;
+    font-size: 23px;
+  }
+
+  .badge-info strong {
+    font-size: 12px;
+  }
+}
+  
 @media (min-width: 650px) {
   .app {
     padding: 25px;
@@ -717,6 +824,17 @@ footer {
 
   <div class="world-grid" id="worldGrid"></div>
 
+  <div class="section-heading">
+  <h2>My Sticker Collection</h2>
+  <span id="badgeSummary">0 of 5 unlocked</span>
+</div>
+
+<div class="badge-grid" id="badgeGrid"></div>
+
+<div class="notice" id="badgeMessage" aria-live="polite">
+  Complete a world quiz to collect your first sticker! 🌟
+</div>
+  
   <div class="notice">
     Made for little learners aged 4–6.<br>
     Play, learn and collect stars! ⭐
@@ -848,6 +966,14 @@ footer {
     </p>
 
     <div class="reward-stars" id="rewardStars">⭐</div>
+
+    <div
+  class="badge-reward"
+  id="badgeReward"
+  aria-live="polite"
+  hidden>
+</div>
+    
     <p><strong id="earnedText">You earned 0 stars!</strong></p>
 
     <p class="completion-text">
@@ -1009,6 +1135,41 @@ const worlds = [
   }
 ];
 
+  /* BADGE DEFINITIONS */
+
+const badgeDefinitions = [
+  {
+    id: "alphabet",
+    title: "Alphabet Explorer",
+    icon: "🔤",
+    description: "Completed Alphabet World!"
+  },
+  {
+    id: "numbers",
+    title: "Number Star",
+    icon: "🔢",
+    description: "Completed Number World!"
+  },
+  {
+    id: "colors",
+    title: "Little Artist",
+    icon: "🎨",
+    description: "Completed Color World!"
+  },
+  {
+    id: "animals",
+    title: "Animal Friend",
+    icon: "🐾",
+    description: "Completed Animal World!"
+  },
+  {
+    id: "words",
+    title: "Word Wizard",
+    icon: "📚",
+    description: "Completed Word World!"
+  }
+];
+  
 /* ======================================================
    GAME STATE
 ====================================================== */
@@ -1035,6 +1196,24 @@ let soundEnabled = false;
 let speechTimer = null;
 let speechPauseTimer = null;
 let speechToken = 0;
+
+  /* SAVED BADGES */
+
+let earnedBadges = [];
+
+try {
+  const savedBadges = JSON.parse(
+    localStorage.getItem("theizPreschoolBadges") || "[]"
+  );
+
+  if (Array.isArray(savedBadges)) {
+    earnedBadges = savedBadges.filter(id =>
+      badgeDefinitions.some(badge => badge.id === id)
+    );
+  }
+} catch (error) {
+  earnedBadges = [];
+}
 
 try {
   const saved = Number(localStorage.getItem("theizPreschoolStars"));
@@ -1454,6 +1633,98 @@ function updateProgress(fillElement, trackElement, current, total) {
     "aria-valuenow",
     String(percent)
   );
+}
+
+  /* SAVE UNLOCKED BADGES */
+
+function saveBadges() {
+  try {
+    localStorage.setItem(
+      "theizPreschoolBadges",
+      JSON.stringify(earnedBadges)
+    );
+  } catch (error) {
+    // The game remains playable if storage is unavailable.
+  }
+}
+
+/* DRAW THE STICKER COLLECTION */
+
+function renderBadges() {
+  const grid = $("badgeGrid");
+
+  if (!grid) return;
+
+  grid.innerHTML = "";
+
+  $("badgeSummary").textContent =
+    earnedBadges.length + " of " +
+    badgeDefinitions.length + " unlocked";
+
+  badgeDefinitions.forEach(badge => {
+    const unlocked = earnedBadges.includes(badge.id);
+
+    const card = document.createElement("div");
+
+    card.className = unlocked
+      ? "badge-card unlocked"
+      : "badge-card locked";
+
+    const icon = document.createElement("div");
+    icon.className = "badge-emoji";
+    icon.textContent = unlocked ? badge.icon : "🔒";
+
+    const info = document.createElement("div");
+    info.className = "badge-info";
+
+    const title = document.createElement("strong");
+    title.textContent = badge.title;
+
+    const status = document.createElement("span");
+    status.textContent = unlocked
+      ? "⭐ Collected!"
+      : "Complete the world quiz";
+
+    info.append(title, status);
+    card.append(icon, info);
+    grid.appendChild(card);
+  });
+
+  if (earnedBadges.length === badgeDefinitions.length) {
+    $("badgeMessage").textContent =
+      "Amazing! You collected all five stickers! 🏆";
+  } else {
+    $("badgeMessage").textContent =
+      "Keep learning to unlock more stickers! 🌟";
+  }
+}
+
+/* UNLOCK A WORLD BADGE */
+
+function unlockWorldBadge(worldId) {
+  const badge = badgeDefinitions.find(
+    item => item.id === worldId
+  );
+
+  if (!badge) {
+    return null;
+  }
+
+  if (earnedBadges.includes(badge.id)) {
+    return {
+      badge,
+      newlyUnlocked: false
+    };
+  }
+
+  earnedBadges.push(badge.id);
+  saveBadges();
+  renderBadges();
+
+  return {
+    badge,
+    newlyUnlocked: true
+  };
 }
 
 function shuffle(array) {
@@ -2090,6 +2361,8 @@ $("quizBackButton").addEventListener("click", () => {
 ====================================================== */
 
 function finishQuiz() {
+  const badgeResult = unlockWorldBadge(currentWorld.id);
+
   showScreen($("rewardScreen"));
 
   updateProgress(
@@ -2114,18 +2387,55 @@ function finishQuiz() {
       ? "⭐ × " + activityStars
       : "🌱 Keep practising!";
 
-  if (soundEnabled) {
+  const badgeReward = $("badgeReward");
+
+  badgeReward.innerHTML = "";
+  badgeReward.hidden = false;
+
+  if (badgeResult && badgeResult.newlyUnlocked) {
+    const icon = document.createElement("span");
+    icon.className = "badge-reward-icon";
+    icon.textContent = badgeResult.badge.icon;
+
+    const title = document.createElement("strong");
+    title.textContent = "New Sticker Unlocked!";
+
+    const name = document.createElement("p");
+    name.textContent = badgeResult.badge.title;
+
+    const description = document.createElement("p");
+    description.textContent = badgeResult.badge.description;
+
+    badgeReward.append(
+      icon,
+      title,
+      name,
+      description
+    );
+
     playCorrectSound();
 
-    window.setTimeout(() => {
-      if ($("rewardScreen").classList.contains("active")) {
-        speak(
-          "Amazing job! You finished " + currentWorld.title + "!",
-          PRAISE_RATE,
-          PRAISE_PAUSE_MS
-        );
-      }
-    }, 300);
+    if (soundEnabled) {
+      window.setTimeout(() => {
+        if ($("rewardScreen").classList.contains("active")) {
+          speak(
+            "Wonderful! You earned a new sticker!",
+            PRAISE_RATE,
+            PRAISE_PAUSE_MS
+          );
+        }
+      }, 300);
+    }
+
+  } else {
+    const title = document.createElement("strong");
+    title.textContent = "Great Practice! 🌟";
+
+    const description = document.createElement("p");
+    description.textContent =
+      "You have already collected this sticker. Keep practising!";
+
+    badgeReward.append(title, description);
   }
 }
 
@@ -2141,6 +2451,7 @@ $("homeButton").addEventListener("click", () => {
 ====================================================== */
 
 buildWorldCards();
+renderBadges();
 </script>
 </body>
 </html>
