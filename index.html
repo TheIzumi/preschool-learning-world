@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#fff8ed">
-  <meta name="description" content="A fun and friendly preschool learning game by TheIz.">
+  <meta name="description" content="A happy and interactive preschool learning game by TheIz.">
   <title>Preschool Learning World | TheIz</title>
 
   <style>
@@ -44,6 +44,11 @@
       outline-offset: 3px;
     }
 
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.75;
+    }
+
     .app {
       width: 100%;
       max-width: 1000px;
@@ -55,20 +60,20 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       margin-bottom: 22px;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
       min-width: 0;
     }
 
     .brand-icon {
-      width: 48px;
-      height: 48px;
+      width: 47px;
+      height: 47px;
       flex-shrink: 0;
       display: grid;
       place-items: center;
@@ -79,7 +84,7 @@
 
     .brand h1 {
       margin: 0;
-      font-size: clamp(17px, 4vw, 23px);
+      font-size: clamp(16px, 3.5vw, 23px);
       line-height: 1.2;
     }
 
@@ -92,7 +97,7 @@
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
       flex-shrink: 0;
     }
 
@@ -100,9 +105,9 @@
     .sound-button {
       border: 2px solid var(--border);
       background: white;
-      border-radius: 15px;
+      border-radius: 14px;
       min-height: 44px;
-      padding: 9px 12px;
+      padding: 9px 11px;
       font-weight: bold;
       color: var(--ink);
     }
@@ -112,25 +117,29 @@
       border-color: #ffe4a0;
     }
 
+    .sound-button[aria-pressed="true"] {
+      background: #e5f7eb;
+      border-color: #b6e7c8;
+    }
+
     .hero {
       text-align: center;
-      padding: 26px 12px 24px;
+      padding: 26px 12px;
       background: #eeeaff;
-      border-radius: 28px;
+      border-radius: 27px;
       margin-bottom: 24px;
-      overflow: hidden;
     }
 
     .hero-characters {
-      font-size: clamp(35px, 8vw, 58px);
+      font-size: clamp(36px, 8vw, 58px);
       margin-bottom: 8px;
       letter-spacing: 3px;
     }
 
     .hero h2 {
-      font-size: clamp(26px, 6vw, 39px);
+      font-size: clamp(27px, 6vw, 39px);
       margin: 8px 0;
-      line-height: 1.15;
+      line-height: 1.2;
     }
 
     .hero p {
@@ -167,15 +176,14 @@
 
     .world-card {
       border: 2px solid transparent;
-      border-radius: 23px;
-      padding: 18px 15px;
-      min-width: 0;
+      border-radius: 22px;
+      padding: 17px 14px;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       text-align: left;
       color: var(--ink);
-      min-height: 195px;
+      min-height: 190px;
       transition: transform 0.15s ease;
     }
 
@@ -207,7 +215,7 @@
       background: #eee8ff;
       border-color: #ded4ff;
       grid-column: 1 / -1;
-      min-height: 155px;
+      min-height: 150px;
     }
 
     .world-icon {
@@ -216,7 +224,7 @@
     }
 
     .world-title {
-      font-size: 19px;
+      font-size: 18px;
       font-weight: bold;
       margin-bottom: 6px;
     }
@@ -225,13 +233,13 @@
       font-size: 13px;
       line-height: 1.5;
       color: #615f76;
-      margin-bottom: 15px;
+      margin-bottom: 14px;
     }
 
     .world-action {
       margin-top: auto;
       background: rgba(255,255,255,0.8);
-      padding: 9px 13px;
+      padding: 9px 12px;
       border-radius: 12px;
       font-weight: bold;
       font-size: 13px;
@@ -271,7 +279,7 @@
       padding: 10px 14px;
       color: var(--ink);
       font-weight: bold;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       min-height: 44px;
     }
 
@@ -299,7 +307,7 @@
       width: 0%;
       background: var(--green);
       border-radius: inherit;
-      transition: width 0.25s ease;
+      transition: width 0.3s ease;
     }
 
     .question-label {
@@ -313,23 +321,40 @@
 
     .question-title {
       font-size: clamp(23px, 5vw, 31px);
-      line-height: 1.3;
+      line-height: 1.35;
       margin: 0 auto 15px;
     }
 
+    .question-actions {
+      display: flex;
+      justify-content: center;
+      margin: 8px 0 12px;
+    }
+
+    .hear-button {
+      border: 2px solid #e8e1ff;
+      background: #f5f1ff;
+      color: #5b4ac6;
+      border-radius: 13px;
+      min-height: 44px;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
     .question-visual {
-      min-height: 105px;
+      min-height: 100px;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-wrap: wrap;
       gap: 7px;
-      margin: 15px 0 22px;
-      font-size: clamp(36px, 9vw, 58px);
+      margin: 18px 0;
+      font-size: clamp(38px, 9vw, 58px);
       line-height: 1.4;
     }
 
-    .question-visual .count-object {
+    .count-object {
       display: inline-block;
       animation: pop 0.25s ease;
     }
@@ -347,13 +372,13 @@
 
     .answer-button {
       min-width: 0;
-      min-height: 76px;
+      min-height: 78px;
       padding: 12px 6px;
       background: #f7f4ff;
       border: 2px solid #e9e2ff;
       border-radius: 17px;
       color: var(--ink);
-      font-size: 17px;
+      font-size: 16px;
       font-weight: bold;
       overflow-wrap: anywhere;
     }
@@ -366,15 +391,11 @@
 
     .answer-button .color-dot {
       display: block;
-      width: 28px;
-      height: 28px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       margin: 0 auto 6px;
-      border: 2px solid rgba(0,0,0,0.1);
-    }
-
-    .answer-button:disabled {
-      cursor: default;
+      border: 2px solid rgba(0,0,0,0.12);
     }
 
     .answer-button.correct {
@@ -388,11 +409,11 @@
     }
 
     .feedback {
-      min-height: 56px;
-      padding: 14px 8px 5px;
+      min-height: 58px;
+      padding: 13px 5px 5px;
       font-weight: bold;
-      font-size: 16px;
-      line-height: 1.5;
+      font-size: 15px;
+      line-height: 1.6;
     }
 
     .feedback.good {
@@ -418,13 +439,12 @@
     }
 
     .next-button:disabled {
-      cursor: not-allowed;
-      background: #cbc6e6;
-      color: #66617c;
+      background: #e6e2f3;
+      color: #77718f;
     }
 
     .completion-emoji {
-      font-size: clamp(58px, 15vw, 90px);
+      font-size: clamp(60px, 15vw, 90px);
       margin: 10px 0;
     }
 
@@ -442,9 +462,10 @@
 
     .reward-stars {
       color: #f3b629;
-      font-size: 37px;
-      letter-spacing: 5px;
+      font-size: clamp(24px, 6vw, 37px);
+      letter-spacing: 3px;
       margin: 12px 0;
+      overflow-wrap: anywhere;
     }
 
     .secondary-button {
@@ -477,7 +498,7 @@
 
       .world-card:nth-child(5) {
         grid-column: auto;
-        min-height: 195px;
+        min-height: 190px;
       }
     }
 
@@ -487,13 +508,13 @@
       }
 
       .brand-icon {
-        width: 40px;
-        height: 40px;
-        font-size: 23px;
+        width: 39px;
+        height: 39px;
+        font-size: 22px;
       }
 
       .brand p {
-        font-size: 11px;
+        font-size: 10px;
       }
 
       .star-counter,
@@ -503,19 +524,19 @@
       }
 
       .world-card {
-        padding: 14px 11px;
+        padding: 13px 10px;
       }
 
       .world-title {
-        font-size: 17px;
+        font-size: 16px;
       }
 
       .answer-grid {
-        gap: 7px;
+        gap: 6px;
       }
 
       .answer-button {
-        font-size: 15px;
+        font-size: 14px;
       }
     }
 
@@ -530,6 +551,7 @@
 
 <body>
   <div class="app">
+
     <header>
       <div class="brand">
         <div class="brand-icon" aria-hidden="true">🌈</div>
@@ -543,8 +565,13 @@
         <div class="star-counter" aria-label="Total stars">
           ⭐ <span id="totalStars">0</span>
         </div>
-        <button class="sound-button" id="soundButton" type="button"
-          aria-pressed="false" aria-label="Turn sound on">
+
+        <button
+          class="sound-button"
+          id="soundButton"
+          type="button"
+          aria-pressed="false"
+          aria-label="Turn sound on">
           🔇
         </button>
       </div>
@@ -553,13 +580,18 @@
     <main>
       <!-- HOME SCREEN -->
       <section id="homeScreen" class="screen active">
+
         <div class="hero">
-          <div class="hero-characters" aria-hidden="true">🐻 🌟 🐰</div>
+          <div class="hero-characters" aria-hidden="true">
+            🐻 🌟 🐰
+          </div>
+
           <h2>Let's Learn & Play!</h2>
+
           <p>
             Explore a happy little world full of letters, numbers,
-            colors, animals and first words. Every little step is a big
-            achievement!
+            colors, animals and first words. Every little step is a
+            big achievement!
           </p>
         </div>
 
@@ -578,11 +610,13 @@
 
       <!-- GAME SCREEN -->
       <section id="gameScreen" class="screen">
+
         <button class="back-button" id="backButton" type="button">
           ← All Worlds
         </button>
 
         <div class="game-panel">
+
           <div class="game-topline">
             <span id="worldLabel">Alphabet World</span>
             <span id="questionCount">Question 1 of 5</span>
@@ -590,22 +624,36 @@
 
           <div
             class="progress-track"
+            id="progressTrack"
             role="progressbar"
             aria-label="Activity progress"
             aria-valuemin="0"
             aria-valuemax="100"
-            aria-valuenow="0"
-            id="progressTrack">
+            aria-valuenow="0">
+
             <div class="progress-fill" id="progressFill"></div>
           </div>
 
           <p class="question-label">Little Learner Challenge</p>
+
           <h2 class="question-title" id="questionTitle">
             Let's get started!
           </h2>
 
-          <div class="question-visual" id="questionVisual"
-            aria-label="Question illustration"></div>
+          <div class="question-actions">
+            <button
+              class="hear-button"
+              id="hearQuestionButton"
+              type="button">
+              🔊 Hear Question Again
+            </button>
+          </div>
+
+          <div
+            class="question-visual"
+            id="questionVisual"
+            aria-label="Question illustration">
+          </div>
 
           <div class="answer-grid" id="answerGrid"></div>
 
@@ -613,7 +661,11 @@
             Choose the best answer!
           </div>
 
-          <button class="next-button" id="nextButton" type="button" disabled>
+          <button
+            class="next-button"
+            id="nextButton"
+            type="button"
+            disabled>
             Choose an Answer
           </button>
         </div>
@@ -622,15 +674,23 @@
       <!-- REWARD SCREEN -->
       <section id="rewardScreen" class="screen">
         <div class="game-panel">
+
           <div class="completion-emoji" aria-hidden="true">🎉</div>
+
           <h2 class="completion-title">Amazing Job!</h2>
+
           <p class="completion-text" id="completionText">
             You finished your learning adventure!
           </p>
-          <div class="reward-stars" id="rewardStars" aria-label="Stars earned">
+
+          <div class="reward-stars" id="rewardStars">
             ⭐ ⭐ ⭐
           </div>
-          <p><strong id="earnedText">You earned 0 stars!</strong></p>
+
+          <p>
+            <strong id="earnedText">You earned 0 stars!</strong>
+          </p>
+
           <p class="completion-text">
             Keep exploring and learning something new every day.
             You are doing great!
@@ -639,6 +699,7 @@
           <button class="primary-button" id="replayButton" type="button">
             🔄 Play Again
           </button>
+
           <button class="secondary-button" id="homeButton" type="button">
             🏠 Back to All Worlds
           </button>
@@ -647,16 +708,16 @@
     </main>
 
     <footer>
-      Preschool Learning World · TheIz © 2026
+      Preschool Learning World · TheIz
     </footer>
   </div>
 
   <script>
     "use strict";
 
-    // -----------------------------
-    // LEARNING WORLD CONTENT
-    // -----------------------------
+    // =============================================
+    // LEARNING CONTENT
+    // =============================================
 
     const worlds = [
       {
@@ -664,15 +725,14 @@
         title: "Alphabet World",
         icon: "🔤",
         description: "Discover letters and the words they begin.",
-        color: "#ffe8ef",
         questions: [
           {
             prompt: "Which letter does Apple begin with?",
             visual: "🍎",
             options: [
-              { label: "A", icon: "🅰️" },
-              { label: "B", icon: "🅱️" },
-              { label: "C", icon: "©️" }
+              { label: "A", icon: "🔤" },
+              { label: "B", icon: "🔤" },
+              { label: "C", icon: "🔤" }
             ],
             answer: "A",
             fact: "A is for Apple!"
@@ -729,7 +789,6 @@
         title: "Number World",
         icon: "🔢",
         description: "Count cute objects and practise numbers.",
-        color: "#fff0c9",
         questions: [
           {
             prompt: "How many apples can you count?",
@@ -741,7 +800,7 @@
               { label: "3" }
             ],
             answer: "2",
-            fact: "Great counting! There are 2 apples."
+            fact: "Wonderful! There are two apples."
           },
           {
             prompt: "How many stars can you count?",
@@ -753,7 +812,7 @@
               { label: "4" }
             ],
             answer: "4",
-            fact: "Wonderful! You counted 4 stars."
+            fact: "You counted four stars!"
           },
           {
             prompt: "How many ducks can you count?",
@@ -765,7 +824,7 @@
               { label: "5" }
             ],
             answer: "3",
-            fact: "Quack, quack! There are 3 ducks."
+            fact: "Quack, quack! There are three ducks."
           },
           {
             prompt: "How many balloons can you count?",
@@ -777,7 +836,7 @@
               { label: "6" }
             ],
             answer: "5",
-            fact: "Fantastic! You counted 5 balloons."
+            fact: "Fantastic! You counted five balloons."
           },
           {
             prompt: "How many butterflies can you count?",
@@ -799,7 +858,6 @@
         title: "Color World",
         icon: "🎨",
         description: "Explore colors through fun challenges.",
-        color: "#e1f5e9",
         questions: [
           {
             prompt: "Which color is a banana?",
@@ -813,7 +871,7 @@
             fact: "A banana is yellow!"
           },
           {
-            prompt: "Which color is the sky on a clear day?",
+            prompt: "What color is the sky on a clear day?",
             visual: "☀️ ☁️",
             options: [
               { label: "Blue", color: "#54a8f5" },
@@ -835,7 +893,7 @@
             fact: "A ripe strawberry is usually red!"
           },
           {
-            prompt: "Which color are many leaves?",
+            prompt: "What color are many leaves?",
             visual: "🍃",
             options: [
               { label: "Green", color: "#50b978" },
@@ -864,10 +922,9 @@
         title: "Animal World",
         icon: "🐻",
         description: "Meet animals and learn fun facts.",
-        color: "#dff1ff",
         questions: [
           {
-            prompt: "Which animal says 'meow'?",
+            prompt: "Which animal says meow?",
             visual: "🐾",
             options: [
               { label: "Dog", icon: "🐶" },
@@ -875,10 +932,10 @@
               { label: "Duck", icon: "🦆" }
             ],
             answer: "Cat",
-            fact: "Cats often say 'meow'!"
+            fact: "Cats often say meow!"
           },
           {
-            prompt: "Which animal gives us wool?",
+            prompt: "Which animal grows wool?",
             visual: "🌿",
             options: [
               { label: "Sheep", icon: "🐑" },
@@ -889,7 +946,7 @@
             fact: "Sheep grow wool on their bodies!"
           },
           {
-            prompt: "Which animal has a very long trunk?",
+            prompt: "Which animal has a long trunk?",
             visual: "🌳",
             options: [
               { label: "Rabbit", icon: "🐰" },
@@ -897,10 +954,10 @@
               { label: "Penguin", icon: "🐧" }
             ],
             answer: "Elephant",
-            fact: "An elephant uses its trunk to smell, breathe and grab things!"
+            fact: "An elephant uses its trunk to smell and pick things up!"
           },
           {
-            prompt: "Which animal can hop and has long ears?",
+            prompt: "Which animal hops and has long ears?",
             visual: "🥕",
             options: [
               { label: "Rabbit", icon: "🐰" },
@@ -911,7 +968,7 @@
             fact: "Rabbits have powerful back legs for hopping!"
           },
           {
-            prompt: "Which animal lives in water and has fins?",
+            prompt: "Which animal has fins and lives in water?",
             visual: "🌊",
             options: [
               { label: "Chicken", icon: "🐔" },
@@ -919,7 +976,7 @@
               { label: "Horse", icon: "🐴" }
             ],
             answer: "Fish",
-            fact: "Fish use their fins to help them move through water!"
+            fact: "Fish use their fins to move through water!"
           }
         ]
       },
@@ -929,7 +986,6 @@
         title: "Word World",
         icon: "🧩",
         description: "Match simple English words to pictures.",
-        color: "#eee8ff",
         questions: [
           {
             prompt: "Which word matches this picture?",
@@ -990,9 +1046,9 @@
       }
     ];
 
-    // -----------------------------
-    // GAME STATE
-    // -----------------------------
+    // =============================================
+    // ELEMENTS AND GAME STATE
+    // =============================================
 
     const homeScreen = document.getElementById("homeScreen");
     const gameScreen = document.getElementById("gameScreen");
@@ -1011,38 +1067,352 @@
     const nextButton = document.getElementById("nextButton");
     const progressFill = document.getElementById("progressFill");
     const progressTrack = document.getElementById("progressTrack");
+    const hearQuestionButton = document.getElementById("hearQuestionButton");
 
     let currentWorld = null;
     let currentIndex = 0;
     let activityStars = 0;
     let answered = false;
     let soundEnabled = false;
+    let questionSpeechTimer = null;
 
     let totalStars = 0;
 
     try {
-      const savedStars = Number(localStorage.getItem("theizPreschoolStars"));
+      const savedStars = Number(
+        localStorage.getItem("theizPreschoolStars")
+      );
+
       if (Number.isFinite(savedStars) && savedStars >= 0) {
         totalStars = Math.floor(savedStars);
       }
     } catch (error) {
-      // The game still works if local storage is unavailable.
+      // The game still works when local storage is unavailable.
     }
 
     updateStarCounter();
 
-    // -----------------------------
+    // =============================================
+    // SPEECH: PREFER A FEMININE ENGLISH VOICE
+    // =============================================
+
+    const speechSupported =
+      "speechSynthesis" in window &&
+      "SpeechSynthesisUtterance" in window;
+
+    let cachedVoices = [];
+
+    function refreshVoices() {
+      if (!speechSupported) {
+        return;
+      }
+
+      cachedVoices = window.speechSynthesis.getVoices();
+    }
+
+    if (speechSupported) {
+      refreshVoices();
+
+      window.speechSynthesis.addEventListener(
+        "voiceschanged",
+        refreshVoices
+      );
+    }
+
+    function chooseEnglishVoice() {
+      refreshVoices();
+
+      const englishVoices = cachedVoices.filter(voice =>
+        /^en([-_]|$)/i.test(voice.lang)
+      );
+
+      // Voice names differ between phones and browsers.
+      // These names are suggestions, not a guarantee of gender.
+      const feminineNamePattern =
+        /samantha|ava|allison|karen|serena|victoria|tessa|moira|jenny|aria|zira|susan|hazel|libby|sonia|female/i;
+
+      return (
+        englishVoices.find(voice =>
+          feminineNamePattern.test(voice.name)
+        ) ||
+        englishVoices.find(voice =>
+          /google us english/i.test(voice.name)
+        ) ||
+        englishVoices.find(voice =>
+          /^en[-_]us/i.test(voice.lang) && voice.default
+        ) ||
+        englishVoices.find(voice => voice.default) ||
+        englishVoices[0] ||
+        null
+      );
+    }
+
+    function speak(text) {
+      if (!soundEnabled || !speechSupported || !text) {
+        return;
+      }
+
+      const synth = window.speechSynthesis;
+      synth.cancel();
+
+      const message = new SpeechSynthesisUtterance(text);
+      const chosenVoice = chooseEnglishVoice();
+
+      message.lang = chosenVoice ? chosenVoice.lang : "en-US";
+
+      if (chosenVoice) {
+        message.voice = chosenVoice;
+      }
+
+      // Child-friendly pace and a slightly brighter pitch.
+      message.rate = 0.86;
+      message.pitch = 1.22;
+      message.volume = 1;
+
+      synth.speak(message);
+    }
+
+    function scheduleQuestionSpeech() {
+      clearTimeout(questionSpeechTimer);
+
+      questionSpeechTimer = setTimeout(() => {
+        if (
+          soundEnabled &&
+          currentWorld &&
+          gameScreen.classList.contains("active")
+        ) {
+          speakQuestion();
+        }
+      }, 350);
+    }
+
+    function speakQuestion() {
+      if (!soundEnabled || !currentWorld) {
+        return;
+      }
+
+      const question = currentWorld.questions[currentIndex];
+
+      if (question) {
+        speak(question.prompt);
+      }
+    }
+
+    // =============================================
+    // AUDIO ENGINE: NO EXTRA SOUND FILES REQUIRED
+    // =============================================
+
+    let audioContext = null;
+    let musicTimer = null;
+    let musicStep = 0;
+
+    function getAudioContext() {
+      if (audioContext) {
+        if (audioContext.state === "suspended") {
+          audioContext.resume().catch(() => {});
+        }
+
+        return audioContext;
+      }
+
+      const AudioContextClass =
+        window.AudioContext || window.webkitAudioContext;
+
+      if (!AudioContextClass) {
+        return null;
+      }
+
+      try {
+        audioContext = new AudioContextClass();
+
+        if (audioContext.state === "suspended") {
+          audioContext.resume().catch(() => {});
+        }
+
+        return audioContext;
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function playTone(
+      frequency,
+      duration = 0.2,
+      volume = 0.05,
+      wave = "sine",
+      delay = 0
+    ) {
+      const context = getAudioContext();
+
+      if (!context || !soundEnabled) {
+        return;
+      }
+
+      try {
+        const oscillator = context.createOscillator();
+        const gain = context.createGain();
+
+        const startTime = context.currentTime + delay;
+        const endTime = startTime + duration;
+
+        oscillator.type = wave;
+        oscillator.frequency.setValueAtTime(
+          frequency,
+          startTime
+        );
+
+        gain.gain.setValueAtTime(0.0001, startTime);
+        gain.gain.exponentialRampToValueAtTime(
+          Math.max(volume, 0.0002),
+          startTime + Math.min(0.035, duration / 3)
+        );
+        gain.gain.exponentialRampToValueAtTime(
+          0.0001,
+          endTime
+        );
+
+        oscillator.connect(gain);
+        gain.connect(context.destination);
+
+        oscillator.start(startTime);
+        oscillator.stop(endTime + 0.025);
+      } catch (error) {
+        // Sound is optional; learning activities still work.
+      }
+    }
+
+    // Soft, short ascending chimes for a correct answer.
+    function playCorrectSound() {
+      if (!soundEnabled) {
+        return;
+      }
+
+      playTone(659.25, 0.22, 0.065, "sine", 0);
+      playTone(783.99, 0.25, 0.065, "sine", 0.11);
+      playTone(1046.5, 0.32, 0.07, "sine", 0.22);
+    }
+
+    // Gentle descending tones: a retry cue, not a harsh buzzer.
+    function playWrongSound() {
+      if (!soundEnabled) {
+        return;
+      }
+
+      playTone(392.00, 0.16, 0.035, "sine", 0);
+      playTone(329.63, 0.20, 0.035, "sine", 0.14);
+    }
+
+    // A subtle synthesized melody for background ambience.
+    // Music starts only after the user turns sound on.
+    function playMusicStep() {
+      if (!soundEnabled || !audioContext) {
+        return;
+      }
+
+      const melody = [
+        523.25, 659.25, 783.99, 659.25,
+        587.33, 698.46, 880.00, 698.46
+      ];
+
+      const chords = [
+        [261.63, 329.63, 392.00],
+        [220.00, 261.63, 329.63],
+        [174.61, 220.00, 261.63],
+        [196.00, 246.94, 293.66]
+      ];
+
+      const note = melody[musicStep % melody.length];
+
+      // Quiet melody notes.
+      playTone(note, 0.48, 0.009, "sine", 0);
+
+      // Very quiet sustained chord tones every four beats.
+      if (musicStep % 4 === 0) {
+        const chordIndex =
+          Math.floor(musicStep / 4) % chords.length;
+
+        chords[chordIndex].forEach(frequency => {
+          playTone(frequency, 2.5, 0.0022, "sine", 0);
+        });
+      }
+
+      musicStep++;
+    }
+
+    function startMusic() {
+      if (!soundEnabled || musicTimer !== null) {
+        return;
+      }
+
+      if (!getAudioContext()) {
+        return;
+      }
+
+      musicStep = 0;
+      playMusicStep();
+
+      // A slow melody with plenty of space between notes.
+      musicTimer = window.setInterval(playMusicStep, 720);
+    }
+
+    function stopMusic() {
+      if (musicTimer !== null) {
+        clearInterval(musicTimer);
+        musicTimer = null;
+      }
+    }
+
+    function turnSoundOn() {
+      soundEnabled = true;
+
+      getAudioContext();
+      startMusic();
+
+      soundButton.textContent = "🔊";
+      soundButton.setAttribute("aria-pressed", "true");
+      soundButton.setAttribute("aria-label", "Turn sound off");
+
+      speak("Hello, little learner! Let's learn and play!");
+    }
+
+    function turnSoundOff() {
+      soundEnabled = false;
+
+      stopMusic();
+
+      if (speechSupported) {
+        window.speechSynthesis.cancel();
+      }
+
+      soundButton.textContent = "🔇";
+      soundButton.setAttribute("aria-pressed", "false");
+      soundButton.setAttribute("aria-label", "Turn sound on");
+    }
+
+    soundButton.addEventListener("click", () => {
+      if (soundEnabled) {
+        turnSoundOff();
+      } else {
+        turnSoundOn();
+      }
+    });
+
+    // =============================================
     // HOME SCREEN
-    // -----------------------------
+    // =============================================
 
     function buildWorldCards() {
       worldGrid.innerHTML = "";
 
-      worlds.forEach((world) => {
+      worlds.forEach(world => {
         const button = document.createElement("button");
+
         button.type = "button";
         button.className = "world-card";
-        button.setAttribute("aria-label", "Play " + world.title);
+        button.setAttribute(
+          "aria-label",
+          "Play " + world.title
+        );
 
         const icon = document.createElement("span");
         icon.className = "world-icon";
@@ -1060,37 +1430,57 @@
         action.className = "world-action";
         action.textContent = "Let's Play! →";
 
-        button.append(icon, title, description, action);
-        button.addEventListener("click", () => startWorld(world.id));
+        button.append(
+          icon,
+          title,
+          description,
+          action
+        );
+
+        button.addEventListener("click", () => {
+          startWorld(world.id);
+        });
+
         worldGrid.appendChild(button);
       });
     }
 
     function showScreen(screen) {
-      [homeScreen, gameScreen, rewardScreen].forEach((item) => {
+      [homeScreen, gameScreen, rewardScreen].forEach(item => {
         item.classList.remove("active");
       });
 
       screen.classList.add("active");
-      window.scrollTo({ top: 0, behavior: "auto" });
+
+      window.scrollTo({
+        top: 0,
+        behavior: "auto"
+      });
     }
 
-    // -----------------------------
-    // START AND RENDER ACTIVITY
-    // -----------------------------
+    // =============================================
+    // START AND DISPLAY A WORLD
+    // =============================================
 
     function startWorld(worldId) {
-      currentWorld = worlds.find((world) => world.id === worldId);
+      const selectedWorld = worlds.find(
+        world => world.id === worldId
+      );
 
-      if (!currentWorld) {
+      if (!selectedWorld) {
         return;
       }
 
+      clearTimeout(questionSpeechTimer);
+
+      currentWorld = selectedWorld;
       currentIndex = 0;
       activityStars = 0;
       answered = false;
 
-      worldLabel.textContent = currentWorld.icon + " " + currentWorld.title;
+      worldLabel.textContent =
+        currentWorld.icon + " " + currentWorld.title;
+
       showScreen(gameScreen);
       renderQuestion();
     }
@@ -1103,6 +1493,7 @@
         return;
       }
 
+      clearTimeout(questionSpeechTimer);
       answered = false;
 
       questionCount.textContent =
@@ -1111,21 +1502,31 @@
 
       questionTitle.textContent = question.prompt;
 
-      const progress = Math.round(
+      const completedProgress = Math.round(
         (currentIndex / currentWorld.questions.length) * 100
       );
 
-      progressFill.style.width = progress + "%";
-      progressTrack.setAttribute("aria-valuenow", String(progress));
+      progressFill.style.width = completedProgress + "%";
+
+      progressTrack.setAttribute(
+        "aria-valuenow",
+        String(completedProgress)
+      );
 
       renderVisual(question);
       renderAnswers(question);
 
-      feedback.textContent = "Choose the best answer!";
+      feedback.textContent = soundEnabled
+        ? "Listen and choose the best answer!"
+        : "Choose the best answer!";
+
       feedback.className = "feedback";
 
       nextButton.disabled = true;
       nextButton.textContent = "Choose an Answer";
+
+      // Automatically speak the question when sound is on.
+      scheduleQuestionSpeech();
     }
 
     function renderVisual(question) {
@@ -1134,13 +1535,19 @@
       if (question.count && question.visual) {
         for (let i = 0; i < question.count; i++) {
           const object = document.createElement("span");
+
           object.className = "count-object";
           object.textContent = question.visual;
+          object.setAttribute("aria-hidden", "true");
+
           questionVisual.appendChild(object);
         }
       } else {
         const visual = document.createElement("span");
+
         visual.textContent = question.visual || "🌟";
+        visual.setAttribute("aria-hidden", "true");
+
         questionVisual.appendChild(visual);
       }
     }
@@ -1148,27 +1555,33 @@
     function renderAnswers(question) {
       answerGrid.innerHTML = "";
 
-      question.options.forEach((option) => {
+      question.options.forEach(option => {
         const button = document.createElement("button");
+
         button.type = "button";
         button.className = "answer-button";
 
         if (option.color) {
           const dot = document.createElement("span");
+
           dot.className = "color-dot";
           dot.style.backgroundColor = option.color;
           dot.setAttribute("aria-hidden", "true");
+
           button.appendChild(dot);
         } else if (option.icon) {
           const icon = document.createElement("span");
+
           icon.className = "option-icon";
           icon.textContent = option.icon;
           icon.setAttribute("aria-hidden", "true");
+
           button.appendChild(icon);
         }
 
         const label = document.createElement("span");
         label.textContent = option.label;
+
         button.appendChild(label);
 
         button.addEventListener("click", () => {
@@ -1179,9 +1592,9 @@
       });
     }
 
-    // -----------------------------
-    // ANSWERS AND REWARDS
-    // -----------------------------
+    // =============================================
+    // ANSWER FEEDBACK
+    // =============================================
 
     function chooseAnswer(selected, selectedButton) {
       if (answered) {
@@ -1192,22 +1605,23 @@
 
       if (selected === question.answer) {
         answered = true;
-        activityStars += 1;
-        totalStars += 1;
+        activityStars++;
+        totalStars++;
 
         saveStars();
         updateStarCounter();
 
-        selectedButton.classList.add("correct");
-
-        answerGrid.querySelectorAll("button").forEach((button) => {
+        answerGrid.querySelectorAll("button").forEach(button => {
           button.disabled = true;
 
           const label = button.querySelector("span:last-child");
+
           if (label && label.textContent === question.answer) {
             button.classList.add("correct");
           }
         });
+
+        selectedButton.classList.add("correct");
 
         feedback.textContent = "⭐ Correct! " + question.fact;
         feedback.className = "feedback good";
@@ -1220,22 +1634,46 @@
           nextButton.textContent = "Next Question →";
         }
 
-        speak("Great job! " + question.fact);
+        // Play the reward chime first, then speak the praise.
+        playCorrectSound();
+
+        const praise = "Great job! " + question.fact;
+
+        window.setTimeout(() => {
+          if (soundEnabled && gameScreen.classList.contains("active")) {
+            speak(praise);
+          }
+        }, 250);
+
       } else {
         selectedButton.classList.add("incorrect");
-        feedback.textContent = "Almost! Try again. You can do it! 💛";
+
+        feedback.textContent =
+          "Almost! Try again. You can do it! 💛";
+
         feedback.className = "feedback try-again";
 
-        speak("Try again. You can do it!");
+        playWrongSound();
+
+        window.setTimeout(() => {
+          if (soundEnabled && gameScreen.classList.contains("active")) {
+            speak("Oops! Not quite. Try again. You can do it!");
+          }
+        }, 220);
       }
     }
+
+    // =============================================
+    // NEXT QUESTION AND REWARD
+    // =============================================
 
     function nextQuestion() {
       if (!answered) {
         return;
       }
 
-      currentIndex += 1;
+      clearTimeout(questionSpeechTimer);
+      currentIndex++;
 
       if (currentIndex >= currentWorld.questions.length) {
         finishWorld();
@@ -1245,35 +1683,49 @@
     }
 
     function finishWorld() {
+      clearTimeout(questionSpeechTimer);
       showScreen(rewardScreen);
 
       progressFill.style.width = "100%";
+
       progressTrack.setAttribute("aria-valuenow", "100");
 
       document.getElementById("completionText").textContent =
         "You completed " + currentWorld.title +
-        "! You answered " + activityStars +
-        " out of " + currentWorld.questions.length +
-        " questions correctly on your first try.";
+        " and answered all " +
+        currentWorld.questions.length +
+        " questions! Keep up the great work!";
 
       document.getElementById("earnedText").textContent =
         "You earned " + activityStars +
         (activityStars === 1 ? " star!" : " stars!");
 
-      const starsDisplay = document.getElementById("rewardStars");
-      starsDisplay.textContent =
-        activityStars > 0
-          ? Array(activityStars).fill("⭐").join(" ")
-          : "🌱 Keep practising!";
+      const starsDisplay =
+        document.getElementById("rewardStars");
 
-      speak("Amazing job! You finished " + currentWorld.title + "!");
+      starsDisplay.textContent = activityStars > 0
+        ? Array(activityStars).fill("⭐").join(" ")
+        : "🌱 Keep practising!";
+
+      if (soundEnabled) {
+        playCorrectSound();
+
+        window.setTimeout(() => {
+          if (soundEnabled && rewardScreen.classList.contains("active")) {
+            speak("Amazing job! You finished " + currentWorld.title + "!");
+          }
+        }, 250);
+      }
     }
 
     function saveStars() {
       try {
-        localStorage.setItem("theizPreschoolStars", String(totalStars));
+        localStorage.setItem(
+          "theizPreschoolStars",
+          String(totalStars)
+        );
       } catch (error) {
-        // Scoring still works for the current session.
+        // Scores still work during the current session.
       }
     }
 
@@ -1281,63 +1733,64 @@
       totalStarsDisplay.textContent = String(totalStars);
     }
 
-    // -----------------------------
-    // OPTIONAL SPEECH
-    // -----------------------------
+    // =============================================
+    // REPEAT QUESTION BUTTON
+    // =============================================
 
-    function speak(text) {
-      if (!soundEnabled || !("speechSynthesis" in window)) {
+    hearQuestionButton.addEventListener("click", () => {
+      if (!soundEnabled) {
+        feedback.textContent =
+          "Tap the 🔇 button above to turn sound on first!";
+
+        feedback.className = "feedback";
         return;
       }
 
-      window.speechSynthesis.cancel();
-
-      const message = new SpeechSynthesisUtterance(text);
-      message.lang = "en-US";
-      message.rate = 0.85;
-      message.pitch = 1.1;
-
-      window.speechSynthesis.speak(message);
-    }
-
-    soundButton.addEventListener("click", () => {
-      soundEnabled = !soundEnabled;
-
-      soundButton.textContent = soundEnabled ? "🔊" : "🔇";
-      soundButton.setAttribute("aria-pressed", String(soundEnabled));
-      soundButton.setAttribute(
-        "aria-label",
-        soundEnabled ? "Turn sound off" : "Turn sound on"
-      );
-
-      if (!soundEnabled && "speechSynthesis" in window) {
-        window.speechSynthesis.cancel();
-      } else if (soundEnabled) {
-        speak("Hello, little learner!");
-      }
+      speakQuestion();
     });
 
-    // -----------------------------
+    // =============================================
     // NAVIGATION
-    // -----------------------------
+    // =============================================
 
     backButton.addEventListener("click", () => {
+      clearTimeout(questionSpeechTimer);
+
+      if (speechSupported) {
+        window.speechSynthesis.cancel();
+      }
+
       showScreen(homeScreen);
     });
 
     nextButton.addEventListener("click", nextQuestion);
 
-    document.getElementById("replayButton").addEventListener("click", () => {
-      if (currentWorld) {
-        startWorld(currentWorld.id);
+    document.getElementById("replayButton").addEventListener(
+      "click",
+      () => {
+        if (currentWorld) {
+          startWorld(currentWorld.id);
+        }
       }
-    });
+    );
 
-    document.getElementById("homeButton").addEventListener("click", () => {
-      showScreen(homeScreen);
-    });
+    document.getElementById("homeButton").addEventListener(
+      "click",
+      () => {
+        clearTimeout(questionSpeechTimer);
 
-    // Start the game.
+        if (speechSupported) {
+          window.speechSynthesis.cancel();
+        }
+
+        showScreen(homeScreen);
+      }
+    );
+
+    // =============================================
+    // INITIALISE GAME
+    // =============================================
+
     buildWorldCards();
   </script>
 </body>
