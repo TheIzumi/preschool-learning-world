@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#fff8ed">
-<meta name="description" content="Preschool Learning World by TheIz. Learn letters, numbers, colors, animals and first words through play.">
+<meta name="description" content="Preschool Learning World by TheIz — learn English through play.">
 <title>Preschool Learning World | TheIz</title>
 
 <style>
@@ -17,7 +17,6 @@
   --yellow: #ffce65;
   --green: #7bc9a5;
   --blue: #87c8f4;
-  --white: #ffffff;
   --border: #eee8f5;
 }
 
@@ -45,7 +44,7 @@ button:focus-visible {
 }
 
 button:disabled {
-  opacity: 0.55;
+  opacity: .55;
   cursor: not-allowed;
 }
 
@@ -58,8 +57,8 @@ button:disabled {
 
 header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   gap: 10px;
   margin-bottom: 22px;
 }
@@ -72,11 +71,11 @@ header {
 }
 
 .brand-icon {
+  display: grid;
+  place-items: center;
   width: 46px;
   height: 46px;
   flex-shrink: 0;
-  display: grid;
-  place-items: center;
   background: #eeeaff;
   border-radius: 15px;
   font-size: 27px;
@@ -90,14 +89,14 @@ header {
 
 .brand p {
   margin: 4px 0 0;
-  font-size: 12px;
   color: var(--muted);
+  font-size: 12px;
 }
 
 .header-actions {
   display: flex;
-  gap: 7px;
   align-items: center;
+  gap: 7px;
   flex-shrink: 0;
 }
 
@@ -105,10 +104,10 @@ header {
 .sound-button {
   min-height: 44px;
   padding: 9px 11px;
+  background: #fff;
+  color: var(--ink);
   border: 2px solid var(--border);
   border-radius: 14px;
-  background: white;
-  color: var(--ink);
   font-weight: bold;
 }
 
@@ -133,9 +132,9 @@ header {
 .hero {
   padding: 27px 15px;
   margin-bottom: 24px;
-  text-align: center;
   background: #eeeaff;
   border-radius: 27px;
+  text-align: center;
 }
 
 .hero-characters {
@@ -189,8 +188,8 @@ header {
   min-width: 0;
   min-height: 190px;
   padding: 17px 14px;
-  text-align: left;
   color: var(--ink);
+  text-align: left;
   border: 2px solid transparent;
   border-radius: 22px;
   transition: transform .15s ease;
@@ -266,13 +265,11 @@ footer {
   padding-top: 26px;
 }
 
-/* Common panels and navigation */
-
 .panel {
   max-width: 680px;
   margin: 0 auto;
   padding: clamp(16px, 5vw, 30px);
-  background: white;
+  background: #fff;
   border: 2px solid var(--border);
   border-radius: 27px;
   text-align: center;
@@ -282,7 +279,7 @@ footer {
   min-height: 44px;
   margin-bottom: 18px;
   padding: 10px 14px;
-  background: white;
+  background: #fff;
   color: var(--ink);
   border: 2px solid var(--border);
   border-radius: 13px;
@@ -306,8 +303,8 @@ footer {
 }
 
 .world-menu-hero p {
-  margin: 8px auto;
   max-width: 430px;
+  margin: 8px auto;
   color: var(--muted);
   line-height: 1.6;
 }
@@ -317,19 +314,18 @@ footer {
   min-height: 95px;
   margin-top: 12px;
   padding: 16px;
+  color: var(--ink);
+  text-align: left;
   border: 2px solid var(--border);
   border-radius: 19px;
-  text-align: left;
-  background: #fffaf3;
-  color: var(--ink);
 }
 
-.mode-card.learn-mode {
+.learn-mode {
   background: #e7f7ed;
   border-color: #c9ecd6;
 }
 
-.mode-card.quiz-mode {
+.quiz-mode {
   background: #eeeaff;
   border-color: #dcd4ff;
 }
@@ -341,25 +337,9 @@ footer {
 }
 
 .mode-card span {
+  color: #625e80;
   font-size: 13px;
   line-height: 1.5;
-  color: #625e80;
-}
-
-/* Learning cards */
-
-.learning-panel {
-  overflow: hidden;
-}
-
-.learning-kicker,
-.question-label {
-  margin: 0 0 10px;
-  color: var(--purple);
-  font-size: 12px;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 1.4px;
 }
 
 .topline {
@@ -389,20 +369,31 @@ footer {
   transition: width .25s ease;
 }
 
-.learn-visual {
+.learning-kicker,
+.question-label {
+  margin: 0 0 10px;
+  color: var(--purple);
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+}
+
+.learn-visual,
+.question-visual {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  gap: 6px;
-  min-height: 120px;
-  margin: 15px 0;
+  gap: 7px;
+  min-height: 110px;
+  margin: 18px 0;
   font-size: clamp(38px, 9vw, 58px);
   line-height: 1.4;
 }
 
 .learn-visual.number-visual {
-  font-size: clamp(31px, 7vw, 43px);
+  font-size: clamp(30px, 7vw, 43px);
 }
 
 .learn-letter {
@@ -431,7 +422,6 @@ footer {
 
 .learn-sub {
   margin: 8px 0;
-  color: #69647e;
   font-size: 17px;
   font-weight: bold;
 }
@@ -447,8 +437,8 @@ footer {
 
 .color-swatch {
   display: inline-block;
-  width: 24px;
-  height: 24px;
+  width: 25px;
+  height: 25px;
   margin-left: 7px;
   vertical-align: middle;
   border: 2px solid rgba(0,0,0,.12);
@@ -483,7 +473,7 @@ footer {
 }
 
 .secondary-button {
-  background: white;
+  background: #fff;
   color: var(--ink);
   border: 2px solid var(--border);
 }
@@ -491,7 +481,7 @@ footer {
 .primary-button,
 .next-button {
   background: var(--purple);
-  color: white;
+  color: #fff;
   border: 0;
 }
 
@@ -506,40 +496,16 @@ footer {
   margin-top: 11px;
   padding: 10px;
   background: transparent;
-  border: 0;
   color: #6d62c9;
+  border: 0;
   font-size: 13px;
   font-weight: bold;
 }
-
-/* Quiz */
 
 .question-title {
   margin: 0 auto 12px;
   font-size: clamp(23px, 5vw, 31px);
   line-height: 1.35;
-}
-
-.question-visual {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 6px;
-  min-height: 105px;
-  margin: 16px 0;
-  font-size: clamp(37px, 9vw, 56px);
-  line-height: 1.4;
-}
-
-.count-object {
-  display: inline-block;
-  animation: pop .22s ease;
-}
-
-@keyframes pop {
-  from { transform: scale(.7); }
-  to { transform: scale(1); }
 }
 
 .question-actions {
@@ -560,9 +526,9 @@ footer {
   padding: 12px 6px;
   overflow-wrap: anywhere;
   background: #f7f4ff;
+  color: var(--ink);
   border: 2px solid #e9e2ff;
   border-radius: 17px;
-  color: var(--ink);
   font-size: 16px;
   font-weight: bold;
 }
@@ -618,8 +584,6 @@ footer {
   background: #e6e2f3;
   color: #77718f;
 }
-
-/* Rewards */
 
 .completion-emoji {
   margin: 10px 0;
@@ -723,6 +687,7 @@ footer {
     <div class="star-counter" aria-label="Total stars">
       ⭐ <span id="totalStars">0</span>
     </div>
+
     <button
       class="sound-button"
       id="soundButton"
@@ -734,7 +699,6 @@ footer {
 
 <main>
 
-<!-- HOME -->
 <section id="homeScreen" class="screen active">
   <div class="hero">
     <div class="hero-characters" aria-hidden="true">🐻 🌟 🐰</div>
@@ -759,7 +723,6 @@ footer {
   </div>
 </section>
 
-<!-- CHOOSE LEARNING OR QUIZ -->
 <section id="worldMenuScreen" class="screen">
   <button class="back-button" id="worldMenuBack" type="button">
     ← All Worlds
@@ -792,35 +755,26 @@ footer {
   </div>
 </section>
 
-<!-- LEARNING MODE -->
 <section id="learnScreen" class="screen">
   <button class="back-button" id="learnBackButton" type="button">
     ← Learning Menu
   </button>
 
-  <div class="panel learning-panel">
+  <div class="panel">
     <div class="topline">
       <span id="learnWorldLabel">Alphabet World</span>
       <span id="learnCount">Card 1 of 26</span>
     </div>
 
-    <div
-      class="progress-track"
-      role="progressbar"
-      id="learnProgressTrack"
-      aria-label="Learning progress"
-      aria-valuemin="0"
-      aria-valuemax="100"
-      aria-valuenow="0">
+    <div class="progress-track" id="learnProgressTrack"
+      role="progressbar" aria-label="Learning progress"
+      aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
       <div class="progress-fill" id="learnProgressFill"></div>
     </div>
 
     <p class="learning-kicker" id="learnKicker">MEET THE LETTER</p>
 
-    <div
-      class="learn-visual"
-      id="learnVisual"
-      aria-label="Learning illustration"></div>
+    <div class="learn-visual" id="learnVisual"></div>
 
     <h2 class="learn-main" id="learnMain">A a</h2>
     <p class="learn-sub" id="learnSub">Apple</p>
@@ -845,7 +799,6 @@ footer {
   </div>
 </section>
 
-<!-- QUIZ -->
 <section id="quizScreen" class="screen">
   <button class="back-button" id="quizBackButton" type="button">
     ← Learning Menu
@@ -857,21 +810,14 @@ footer {
       <span id="questionCount">Question 1 of 10</span>
     </div>
 
-    <div
-      class="progress-track"
-      id="quizProgressTrack"
-      role="progressbar"
-      aria-label="Quiz progress"
-      aria-valuemin="0"
-      aria-valuemax="100"
-      aria-valuenow="0">
+    <div class="progress-track" id="quizProgressTrack"
+      role="progressbar" aria-label="Quiz progress"
+      aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
       <div class="progress-fill" id="quizProgressFill"></div>
     </div>
 
     <p class="question-label">Little Learner Challenge</p>
-    <h2 class="question-title" id="questionTitle">
-      Let's get started!
-    </h2>
+    <h2 class="question-title" id="questionTitle">Let's get started!</h2>
 
     <div class="question-actions">
       <button class="hear-button" id="hearQuestionButton" type="button">
@@ -879,11 +825,7 @@ footer {
       </button>
     </div>
 
-    <div
-      class="question-visual"
-      id="questionVisual"
-      aria-label="Question illustration"></div>
-
+    <div class="question-visual" id="questionVisual"></div>
     <div class="answer-grid" id="answerGrid"></div>
 
     <div class="feedback" id="feedback" aria-live="polite">
@@ -896,7 +838,6 @@ footer {
   </div>
 </section>
 
-<!-- REWARDS -->
 <section id="rewardScreen" class="screen">
   <div class="panel">
     <div class="completion-emoji" aria-hidden="true">🎉</div>
@@ -936,9 +877,9 @@ footer {
 <script>
 "use strict";
 
-/* ===================================================
-   CONTENT: ALL LEARNING MATERIAL
-=================================================== */
+/* ======================================================
+   LEARNING CONTENT
+====================================================== */
 
 const worlds = [
   {
@@ -946,34 +887,33 @@ const worlds = [
     title: "Alphabet World",
     icon: "🔤",
     description: "Learn all 26 letters, from A to Z, and discover a word for each letter.",
-    lessonCount: 26,
     items: [
-      {name:"A",lower:"a",word:"Apple",icon:"🍎",fact:"A is for Apple!",voice:"Letter A. Big A, little a. A is for apple."},
-      {name:"B",lower:"b",word:"Ball",icon:"⚽",fact:"B is for Ball!",voice:"Letter B. Big B, little b. B is for ball."},
-      {name:"C",lower:"c",word:"Cat",icon:"🐱",fact:"C is for Cat!",voice:"Letter C. Big C, little c. C is for cat."},
-      {name:"D",lower:"d",word:"Dog",icon:"🐶",fact:"D is for Dog!",voice:"Letter D. Big D, little d. D is for dog."},
-      {name:"E",lower:"e",word:"Elephant",icon:"🐘",fact:"E is for Elephant!",voice:"Letter E. Big E, little e. E is for elephant."},
-      {name:"F",lower:"f",word:"Fish",icon:"🐟",fact:"F is for Fish!",voice:"Letter F. Big F, little f. F is for fish."},
-      {name:"G",lower:"g",word:"Grapes",icon:"🍇",fact:"G is for Grapes!",voice:"Letter G. Big G, little g. G is for grapes."},
-      {name:"H",lower:"h",word:"House",icon:"🏠",fact:"H is for House!",voice:"Letter H. Big H, little h. H is for house."},
-      {name:"I",lower:"i",word:"Ice cream",icon:"🍦",fact:"I is for Ice cream!",voice:"Letter I. Big I, little i. I is for ice cream."},
-      {name:"J",lower:"j",word:"Juice",icon:"🧃",fact:"J is for Juice!",voice:"Letter J. Big J, little j. J is for juice."},
-      {name:"K",lower:"k",word:"Kite",icon:"🪁",fact:"K is for Kite!",voice:"Letter K. Big K, little k. K is for kite."},
-      {name:"L",lower:"l",word:"Lion",icon:"🦁",fact:"L is for Lion!",voice:"Letter L. Big L, little l. L is for lion."},
-      {name:"M",lower:"m",word:"Moon",icon:"🌙",fact:"M is for Moon!",voice:"Letter M. Big M, little m. M is for moon."},
-      {name:"N",lower:"n",word:"Nest",icon:"🪺",fact:"N is for Nest!",voice:"Letter N. Big N, little n. N is for nest."},
-      {name:"O",lower:"o",word:"Orange",icon:"🍊",fact:"O is for Orange!",voice:"Letter O. Big O, little o. O is for orange."},
-      {name:"P",lower:"p",word:"Penguin",icon:"🐧",fact:"P is for Penguin!",voice:"Letter P. Big P, little p. P is for penguin."},
-      {name:"Q",lower:"q",word:"Queen",icon:"👑",fact:"Q is for Queen!",voice:"Letter Q. Big Q, little q. Q is for queen."},
-      {name:"R",lower:"r",word:"Rabbit",icon:"🐰",fact:"R is for Rabbit!",voice:"Letter R. Big R, little r. R is for rabbit."},
-      {name:"S",lower:"s",word:"Sun",icon:"☀️",fact:"S is for Sun!",voice:"Letter S. Big S, little s. S is for sun."},
-      {name:"T",lower:"t",word:"Tiger",icon:"🐯",fact:"T is for Tiger!",voice:"Letter T. Big T, little t. T is for tiger."},
-      {name:"U",lower:"u",word:"Umbrella",icon:"☂️",fact:"U is for Umbrella!",voice:"Letter U. Big U, little u. U is for umbrella."},
-      {name:"V",lower:"v",word:"Violin",icon:"🎻",fact:"V is for Violin!",voice:"Letter V. Big V, little v. V is for violin."},
-      {name:"W",lower:"w",word:"Whale",icon:"🐳",fact:"W is for Whale!",voice:"Letter W. Big W, little w. W is for whale."},
-      {name:"X",lower:"x",word:"Xylophone",icon:"🎼",fact:"X is for Xylophone!",voice:"Letter X. Big X, little x. X is for xylophone."},
-      {name:"Y",lower:"y",word:"Yo-yo",icon:"🪀",fact:"Y is for Yo-yo!",voice:"Letter Y. Big Y, little y. Y is for yo-yo."},
-      {name:"Z",lower:"z",word:"Zebra",icon:"🦓",fact:"Z is for Zebra!",voice:"Letter Z. Big Z, little z. Z is for zebra."}
+      {name:"A",lower:"a",word:"Apple",icon:"🍎",fact:"A is for apple!",voice:"Letter A. Big A, little a. A is for apple."},
+      {name:"B",lower:"b",word:"Ball",icon:"⚽",fact:"B is for ball!",voice:"Letter B. Big B, little b. B is for ball."},
+      {name:"C",lower:"c",word:"Cat",icon:"🐱",fact:"C is for cat!",voice:"Letter C. Big C, little c. C is for cat."},
+      {name:"D",lower:"d",word:"Dog",icon:"🐶",fact:"D is for dog!",voice:"Letter D. Big D, little d. D is for dog."},
+      {name:"E",lower:"e",word:"Elephant",icon:"🐘",fact:"E is for elephant!",voice:"Letter E. Big E, little e. E is for elephant."},
+      {name:"F",lower:"f",word:"Fish",icon:"🐟",fact:"F is for fish!",voice:"Letter F. Big F, little f. F is for fish."},
+      {name:"G",lower:"g",word:"Grapes",icon:"🍇",fact:"G is for grapes!",voice:"Letter G. Big G, little g. G is for grapes."},
+      {name:"H",lower:"h",word:"House",icon:"🏠",fact:"H is for house!",voice:"Letter H. Big H, little h. H is for house."},
+      {name:"I",lower:"i",word:"Ice cream",icon:"🍦",fact:"I is for ice cream!",voice:"Letter I. Big I, little i. I is for ice cream."},
+      {name:"J",lower:"j",word:"Juice",icon:"🧃",fact:"J is for juice!",voice:"Letter J. Big J, little j. J is for juice."},
+      {name:"K",lower:"k",word:"Kite",icon:"🪁",fact:"K is for kite!",voice:"Letter K. Big K, little k. K is for kite."},
+      {name:"L",lower:"l",word:"Lion",icon:"🦁",fact:"L is for lion!",voice:"Letter L. Big L, little l. L is for lion."},
+      {name:"M",lower:"m",word:"Moon",icon:"🌙",fact:"M is for moon!",voice:"Letter M. Big M, little m. M is for moon."},
+      {name:"N",lower:"n",word:"Nest",icon:"🪺",fact:"N is for nest!",voice:"Letter N. Big N, little n. N is for nest."},
+      {name:"O",lower:"o",word:"Orange",icon:"🍊",fact:"O is for orange!",voice:"Letter O. Big O, little o. O is for orange."},
+      {name:"P",lower:"p",word:"Penguin",icon:"🐧",fact:"P is for penguin!",voice:"Letter P. Big P, little p. P is for penguin."},
+      {name:"Q",lower:"q",word:"Queen",icon:"👑",fact:"Q is for queen!",voice:"Letter Q. Big Q, little q. Q is for queen."},
+      {name:"R",lower:"r",word:"Rabbit",icon:"🐰",fact:"R is for rabbit!",voice:"Letter R. Big R, little r. R is for rabbit."},
+      {name:"S",lower:"s",word:"Sun",icon:"☀️",fact:"S is for sun!",voice:"Letter S. Big S, little s. S is for sun."},
+      {name:"T",lower:"t",word:"Tiger",icon:"🐯",fact:"T is for tiger!",voice:"Letter T. Big T, little t. T is for tiger."},
+      {name:"U",lower:"u",word:"Umbrella",icon:"☂️",fact:"U is for umbrella!",voice:"Letter U. Big U, little u. U is for umbrella."},
+      {name:"V",lower:"v",word:"Violin",icon:"🎻",fact:"V is for violin!",voice:"Letter V. Big V, little v. V is for violin."},
+      {name:"W",lower:"w",word:"Whale",icon:"🐳",fact:"W is for whale!",voice:"Letter W. Big W, little w. W is for whale."},
+      {name:"X",lower:"x",word:"Xylophone",icon:"🎼",fact:"X is for xylophone!",voice:"Letter X. Big X, little x. X is for xylophone."},
+      {name:"Y",lower:"y",word:"Yo-yo",icon:"🪀",fact:"Y is for yo-yo!",voice:"Letter Y. Big Y, little y. Y is for yo-yo."},
+      {name:"Z",lower:"z",word:"Zebra",icon:"🦓",fact:"Z is for zebra!",voice:"Letter Z. Big Z, little z. Z is for zebra."}
     ]
   },
 
@@ -982,18 +922,17 @@ const worlds = [
     title: "Number World",
     icon: "🔢",
     description: "Meet numbers 1–10 and count objects together.",
-    lessonCount: 10,
     items: [
-      {name:"1",word:"One",noun:"apple",plural:"apples",icon:"🍎",fact:"One apple. You counted one!",voice:"Number one. One apple."},
-      {name:"2",word:"Two",noun:"ball",plural:"balls",icon:"⚽",fact:"Two balls. Let's count: one, two!",voice:"Number two. One, two balls."},
-      {name:"3",word:"Three",noun:"duck",plural:"ducks",icon:"🦆",fact:"Three ducks. Let's count: one, two, three!",voice:"Number three. One, two, three ducks."},
-      {name:"4",word:"Four",noun:"star",plural:"stars",icon:"⭐",fact:"Four stars. You counted four!",voice:"Number four. One, two, three, four stars."},
-      {name:"5",word:"Five",noun:"flower",plural:"flowers",icon:"🌸",fact:"Five flowers. Let's count to five!",voice:"Number five. One, two, three, four, five flowers."},
-      {name:"6",word:"Six",noun:"fish",plural:"fish",icon:"🐟",fact:"Six fish. You counted six!",voice:"Number six. Six fish."},
-      {name:"7",word:"Seven",noun:"butterfly",plural:"butterflies",icon:"🦋",fact:"Seven butterflies. Wonderful counting!",voice:"Number seven. Seven butterflies."},
-      {name:"8",word:"Eight",noun:"balloon",plural:"balloons",icon:"🎈",fact:"Eight balloons. You counted eight!",voice:"Number eight. Eight balloons."},
-      {name:"9",word:"Nine",noun:"cookie",plural:"cookies",icon:"🍪",fact:"Nine cookies. Great counting!",voice:"Number nine. Nine cookies."},
-      {name:"10",word:"Ten",noun:"teddy bear",plural:"teddy bears",icon:"🧸",fact:"Ten teddy bears. You reached ten!",voice:"Number ten. Ten teddy bears."}
+      {name:"1",word:"One",plural:"apples",icon:"🍎",fact:"One apple. You counted one!",voice:"Number one. One apple."},
+      {name:"2",word:"Two",plural:"balls",icon:"⚽",fact:"Two balls. Let's count: one, two!",voice:"Number two. One, two balls."},
+      {name:"3",word:"Three",plural:"ducks",icon:"🦆",fact:"Three ducks. Let's count: one, two, three!",voice:"Number three. One, two, three ducks."},
+      {name:"4",word:"Four",plural:"stars",icon:"⭐",fact:"Four stars. You counted four!",voice:"Number four. One, two, three, four stars."},
+      {name:"5",word:"Five",plural:"flowers",icon:"🌸",fact:"Five flowers. Let's count to five!",voice:"Number five. One, two, three, four, five flowers."},
+      {name:"6",word:"Six",plural:"fish",icon:"🐟",fact:"Six fish. You counted six!",voice:"Number six. Six fish."},
+      {name:"7",word:"Seven",plural:"butterflies",icon:"🦋",fact:"Seven butterflies. Wonderful counting!",voice:"Number seven. Seven butterflies."},
+      {name:"8",word:"Eight",plural:"balloons",icon:"🎈",fact:"Eight balloons. You counted eight!",voice:"Number eight. Eight balloons."},
+      {name:"9",word:"Nine",plural:"cookies",icon:"🍪",fact:"Nine cookies. Great counting!",voice:"Number nine. Nine cookies."},
+      {name:"10",word:"Ten",plural:"teddy bears",icon:"🧸",fact:"Ten teddy bears. You reached ten!",voice:"Number ten. Ten teddy bears."}
     ]
   },
 
@@ -1002,7 +941,6 @@ const worlds = [
     title: "Color World",
     icon: "🎨",
     description: "Discover colors using familiar objects.",
-    lessonCount: 10,
     items: [
       {name:"Red",example:"strawberry",icon:"🍓",color:"#e84555",prompt:"What color is a strawberry?",fact:"A ripe strawberry can be red!",voice:"Red. A strawberry can be red."},
       {name:"Blue",example:"blueberry",icon:"🫐",color:"#438fe5",prompt:"What color is a blueberry?",fact:"Blueberries are usually blue or purple!",voice:"Blue. Blueberries can look blue."},
@@ -1022,7 +960,6 @@ const worlds = [
     title: "Animal World",
     icon: "🐻",
     description: "Meet animals and discover what makes them special.",
-    lessonCount: 15,
     items: [
       {name:"Cat",icon:"🐱",fact:"Cats often say meow!",voice:"This is a cat. Cats often say meow."},
       {name:"Dog",icon:"🐶",fact:"Dogs often bark!",voice:"This is a dog. Dogs often bark."},
@@ -1047,35 +984,34 @@ const worlds = [
     title: "Word World",
     icon: "🧩",
     description: "Learn useful first words and connect words to pictures.",
-    lessonCount: 20,
     items: [
-      {name:"Sun",icon:"☀️",spelling:"S-U-N",fact:"S-U-N spells Sun!",voice:"The word is sun. S U N spells sun."},
-      {name:"Bus",icon:"🚌",spelling:"B-U-S",fact:"B-U-S spells Bus!",voice:"The word is bus. B U S spells bus."},
-      {name:"Cup",icon:"🥤",spelling:"C-U-P",fact:"C-U-P spells Cup!",voice:"The word is cup. C U P spells cup."},
-      {name:"Book",icon:"📚",spelling:"B-O-O-K",fact:"B-O-O-K spells Book!",voice:"The word is book. B O O K spells book."},
-      {name:"Ball",icon:"⚽",spelling:"B-A-L-L",fact:"B-A-L-L spells Ball!",voice:"The word is ball. B A L L spells ball."},
-      {name:"Cat",icon:"🐱",spelling:"C-A-T",fact:"C-A-T spells Cat!",voice:"The word is cat. C A T spells cat."},
-      {name:"Fish",icon:"🐟",spelling:"F-I-S-H",fact:"F-I-S-H spells Fish!",voice:"The word is fish. F I S H spells fish."},
-      {name:"Hat",icon:"🧢",spelling:"H-A-T",fact:"H-A-T spells Hat!",voice:"The word is hat. H A T spells hat."},
-      {name:"Car",icon:"🚗",spelling:"C-A-R",fact:"C-A-R spells Car!",voice:"The word is car. C A R spells car."},
-      {name:"House",icon:"🏠",spelling:"H-O-U-S-E",fact:"H-O-U-S-E spells House!",voice:"The word is house. H O U S E spells house."},
-      {name:"Tree",icon:"🌳",spelling:"T-R-E-E",fact:"T-R-E-E spells Tree!",voice:"The word is tree. T R E E spells tree."},
-      {name:"Milk",icon:"🥛",spelling:"M-I-L-K",fact:"M-I-L-K spells Milk!",voice:"The word is milk. M I L K spells milk."},
-      {name:"Cake",icon:"🎂",spelling:"C-A-K-E",fact:"C-A-K-E spells Cake!",voice:"The word is cake. C A K E spells cake."},
-      {name:"Shoe",icon:"👟",spelling:"S-H-O-E",fact:"S-H-O-E spells Shoe!",voice:"The word is shoe. S H O E spells shoe."},
-      {name:"Star",icon:"⭐",spelling:"S-T-A-R",fact:"S-T-A-R spells Star!",voice:"The word is star. S T A R spells star."},
-      {name:"Moon",icon:"🌙",spelling:"M-O-O-N",fact:"M-O-O-N spells Moon!",voice:"The word is moon. M O O N spells moon."},
-      {name:"Duck",icon:"🦆",spelling:"D-U-C-K",fact:"D-U-C-K spells Duck!",voice:"The word is duck. D U C K spells duck."},
-      {name:"Apple",icon:"🍎",spelling:"A-P-P-L-E",fact:"A-P-P-L-E spells Apple!",voice:"The word is apple. A P P L E spells apple."},
-      {name:"Door",icon:"🚪",spelling:"D-O-O-R",fact:"D-O-O-R spells Door!",voice:"The word is door. D O O R spells door."},
-      {name:"Bed",icon:"🛏️",spelling:"B-E-D",fact:"B-E-D spells Bed!",voice:"The word is bed. B E D spells bed."}
+      {name:"Sun",icon:"☀️",spelling:"S-U-N",fact:"S-U-N spells sun!",voice:"The word is sun. S U N spells sun."},
+      {name:"Bus",icon:"🚌",spelling:"B-U-S",fact:"B-U-S spells bus!",voice:"The word is bus. B U S spells bus."},
+      {name:"Cup",icon:"🥤",spelling:"C-U-P",fact:"C-U-P spells cup!",voice:"The word is cup. C U P spells cup."},
+      {name:"Book",icon:"📚",spelling:"B-O-O-K",fact:"B-O-O-K spells book!",voice:"The word is book. B O O K spells book."},
+      {name:"Ball",icon:"⚽",spelling:"B-A-L-L",fact:"B-A-L-L spells ball!",voice:"The word is ball. B A L L spells ball."},
+      {name:"Cat",icon:"🐱",spelling:"C-A-T",fact:"C-A-T spells cat!",voice:"The word is cat. C A T spells cat."},
+      {name:"Fish",icon:"🐟",spelling:"F-I-S-H",fact:"F-I-S-H spells fish!",voice:"The word is fish. F I S H spells fish."},
+      {name:"Hat",icon:"🧢",spelling:"H-A-T",fact:"H-A-T spells hat!",voice:"The word is hat. H A T spells hat."},
+      {name:"Car",icon:"🚗",spelling:"C-A-R",fact:"C-A-R spells car!",voice:"The word is car. C A R spells car."},
+      {name:"House",icon:"🏠",spelling:"H-O-U-S-E",fact:"H-O-U-S-E spells house!",voice:"The word is house. H O U S E spells house."},
+      {name:"Tree",icon:"🌳",spelling:"T-R-E-E",fact:"T-R-E-E spells tree!",voice:"The word is tree. T R E E spells tree."},
+      {name:"Milk",icon:"🥛",spelling:"M-I-L-K",fact:"M-I-L-K spells milk!",voice:"The word is milk. M I L K spells milk."},
+      {name:"Cake",icon:"🎂",spelling:"C-A-K-E",fact:"C-A-K-E spells cake!",voice:"The word is cake. C A K E spells cake."},
+      {name:"Shoe",icon:"👟",spelling:"S-H-O-E",fact:"S-H-O-E spells shoe!",voice:"The word is shoe. S H O E spells shoe."},
+      {name:"Star",icon:"⭐",spelling:"S-T-A-R",fact:"S-T-A-R spells star!",voice:"The word is star. S T A R spells star."},
+      {name:"Moon",icon:"🌙",spelling:"M-O-O-N",fact:"M-O-O-N spells moon!",voice:"The word is moon. M O O N spells moon."},
+      {name:"Duck",icon:"🦆",spelling:"D-U-C-K",fact:"D-U-C-K spells duck!",voice:"The word is duck. D U C K spells duck."},
+      {name:"Apple",icon:"🍎",spelling:"A-P-P-L-E",fact:"A-P-P-L-E spells apple!",voice:"The word is apple. A P P L E spells apple."},
+      {name:"Door",icon:"🚪",spelling:"D-O-O-R",fact:"D-O-O-R spells door!",voice:"The word is door. D O O R spells door."},
+      {name:"Bed",icon:"🛏️",spelling:"B-E-D",fact:"B-E-D spells bed!",voice:"The word is bed. B E D spells bed."}
     ]
   }
 ];
 
-/* ===================================================
-   STATE AND ELEMENTS
-=================================================== */
+/* ======================================================
+   GAME STATE
+====================================================== */
 
 const $ = id => document.getElementById(id);
 
@@ -1095,69 +1031,43 @@ let activityStars = 0;
 let totalStars = 0;
 let answered = false;
 let soundEnabled = false;
+
 let speechTimer = null;
+let speechPauseTimer = null;
+let speechToken = 0;
 
 try {
   const saved = Number(localStorage.getItem("theizPreschoolStars"));
+
   if (Number.isFinite(saved) && saved >= 0) {
     totalStars = Math.floor(saved);
   }
 } catch (error) {
-  // The game continues if local storage is unavailable.
+  // Game remains playable even if local storage is unavailable.
 }
 
 $("totalStars").textContent = String(totalStars);
 
-/* ===================================================
-   GENERAL HELPERS
-=================================================== */
+/* ======================================================
+   SPEECH SETTINGS
+====================================================== */
 
-function shuffle(array) {
-  const result = [...array];
+/*
+  Learning Mode: 0.58 = deliberately slow teaching pace.
+  Quiz Mode:     0.70 = slower than normal, but more natural
+                 for short questions.
+  Praise:        0.70 = slower, friendly feedback.
 
-  for (let i = result.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [result[i], result[j]] = [result[j], result[i]];
-  }
+  Punctuation-based sentence splitting adds short pauses
+  between teaching sentences.
+*/
 
-  return result;
-}
+const LEARNING_RATE = 0.58;
+const QUIZ_RATE = 0.70;
+const PRAISE_RATE = 0.70;
 
-function showScreen(screen) {
-  clearTimeout(speechTimer);
-
-  if (speechSupported) {
-    window.speechSynthesis.cancel();
-  }
-
-  screens.forEach(item => item.classList.remove("active"));
-  screen.classList.add("active");
-
-  window.scrollTo({top: 0, behavior: "auto"});
-}
-
-function saveStars() {
-  try {
-    localStorage.setItem("theizPreschoolStars", String(totalStars));
-  } catch (error) {
-    // Score remains available for the current session.
-  }
-
-  $("totalStars").textContent = String(totalStars);
-}
-
-function updateProgress(fillElement, trackElement, current, total) {
-  const percent = total > 0
-    ? Math.round((current / total) * 100)
-    : 0;
-
-  fillElement.style.width = percent + "%";
-  trackElement.setAttribute("aria-valuenow", String(percent));
-}
-
-/* ===================================================
-   SPEECH: PREFER A FEMININE ENGLISH VOICE WHEN AVAILABLE
-=================================================== */
+const LEARNING_PAUSE_MS = 650;
+const PRAISE_PAUSE_MS = 250;
 
 const speechSupported =
   "speechSynthesis" in window &&
@@ -1173,7 +1083,11 @@ function refreshVoices() {
 
 if (speechSupported) {
   refreshVoices();
-  window.speechSynthesis.addEventListener("voiceschanged", refreshVoices);
+
+  window.speechSynthesis.addEventListener(
+    "voiceschanged",
+    refreshVoices
+  );
 }
 
 function chooseEnglishVoice() {
@@ -1202,31 +1116,107 @@ function chooseEnglishVoice() {
   );
 }
 
-function speak(text) {
+/*
+  Stop the current spoken sentence and any pending pause.
+  The token prevents old speech callbacks from continuing
+  after the user switches screens or turns audio off.
+*/
+
+function stopSpeech() {
+  speechToken++;
+
+  clearTimeout(speechPauseTimer);
+  speechPauseTimer = null;
+
+  if (speechSupported) {
+    window.speechSynthesis.cancel();
+  }
+}
+
+/*
+  Split teaching text into sentences.
+  Speak each sentence separately and wait before the next.
+  This creates a more deliberate teaching pace.
+*/
+
+function speak(text, rate = QUIZ_RATE, pauseMs = 0) {
   if (!soundEnabled || !speechSupported || !text) {
     return;
   }
 
-  const synth = window.speechSynthesis;
-  synth.cancel();
+  stopSpeech();
 
-  const message = new SpeechSynthesisUtterance(text);
+  const thisToken = speechToken;
+  const synth = window.speechSynthesis;
   const chosenVoice = chooseEnglishVoice();
 
-  message.lang = chosenVoice ? chosenVoice.lang : "en-US";
+  const sentences = text
+    .match(/[^.!?]+[.!?]?/g)
+    ?.map(sentence => sentence.trim())
+    .filter(Boolean) || [text];
 
-  if (chosenVoice) {
-    message.voice = chosenVoice;
+  let sentenceIndex = 0;
+
+  function speakNextSentence() {
+    if (
+      thisToken !== speechToken ||
+      !soundEnabled ||
+      !synth
+    ) {
+      return;
+    }
+
+    if (sentenceIndex >= sentences.length) {
+      return;
+    }
+
+    const sentence = sentences[sentenceIndex++];
+    const message = new SpeechSynthesisUtterance(sentence);
+
+    message.lang = chosenVoice ? chosenVoice.lang : "en-US";
+
+    if (chosenVoice) {
+      message.voice = chosenVoice;
+    }
+
+    message.rate = rate;
+    message.pitch = 1.10;
+    message.volume = 1;
+
+    message.onend = () => {
+      if (
+        thisToken !== speechToken ||
+        !soundEnabled ||
+        sentenceIndex >= sentences.length
+      ) {
+        return;
+      }
+
+      speechPauseTimer = window.setTimeout(
+        speakNextSentence,
+        pauseMs
+      );
+    };
+
+    message.onerror = () => {
+      if (thisToken === speechToken) {
+        clearTimeout(speechPauseTimer);
+        speechPauseTimer = null;
+      }
+    };
+
+    synth.speak(message);
   }
 
-  message.rate = 0.86;
-  message.pitch = 1.22;
-  message.volume = 1;
-
-  synth.speak(message);
+  speakNextSentence();
 }
 
-function scheduleSpeech(text) {
+function scheduleSpeech(
+  text,
+  rate = QUIZ_RATE,
+  pauseMs = 0,
+  delayMs = 400
+) {
   clearTimeout(speechTimer);
 
   if (!soundEnabled) {
@@ -1234,13 +1224,13 @@ function scheduleSpeech(text) {
   }
 
   speechTimer = window.setTimeout(() => {
-    speak(text);
-  }, 350);
+    speak(text, rate, pauseMs);
+  }, delayMs);
 }
 
-/* ===================================================
-   BACKGROUND MUSIC AND SOUND EFFECTS
-=================================================== */
+/* ======================================================
+   BACKGROUND MUSIC AND EFFECTS
+====================================================== */
 
 let audioContext = null;
 let musicTimer = null;
@@ -1288,14 +1278,22 @@ function playTone(frequency, duration, volume, delay = 0) {
     const endTime = startTime + duration;
 
     oscillator.type = "sine";
-    oscillator.frequency.setValueAtTime(frequency, startTime);
+    oscillator.frequency.setValueAtTime(
+      frequency,
+      startTime
+    );
 
     gain.gain.setValueAtTime(0.0001, startTime);
+
     gain.gain.exponentialRampToValueAtTime(
       Math.max(volume, 0.0002),
       startTime + Math.min(0.035, duration / 3)
     );
-    gain.gain.exponentialRampToValueAtTime(0.0001, endTime);
+
+    gain.gain.exponentialRampToValueAtTime(
+      0.0001,
+      endTime
+    );
 
     oscillator.connect(gain);
     gain.connect(context.destination);
@@ -1323,7 +1321,9 @@ function playWrongSound() {
 }
 
 function playMusicStep() {
-  if (!soundEnabled || !audioContext) return;
+  if (!soundEnabled || !audioContext) {
+    return;
+  }
 
   const melody = [
     523.25, 659.25, 783.99, 659.25,
@@ -1337,10 +1337,16 @@ function playMusicStep() {
     [196, 246.94, 293.66]
   ];
 
-  playTone(melody[musicStep % melody.length], 0.48, 0.008, 0);
+  playTone(
+    melody[musicStep % melody.length],
+    0.48,
+    0.008,
+    0
+  );
 
   if (musicStep % 4 === 0) {
-    const chord = chords[Math.floor(musicStep / 4) % chords.length];
+    const chord =
+      chords[Math.floor(musicStep / 4) % chords.length];
 
     chord.forEach(frequency => {
       playTone(frequency, 2.5, 0.0018, 0);
@@ -1351,7 +1357,11 @@ function playMusicStep() {
 }
 
 function startMusic() {
-  if (!soundEnabled || musicTimer !== null || !getAudioContext()) {
+  if (
+    !soundEnabled ||
+    musicTimer !== null ||
+    !getAudioContext()
+  ) {
     return;
   }
 
@@ -1370,6 +1380,7 @@ function stopMusic() {
 
 function turnSoundOn() {
   soundEnabled = true;
+
   getAudioContext();
   startMusic();
 
@@ -1377,16 +1388,14 @@ function turnSoundOn() {
   $("soundButton").setAttribute("aria-pressed", "true");
   $("soundButton").setAttribute("aria-label", "Turn sound off");
 
-  speak("Hello, little learner! Let's learn and play!");
+  speak("Hello, little learner! Let's learn and play!", 0.72, 300);
 }
 
 function turnSoundOff() {
   soundEnabled = false;
-  stopMusic();
 
-  if (speechSupported) {
-    window.speechSynthesis.cancel();
-  }
+  stopMusic();
+  stopSpeech();
 
   $("soundButton").textContent = "🔇";
   $("soundButton").setAttribute("aria-pressed", "false");
@@ -1401,9 +1410,66 @@ $("soundButton").addEventListener("click", () => {
   }
 });
 
-/* ===================================================
-   HOME AND WORLD MENU
-=================================================== */
+/* ======================================================
+   NAVIGATION AND GENERAL HELPERS
+====================================================== */
+
+function showScreen(screen) {
+  clearTimeout(speechTimer);
+  stopSpeech();
+
+  screens.forEach(item => {
+    item.classList.remove("active");
+  });
+
+  screen.classList.add("active");
+
+  window.scrollTo({
+    top: 0,
+    behavior: "auto"
+  });
+}
+
+function saveStars() {
+  try {
+    localStorage.setItem(
+      "theizPreschoolStars",
+      String(totalStars)
+    );
+  } catch (error) {
+    // Current-session scoring still works.
+  }
+
+  $("totalStars").textContent = String(totalStars);
+}
+
+function updateProgress(fillElement, trackElement, current, total) {
+  const percent = total > 0
+    ? Math.round((current / total) * 100)
+    : 0;
+
+  fillElement.style.width = percent + "%";
+
+  trackElement.setAttribute(
+    "aria-valuenow",
+    String(percent)
+  );
+}
+
+function shuffle(array) {
+  const result = [...array];
+
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+
+  return result;
+}
+
+/* ======================================================
+   HOME SCREEN
+====================================================== */
 
 function buildWorldCards() {
   const grid = $("worldGrid");
@@ -1411,8 +1477,13 @@ function buildWorldCards() {
 
   worlds.forEach(world => {
     const button = document.createElement("button");
+
     button.type = "button";
     button.className = "world-card";
+    button.setAttribute(
+      "aria-label",
+      "Play " + world.title
+    );
 
     const icon = document.createElement("span");
     icon.className = "world-icon";
@@ -1431,22 +1502,28 @@ function buildWorldCards() {
     action.textContent = "Let's Play! →";
 
     button.append(icon, title, description, action);
-    button.addEventListener("click", () => openWorldMenu(world.id));
+
+    button.addEventListener("click", () => {
+      openWorldMenu(world.id);
+    });
 
     grid.appendChild(button);
   });
 }
 
 function openWorldMenu(worldId) {
-  const chosen = worlds.find(world => world.id === worldId);
+  const chosenWorld = worlds.find(world =>
+    world.id === worldId
+  );
 
-  if (!chosen) return;
+  if (!chosenWorld) return;
 
-  currentWorld = chosen;
+  currentWorld = chosenWorld;
 
-  $("worldMenuIcon").textContent = chosen.icon;
-  $("worldMenuTitle").textContent = chosen.title;
-  $("worldMenuDescription").textContent = chosen.description;
+  $("worldMenuIcon").textContent = chosenWorld.icon;
+  $("worldMenuTitle").textContent = chosenWorld.title;
+  $("worldMenuDescription").textContent =
+    chosenWorld.description;
 
   showScreen($("worldMenuScreen"));
 }
@@ -1458,9 +1535,9 @@ $("worldMenuBack").addEventListener("click", () => {
 $("startLearningButton").addEventListener("click", startLearning);
 $("startQuizButton").addEventListener("click", startQuiz);
 
-/* ===================================================
+/* ======================================================
    LEARNING MODE
-=================================================== */
+====================================================== */
 
 function startLearning() {
   if (!currentWorld) return;
@@ -1476,6 +1553,7 @@ function startLearning() {
 
 function renderLearningVisual(item) {
   const visual = $("learnVisual");
+
   visual.innerHTML = "";
   visual.className = "learn-visual";
 
@@ -1491,6 +1569,7 @@ function renderLearningVisual(item) {
 
     pair.append(upper, lower);
     visual.appendChild(pair);
+
     return;
   }
 
@@ -1499,9 +1578,11 @@ function renderLearningVisual(item) {
 
     for (let index = 0; index < Number(item.name); index++) {
       const object = document.createElement("span");
+
       object.className = "count-object";
       object.textContent = item.icon;
       object.setAttribute("aria-hidden", "true");
+
       visual.appendChild(object);
     }
 
@@ -1510,13 +1591,19 @@ function renderLearningVisual(item) {
 
   const icon = document.createElement("span");
   icon.textContent = item.icon;
+
   visual.appendChild(icon);
 
   if (currentWorld.id === "colors") {
     const swatch = document.createElement("span");
+
     swatch.className = "color-swatch";
     swatch.style.backgroundColor = item.color;
-    swatch.setAttribute("aria-label", item.name + " color");
+    swatch.setAttribute(
+      "aria-label",
+      item.name + " color"
+    );
+
     visual.appendChild(swatch);
   }
 }
@@ -1546,27 +1633,39 @@ function renderLearningCard() {
     words: "LET'S LEARN A WORD"
   };
 
-  $("learnKicker").textContent = kickers[currentWorld.id];
+  $("learnKicker").textContent =
+    kickers[currentWorld.id];
 
   renderLearningVisual(item);
 
   if (currentWorld.id === "alphabet") {
-    $("learnMain").textContent = item.name + " " + item.lower;
-    $("learnSub").textContent = "Word: " + item.word;
-  } else if (currentWorld.id === "numbers") {
-    $("learnMain").textContent = item.name + " — " + item.word;
+    $("learnMain").textContent =
+      item.name + " " + item.lower;
 
     $("learnSub").textContent =
-      item.name + (item.name === "1" ? " " + item.noun : " " + item.plural);
+      "Word: " + item.word;
+
+  } else if (currentWorld.id === "numbers") {
+    $("learnMain").textContent =
+      item.name + " — " + item.word;
+
+    $("learnSub").textContent =
+      item.name === "1"
+        ? "One " + item.plural.replace(/s$/, "")
+        : item.name + " " + item.plural;
+
   } else if (currentWorld.id === "colors") {
     $("learnMain").textContent = item.name;
     $("learnSub").textContent = "Example: " + item.example;
+
   } else if (currentWorld.id === "animals") {
     $("learnMain").textContent = item.name;
     $("learnSub").textContent = "Animal friend";
+
   } else {
     $("learnMain").textContent = item.name;
-    $("learnSub").textContent = "Spelling: " + item.spelling;
+    $("learnSub").textContent =
+      "Spelling: " + item.spelling;
   }
 
   $("learnFact").textContent = item.fact;
@@ -1574,9 +1673,21 @@ function renderLearningCard() {
   $("learnPrevButton").disabled = learnIndex === 0;
 
   $("learnNextButton").textContent =
-    learnIndex === total - 1 ? "Start Quiz 🎯" : "Next →";
+    learnIndex === total - 1
+      ? "Start Quiz 🎯"
+      : "Next →";
 
-  scheduleSpeech(item.voice);
+  /*
+    Key change:
+    Learning content is spoken at 0.58 speed.
+    Sentences are separated by a 650 ms pause.
+  */
+  scheduleSpeech(
+    item.voice,
+    LEARNING_RATE,
+    LEARNING_PAUSE_MS,
+    500
+  );
 }
 
 $("learnPrevButton").addEventListener("click", () => {
@@ -1600,12 +1711,17 @@ $("learnNextButton").addEventListener("click", () => {
 $("hearLearningButton").addEventListener("click", () => {
   if (!soundEnabled) {
     $("learnFact").textContent =
-      "Tap the 🔇 button at the top to turn sound on first.";
+      "Tap the sound button above to turn audio on first.";
     return;
   }
 
   const item = currentWorld.items[learnIndex];
-  speak(item.voice);
+
+  speak(
+    item.voice,
+    LEARNING_RATE,
+    LEARNING_PAUSE_MS
+  );
 });
 
 $("skipToQuizButton").addEventListener("click", startQuiz);
@@ -1614,36 +1730,46 @@ $("learnBackButton").addEventListener("click", () => {
   openWorldMenu(currentWorld.id);
 });
 
-/* ===================================================
-   QUIZ GENERATION
-=================================================== */
+/* ======================================================
+   QUIZ QUESTION GENERATION
+====================================================== */
 
 function optionForItem(world, item) {
   if (world.id === "alphabet") {
-    return {value:item.name, label:item.name, icon:"🔤"};
+    return {
+      value: item.name,
+      label: item.name,
+      icon: "🔤"
+    };
   }
 
   if (world.id === "numbers") {
-    return {value:item.name, label:item.name};
+    return {
+      value: item.name,
+      label: item.name
+    };
   }
 
   if (world.id === "colors") {
     return {
-      value:item.name,
-      label:item.name,
-      color:item.color
+      value: item.name,
+      label: item.name,
+      color: item.color
     };
   }
 
   if (world.id === "animals") {
     return {
-      value:item.name,
-      label:item.name,
-      icon:item.icon
+      value: item.name,
+      label: item.name,
+      icon: item.icon
     };
   }
 
-  return {value:item.name, label:item.name};
+  return {
+    value: item.name,
+    label: item.name
+  };
 }
 
 function buildOptions(world, target) {
@@ -1677,34 +1803,36 @@ function makeQuizQuestion(world, item) {
   let prompt;
   let visual = item.icon;
   let count = 0;
-  let feedbackText = item.fact;
 
   switch (world.id) {
     case "alphabet":
-      prompt = "Which letter does " + item.word + " begin with?";
-      feedbackText = item.fact;
+      prompt =
+        "Which letter does " + item.word +
+        " begin with?";
       break;
 
     case "numbers":
-      prompt = "How many " + item.plural + " can you count?";
+      prompt =
+        "How many " + item.plural +
+        " can you count?";
+
       count = Number(item.name);
-      feedbackText = item.fact;
       break;
 
     case "colors":
       prompt = item.prompt;
-      feedbackText = item.fact;
       break;
 
     case "animals":
       prompt = "Which animal is this?";
-      feedbackText = item.fact;
       break;
 
     case "words":
       prompt = "Which word matches this picture?";
-      feedbackText = item.fact;
       break;
+
+    default:
+      prompt = "Choose the best answer.";
   }
 
   return {
@@ -1713,7 +1841,7 @@ function makeQuizQuestion(world, item) {
     count,
     answer: item.name,
     options: buildOptions(world, item),
-    fact: feedbackText
+    fact: item.fact
   };
 }
 
@@ -1724,17 +1852,12 @@ function startQuiz() {
   activityStars = 0;
   answered = false;
 
-  /*
-    Alphabet: 10 random questions from all 26 letters.
-    Numbers: all 10 numbers.
-    Other worlds: up to 10 questions per round.
-    All learning cards remain available in Learning Mode.
-  */
-  const amount = currentWorld.id === "numbers"
+  const questionCount = currentWorld.id === "numbers"
     ? 10
     : Math.min(10, currentWorld.items.length);
 
-  const selectedItems = shuffle(currentWorld.items).slice(0, amount);
+  const selectedItems = shuffle(currentWorld.items)
+    .slice(0, questionCount);
 
   quizQuestions = selectedItems.map(item =>
     makeQuizQuestion(currentWorld, item)
@@ -1747,32 +1870,38 @@ function startQuiz() {
   renderQuestion();
 }
 
-/* ===================================================
-   QUIZ DISPLAY AND ANSWERS
-=================================================== */
+/* ======================================================
+   QUIZ DISPLAY
+====================================================== */
 
 function renderQuestionVisual(question) {
   const visual = $("questionVisual");
+
   visual.innerHTML = "";
 
   if (question.count > 0) {
     for (let index = 0; index < question.count; index++) {
       const object = document.createElement("span");
+
       object.className = "count-object";
       object.textContent = question.visual;
       object.setAttribute("aria-hidden", "true");
+
       visual.appendChild(object);
     }
   } else {
     const icon = document.createElement("span");
+
     icon.textContent = question.visual;
     icon.setAttribute("aria-hidden", "true");
+
     visual.appendChild(icon);
   }
 }
 
 function renderAnswerOptions(question) {
   const grid = $("answerGrid");
+
   grid.innerHTML = "";
 
   question.options.forEach(option => {
@@ -1784,20 +1913,26 @@ function renderAnswerOptions(question) {
 
     if (option.color) {
       const dot = document.createElement("span");
+
       dot.className = "color-dot";
       dot.style.backgroundColor = option.color;
       dot.setAttribute("aria-hidden", "true");
+
       button.appendChild(dot);
+
     } else if (option.icon) {
       const icon = document.createElement("span");
+
       icon.className = "option-icon";
       icon.textContent = option.icon;
       icon.setAttribute("aria-hidden", "true");
+
       button.appendChild(icon);
     }
 
     const label = document.createElement("span");
     label.textContent = option.label;
+
     button.appendChild(label);
 
     button.addEventListener("click", () => {
@@ -1838,10 +1973,16 @@ function renderQuestion() {
     "Listen and choose the best answer!";
 
   $("feedback").className = "feedback";
+
   $("nextButton").disabled = true;
   $("nextButton").textContent = "Choose an Answer";
 
-  scheduleSpeech(question.prompt);
+  scheduleSpeech(
+    question.prompt,
+    QUIZ_RATE,
+    250,
+    450
+  );
 }
 
 function chooseAnswer(selected, selectedButton) {
@@ -1853,6 +1994,7 @@ function chooseAnswer(selected, selectedButton) {
     answered = true;
     activityStars++;
     totalStars++;
+
     saveStars();
 
     $("answerGrid").querySelectorAll("button").forEach(button => {
@@ -1865,10 +2007,13 @@ function chooseAnswer(selected, selectedButton) {
 
     selectedButton.classList.add("correct");
 
-    $("feedback").textContent = "⭐ Correct! " + question.fact;
+    $("feedback").textContent =
+      "⭐ Correct! " + question.fact;
+
     $("feedback").className = "feedback good";
 
     $("nextButton").disabled = false;
+
     $("nextButton").textContent =
       quizIndex === quizQuestions.length - 1
         ? "See My Reward! 🎉"
@@ -1878,9 +2023,13 @@ function chooseAnswer(selected, selectedButton) {
 
     window.setTimeout(() => {
       if ($("quizScreen").classList.contains("active")) {
-        speak("Great job! " + question.fact);
+        speak(
+          "Great job! " + question.fact,
+          PRAISE_RATE,
+          PRAISE_PAUSE_MS
+        );
       }
-    }, 260);
+    }, 250);
 
   } else {
     selectedButton.classList.add("incorrect");
@@ -1894,22 +2043,30 @@ function chooseAnswer(selected, selectedButton) {
 
     window.setTimeout(() => {
       if ($("quizScreen").classList.contains("active")) {
-        speak("Not quite. Try again. You can do it!");
+        speak(
+          "Not quite. Try again. You can do it!",
+          PRAISE_RATE,
+          PRAISE_PAUSE_MS
+        );
       }
-    }, 220);
+    }, 250);
   }
 }
 
 $("hearQuestionButton").addEventListener("click", () => {
   if (!soundEnabled) {
     $("feedback").textContent =
-      "Tap the 🔇 button at the top to turn sound on first.";
+      "Tap the sound button above to turn audio on first.";
 
     $("feedback").className = "feedback";
     return;
   }
 
-  speak(quizQuestions[quizIndex].prompt);
+  speak(
+    quizQuestions[quizIndex].prompt,
+    QUIZ_RATE,
+    250
+  );
 });
 
 $("nextButton").addEventListener("click", () => {
@@ -1928,9 +2085,9 @@ $("quizBackButton").addEventListener("click", () => {
   openWorldMenu(currentWorld.id);
 });
 
-/* ===================================================
+/* ======================================================
    REWARD SCREEN
-=================================================== */
+====================================================== */
 
 function finishQuiz() {
   showScreen($("rewardScreen"));
@@ -1962,9 +2119,13 @@ function finishQuiz() {
 
     window.setTimeout(() => {
       if ($("rewardScreen").classList.contains("active")) {
-        speak("Amazing job! You finished " + currentWorld.title + "!");
+        speak(
+          "Amazing job! You finished " + currentWorld.title + "!",
+          PRAISE_RATE,
+          PRAISE_PAUSE_MS
+        );
       }
-    }, 260);
+    }, 300);
   }
 }
 
@@ -1975,9 +2136,9 @@ $("homeButton").addEventListener("click", () => {
   showScreen($("homeScreen"));
 });
 
-/* ===================================================
-   START
-=================================================== */
+/* ======================================================
+   INITIALISE
+====================================================== */
 
 buildWorldCards();
 </script>
