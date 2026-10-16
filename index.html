@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fff8ed">
+  <meta name="description" content="A fun and friendly preschool learning game by TheIz.">
+  <title>Preschool Learning World | TheIz</title>
+
+  <style>
+    :root {
+      --cream: #fff8ed;
+      --ink: #35334a;
+      --muted: #77758b;
+      --purple: #8175e8;
+      --pink: #ff9eb5;
+      --yellow: #ffce65;
+      --green: #7bc9a5;
+      --blue: #87c8f4;
+      --white: #ffffff;
+      --border: #eee8f5;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      min-height: 100vh;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    button:focus-visible {
+      outline: 3px solid var(--purple);
+      outline-offset: 3px;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .brand-icon {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      background: #eeeaff;
+      border-radius: 16px;
+      font-size: 27px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: clamp(17px, 4vw, 23px);
+      line-height: 1.2;
+    }
+
+    .brand p {
+      color: var(--muted);
+      font-size: 12px;
+      margin: 4px 0 0;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .star-counter,
+    .sound-button {
+      border: 2px solid var(--border);
+      background: white;
+      border-radius: 15px;
+      min-height: 44px;
+      padding: 9px 12px;
+      font-weight: bold;
+      color: var(--ink);
+    }
+
+    .star-counter {
+      background: #fff0bd;
+      border-color: #ffe4a0;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 26px 12px 24px;
+      background: #eeeaff;
+      border-radius: 28px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .hero-characters {
+      font-size: clamp(35px, 8vw, 58px);
+      margin-bottom: 8px;
+      letter-spacing: 3px;
+    }
+
+    .hero h2 {
+      font-size: clamp(26px, 6vw, 39px);
+      margin: 8px 0;
+      line-height: 1.15;
+    }
+
+    .hero p {
+      max-width: 510px;
+      margin: 10px auto 0;
+      line-height: 1.6;
+      color: #625e80;
+      font-size: 15px;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin: 24px 2px 14px;
+    }
+
+    .section-heading h2 {
+      font-size: 21px;
+      margin: 0;
+    }
+
+    .section-heading span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .world-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .world-card {
+      border: 2px solid transparent;
+      border-radius: 23px;
+      padding: 18px 15px;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      color: var(--ink);
+      min-height: 195px;
+      transition: transform 0.15s ease;
+    }
+
+    .world-card:active {
+      transform: scale(0.98);
+    }
+
+    .world-card:nth-child(1) {
+      background: #ffe8ef;
+      border-color: #ffd6e2;
+    }
+
+    .world-card:nth-child(2) {
+      background: #fff0c9;
+      border-color: #ffe4a2;
+    }
+
+    .world-card:nth-child(3) {
+      background: #e1f5e9;
+      border-color: #c8ecd8;
+    }
+
+    .world-card:nth-child(4) {
+      background: #dff1ff;
+      border-color: #c9e8ff;
+    }
+
+    .world-card:nth-child(5) {
+      background: #eee8ff;
+      border-color: #ded4ff;
+      grid-column: 1 / -1;
+      min-height: 155px;
+    }
+
+    .world-icon {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    .world-title {
+      font-size: 19px;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .world-description {
+      font-size: 13px;
+      line-height: 1.5;
+      color: #615f76;
+      margin-bottom: 15px;
+    }
+
+    .world-action {
+      margin-top: auto;
+      background: rgba(255,255,255,0.8);
+      padding: 9px 13px;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 13px;
+    }
+
+    .notice {
+      text-align: center;
+      padding: 18px 8px 6px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .screen {
+      display: none;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    .game-panel {
+      max-width: 650px;
+      margin: 10px auto 0;
+      background: white;
+      padding: clamp(16px, 5vw, 30px);
+      border: 2px solid var(--border);
+      border-radius: 27px;
+      text-align: center;
+    }
+
+    .back-button {
+      display: inline-block;
+      border: 2px solid var(--border);
+      background: white;
+      border-radius: 13px;
+      padding: 10px 14px;
+      color: var(--ink);
+      font-weight: bold;
+      margin-bottom: 20px;
+      min-height: 44px;
+    }
+
+    .game-topline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .progress-track {
+      height: 10px;
+      border-radius: 99px;
+      background: #f0eef5;
+      overflow: hidden;
+      margin-bottom: 25px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--green);
+      border-radius: inherit;
+      transition: width 0.25s ease;
+    }
+
+    .question-label {
+      font-size: 12px;
+      color: var(--purple);
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin: 0 0 10px;
+    }
+
+    .question-title {
+      font-size: clamp(23px, 5vw, 31px);
+      line-height: 1.3;
+      margin: 0 auto 15px;
+    }
+
+    .question-visual {
+      min-height: 105px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin: 15px 0 22px;
+      font-size: clamp(36px, 9vw, 58px);
+      line-height: 1.4;
+    }
+
+    .question-visual .count-object {
+      display: inline-block;
+      animation: pop 0.25s ease;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.7); }
+      to { transform: scale(1); }
+    }
+
+    .answer-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .answer-button {
+      min-width: 0;
+      min-height: 76px;
+      padding: 12px 6px;
+      background: #f7f4ff;
+      border: 2px solid #e9e2ff;
+      border-radius: 17px;
+      color: var(--ink);
+      font-size: 17px;
+      font-weight: bold;
+      overflow-wrap: anywhere;
+    }
+
+    .answer-button .option-icon {
+      display: block;
+      font-size: 27px;
+      margin-bottom: 6px;
+    }
+
+    .answer-button .color-dot {
+      display: block;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      margin: 0 auto 6px;
+      border: 2px solid rgba(0,0,0,0.1);
+    }
+
+    .answer-button:disabled {
+      cursor: default;
+    }
+
+    .answer-button.correct {
+      background: #ddf7e9;
+      border-color: #70c99b;
+    }
+
+    .answer-button.incorrect {
+      background: #ffeaed;
+      border-color: #f5a0ae;
+    }
+
+    .feedback {
+      min-height: 56px;
+      padding: 14px 8px 5px;
+      font-weight: bold;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .feedback.good {
+      color: #25865a;
+    }
+
+    .feedback.try-again {
+      color: #c26b57;
+    }
+
+    .next-button,
+    .primary-button {
+      width: 100%;
+      min-height: 52px;
+      border: 0;
+      border-radius: 16px;
+      padding: 14px 18px;
+      background: var(--purple);
+      color: white;
+      font-weight: bold;
+      font-size: 17px;
+      margin-top: 12px;
+    }
+
+    .next-button:disabled {
+      cursor: not-allowed;
+      background: #cbc6e6;
+      color: #66617c;
+    }
+
+    .completion-emoji {
+      font-size: clamp(58px, 15vw, 90px);
+      margin: 10px 0;
+    }
+
+    .completion-title {
+      font-size: clamp(28px, 6vw, 38px);
+      margin: 12px 0;
+    }
+
+    .completion-text {
+      line-height: 1.7;
+      color: var(--muted);
+      margin: 12px auto 18px;
+      max-width: 430px;
+    }
+
+    .reward-stars {
+      color: #f3b629;
+      font-size: 37px;
+      letter-spacing: 5px;
+      margin: 12px 0;
+    }
+
+    .secondary-button {
+      width: 100%;
+      min-height: 50px;
+      border: 2px solid var(--border);
+      border-radius: 15px;
+      padding: 12px 16px;
+      margin-top: 10px;
+      background: white;
+      color: var(--ink);
+      font-weight: bold;
+    }
+
+    footer {
+      padding: 25px 8px 12px;
+      text-align: center;
+      font-size: 12px;
+      color: #918da2;
+    }
+
+    @media (min-width: 650px) {
+      .app {
+        padding: 25px;
+      }
+
+      .world-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .world-card:nth-child(5) {
+        grid-column: auto;
+        min-height: 195px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .app {
+        padding: 10px;
+      }
+
+      .brand-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 23px;
+      }
+
+      .brand p {
+        font-size: 11px;
+      }
+
+      .star-counter,
+      .sound-button {
+        padding: 8px;
+        font-size: 13px;
+      }
+
+      .world-card {
+        padding: 14px 11px;
+      }
+
+      .world-title {
+        font-size: 17px;
+      }
+
+      .answer-grid {
+        gap: 7px;
+      }
+
+      .answer-button {
+        font-size: 15px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <header>
+      <div class="brand">
+        <div class="brand-icon" aria-hidden="true">🌈</div>
+        <div>
+          <h1>Preschool Learning World</h1>
+          <p>Learn & Play · by TheIz</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="star-counter" aria-label="Total stars">
+          ⭐ <span id="totalStars">0</span>
+        </div>
+        <button class="sound-button" id="soundButton" type="button"
+          aria-pressed="false" aria-label="Turn sound on">
+          🔇
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <!-- HOME SCREEN -->
+      <section id="homeScreen" class="screen active">
+        <div class="hero">
+          <div class="hero-characters" aria-hidden="true">🐻 🌟 🐰</div>
+          <h2>Let's Learn & Play!</h2>
+          <p>
+            Explore a happy little world full of letters, numbers,
+            colors, animals and first words. Every little step is a big
+            achievement!
+          </p>
+        </div>
+
+        <div class="section-heading">
+          <h2>Choose Your World</h2>
+          <span>5 adventures to explore</span>
+        </div>
+
+        <div class="world-grid" id="worldGrid"></div>
+
+        <div class="notice">
+          Made for little learners aged 4–6.<br>
+          Play, learn and collect stars! ⭐
+        </div>
+      </section>
+
+      <!-- GAME SCREEN -->
+      <section id="gameScreen" class="screen">
+        <button class="back-button" id="backButton" type="button">
+          ← All Worlds
+        </button>
+
+        <div class="game-panel">
+          <div class="game-topline">
+            <span id="worldLabel">Alphabet World</span>
+            <span id="questionCount">Question 1 of 5</span>
+          </div>
+
+          <div
+            class="progress-track"
+            role="progressbar"
+            aria-label="Activity progress"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+            id="progressTrack">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+
+          <p class="question-label">Little Learner Challenge</p>
+          <h2 class="question-title" id="questionTitle">
+            Let's get started!
+          </h2>
+
+          <div class="question-visual" id="questionVisual"
+            aria-label="Question illustration"></div>
+
+          <div class="answer-grid" id="answerGrid"></div>
+
+          <div class="feedback" id="feedback" aria-live="polite">
+            Choose the best answer!
+          </div>
+
+          <button class="next-button" id="nextButton" type="button" disabled>
+            Choose an Answer
+          </button>
+        </div>
+      </section>
+
+      <!-- REWARD SCREEN -->
+      <section id="rewardScreen" class="screen">
+        <div class="game-panel">
+          <div class="completion-emoji" aria-hidden="true">🎉</div>
+          <h2 class="completion-title">Amazing Job!</h2>
+          <p class="completion-text" id="completionText">
+            You finished your learning adventure!
+          </p>
+          <div class="reward-stars" id="rewardStars" aria-label="Stars earned">
+            ⭐ ⭐ ⭐
+          </div>
+          <p><strong id="earnedText">You earned 0 stars!</strong></p>
+          <p class="completion-text">
+            Keep exploring and learning something new every day.
+            You are doing great!
+          </p>
+
+          <button class="primary-button" id="replayButton" type="button">
+            🔄 Play Again
+          </button>
+          <button class="secondary-button" id="homeButton" type="button">
+            🏠 Back to All Worlds
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      Preschool Learning World · TheIz © 2026
+    </footer>
+  </div>
+
+  <script>
+    "use strict";
+
+    // -----------------------------
+    // LEARNING WORLD CONTENT
+    // -----------------------------
+
+    const worlds = [
+      {
+        id: "alphabet",
+        title: "Alphabet World",
+        icon: "🔤",
+        description: "Discover letters and the words they begin.",
+        color: "#ffe8ef",
+        questions: [
+          {
+            prompt: "Which letter does Apple begin with?",
+            visual: "🍎",
+            options: [
+              { label: "A", icon: "🅰️" },
+              { label: "B", icon: "🅱️" },
+              { label: "C", icon: "©️" }
+            ],
+            answer: "A",
+            fact: "A is for Apple!"
+          },
+          {
+            prompt: "Which letter does Ball begin with?",
+            visual: "⚽",
+            options: [
+              { label: "D", icon: "🔤" },
+              { label: "B", icon: "🔤" },
+              { label: "A", icon: "🔤" }
+            ],
+            answer: "B",
+            fact: "B is for Ball!"
+          },
+          {
+            prompt: "Which letter does Cat begin with?",
+            visual: "🐱",
+            options: [
+              { label: "C", icon: "🔤" },
+              { label: "K", icon: "🔤" },
+              { label: "T", icon: "🔤" }
+            ],
+            answer: "C",
+            fact: "C is for Cat!"
+          },
+          {
+            prompt: "Which letter does Dog begin with?",
+            visual: "🐶",
+            options: [
+              { label: "G", icon: "🔤" },
+              { label: "D", icon: "🔤" },
+              { label: "B", icon: "🔤" }
+            ],
+            answer: "D",
+            fact: "D is for Dog!"
+          },
+          {
+            prompt: "Which letter does Elephant begin with?",
+            visual: "🐘",
+            options: [
+              { label: "E", icon: "🔤" },
+              { label: "F", icon: "🔤" },
+              { label: "L", icon: "🔤" }
+            ],
+            answer: "E",
+            fact: "E is for Elephant!"
+          }
+        ]
+      },
+
+      {
+        id: "numbers",
+        title: "Number World",
+        icon: "🔢",
+        description: "Count cute objects and practise numbers.",
+        color: "#fff0c9",
+        questions: [
+          {
+            prompt: "How many apples can you count?",
+            visual: "🍎",
+            count: 2,
+            options: [
+              { label: "1" },
+              { label: "2" },
+              { label: "3" }
+            ],
+            answer: "2",
+            fact: "Great counting! There are 2 apples."
+          },
+          {
+            prompt: "How many stars can you count?",
+            visual: "⭐",
+            count: 4,
+            options: [
+              { label: "3" },
+              { label: "5" },
+              { label: "4" }
+            ],
+            answer: "4",
+            fact: "Wonderful! You counted 4 stars."
+          },
+          {
+            prompt: "How many ducks can you count?",
+            visual: "🦆",
+            count: 3,
+            options: [
+              { label: "3" },
+              { label: "2" },
+              { label: "5" }
+            ],
+            answer: "3",
+            fact: "Quack, quack! There are 3 ducks."
+          },
+          {
+            prompt: "How many balloons can you count?",
+            visual: "🎈",
+            count: 5,
+            options: [
+              { label: "4" },
+              { label: "5" },
+              { label: "6" }
+            ],
+            answer: "5",
+            fact: "Fantastic! You counted 5 balloons."
+          },
+          {
+            prompt: "How many butterflies can you count?",
+            visual: "🦋",
+            count: 1,
+            options: [
+              { label: "2" },
+              { label: "3" },
+              { label: "1" }
+            ],
+            answer: "1",
+            fact: "Yes! One beautiful butterfly."
+          }
+        ]
+      },
+
+      {
+        id: "colors",
+        title: "Color World",
+        icon: "🎨",
+        description: "Explore colors through fun challenges.",
+        color: "#e1f5e9",
+        questions: [
+          {
+            prompt: "Which color is a banana?",
+            visual: "🍌",
+            options: [
+              { label: "Blue", color: "#54a8f5" },
+              { label: "Yellow", color: "#ffd447" },
+              { label: "Purple", color: "#a47bea" }
+            ],
+            answer: "Yellow",
+            fact: "A banana is yellow!"
+          },
+          {
+            prompt: "Which color is the sky on a clear day?",
+            visual: "☀️ ☁️",
+            options: [
+              { label: "Blue", color: "#54a8f5" },
+              { label: "Green", color: "#50b978" },
+              { label: "Pink", color: "#ff91b9" }
+            ],
+            answer: "Blue",
+            fact: "The sky often looks blue on a clear day!"
+          },
+          {
+            prompt: "Which color is a strawberry?",
+            visual: "🍓",
+            options: [
+              { label: "Orange", color: "#ff963f" },
+              { label: "Red", color: "#f04455" },
+              { label: "Blue", color: "#54a8f5" }
+            ],
+            answer: "Red",
+            fact: "A ripe strawberry is usually red!"
+          },
+          {
+            prompt: "Which color are many leaves?",
+            visual: "🍃",
+            options: [
+              { label: "Green", color: "#50b978" },
+              { label: "Purple", color: "#a47bea" },
+              { label: "Pink", color: "#ff91b9" }
+            ],
+            answer: "Green",
+            fact: "Many leaves are green!"
+          },
+          {
+            prompt: "Which color is a carrot?",
+            visual: "🥕",
+            options: [
+              { label: "Black", color: "#454545" },
+              { label: "Orange", color: "#ff963f" },
+              { label: "Blue", color: "#54a8f5" }
+            ],
+            answer: "Orange",
+            fact: "A carrot is usually orange!"
+          }
+        ]
+      },
+
+      {
+        id: "animals",
+        title: "Animal World",
+        icon: "🐻",
+        description: "Meet animals and learn fun facts.",
+        color: "#dff1ff",
+        questions: [
+          {
+            prompt: "Which animal says 'meow'?",
+            visual: "🐾",
+            options: [
+              { label: "Dog", icon: "🐶" },
+              { label: "Cat", icon: "🐱" },
+              { label: "Duck", icon: "🦆" }
+            ],
+            answer: "Cat",
+            fact: "Cats often say 'meow'!"
+          },
+          {
+            prompt: "Which animal gives us wool?",
+            visual: "🌿",
+            options: [
+              { label: "Sheep", icon: "🐑" },
+              { label: "Fish", icon: "🐟" },
+              { label: "Frog", icon: "🐸" }
+            ],
+            answer: "Sheep",
+            fact: "Sheep grow wool on their bodies!"
+          },
+          {
+            prompt: "Which animal has a very long trunk?",
+            visual: "🌳",
+            options: [
+              { label: "Rabbit", icon: "🐰" },
+              { label: "Elephant", icon: "🐘" },
+              { label: "Penguin", icon: "🐧" }
+            ],
+            answer: "Elephant",
+            fact: "An elephant uses its trunk to smell, breathe and grab things!"
+          },
+          {
+            prompt: "Which animal can hop and has long ears?",
+            visual: "🥕",
+            options: [
+              { label: "Rabbit", icon: "🐰" },
+              { label: "Lion", icon: "🦁" },
+              { label: "Turtle", icon: "🐢" }
+            ],
+            answer: "Rabbit",
+            fact: "Rabbits have powerful back legs for hopping!"
+          },
+          {
+            prompt: "Which animal lives in water and has fins?",
+            visual: "🌊",
+            options: [
+              { label: "Chicken", icon: "🐔" },
+              { label: "Fish", icon: "🐠" },
+              { label: "Horse", icon: "🐴" }
+            ],
+            answer: "Fish",
+            fact: "Fish use their fins to help them move through water!"
+          }
+        ]
+      },
+
+      {
+        id: "words",
+        title: "Word World",
+        icon: "🧩",
+        description: "Match simple English words to pictures.",
+        color: "#eee8ff",
+        questions: [
+          {
+            prompt: "Which word matches this picture?",
+            visual: "☀️",
+            options: [
+              { label: "Sun" },
+              { label: "Bus" },
+              { label: "Cup" }
+            ],
+            answer: "Sun",
+            fact: "S-U-N spells Sun!"
+          },
+          {
+            prompt: "Which word matches this picture?",
+            visual: "🐟",
+            options: [
+              { label: "Fan" },
+              { label: "Fish" },
+              { label: "Fox" }
+            ],
+            answer: "Fish",
+            fact: "F-I-S-H spells Fish!"
+          },
+          {
+            prompt: "Which word matches this picture?",
+            visual: "📚",
+            options: [
+              { label: "Book" },
+              { label: "Ball" },
+              { label: "Duck" }
+            ],
+            answer: "Book",
+            fact: "B-O-O-K spells Book!"
+          },
+          {
+            prompt: "Which word matches this picture?",
+            visual: "🚗",
+            options: [
+              { label: "Cat" },
+              { label: "Car" },
+              { label: "Cake" }
+            ],
+            answer: "Car",
+            fact: "C-A-R spells Car!"
+          },
+          {
+            prompt: "Which word matches this picture?",
+            visual: "🏠",
+            options: [
+              { label: "Hat" },
+              { label: "Tree" },
+              { label: "House" }
+            ],
+            answer: "House",
+            fact: "H-O-U-S-E spells House!"
+          }
+        ]
+      }
+    ];
+
+    // -----------------------------
+    // GAME STATE
+    // -----------------------------
+
+    const homeScreen = document.getElementById("homeScreen");
+    const gameScreen = document.getElementById("gameScreen");
+    const rewardScreen = document.getElementById("rewardScreen");
+
+    const worldGrid = document.getElementById("worldGrid");
+    const totalStarsDisplay = document.getElementById("totalStars");
+    const soundButton = document.getElementById("soundButton");
+    const backButton = document.getElementById("backButton");
+    const worldLabel = document.getElementById("worldLabel");
+    const questionCount = document.getElementById("questionCount");
+    const questionTitle = document.getElementById("questionTitle");
+    const questionVisual = document.getElementById("questionVisual");
+    const answerGrid = document.getElementById("answerGrid");
+    const feedback = document.getElementById("feedback");
+    const nextButton = document.getElementById("nextButton");
+    const progressFill = document.getElementById("progressFill");
+    const progressTrack = document.getElementById("progressTrack");
+
+    let currentWorld = null;
+    let currentIndex = 0;
+    let activityStars = 0;
+    let answered = false;
+    let soundEnabled = false;
+
+    let totalStars = 0;
+
+    try {
+      const savedStars = Number(localStorage.getItem("theizPreschoolStars"));
+      if (Number.isFinite(savedStars) && savedStars >= 0) {
+        totalStars = Math.floor(savedStars);
+      }
+    } catch (error) {
+      // The game still works if local storage is unavailable.
+    }
+
+    updateStarCounter();
+
+    // -----------------------------
+    // HOME SCREEN
+    // -----------------------------
+
+    function buildWorldCards() {
+      worldGrid.innerHTML = "";
+
+      worlds.forEach((world) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "world-card";
+        button.setAttribute("aria-label", "Play " + world.title);
+
+        const icon = document.createElement("span");
+        icon.className = "world-icon";
+        icon.textContent = world.icon;
+
+        const title = document.createElement("span");
+        title.className = "world-title";
+        title.textContent = world.title;
+
+        const description = document.createElement("span");
+        description.className = "world-description";
+        description.textContent = world.description;
+
+        const action = document.createElement("span");
+        action.className = "world-action";
+        action.textContent = "Let's Play! →";
+
+        button.append(icon, title, description, action);
+        button.addEventListener("click", () => startWorld(world.id));
+        worldGrid.appendChild(button);
+      });
+    }
+
+    function showScreen(screen) {
+      [homeScreen, gameScreen, rewardScreen].forEach((item) => {
+        item.classList.remove("active");
+      });
+
+      screen.classList.add("active");
+      window.scrollTo({ top: 0, behavior: "auto" });
+    }
+
+    // -----------------------------
+    // START AND RENDER ACTIVITY
+    // -----------------------------
+
+    function startWorld(worldId) {
+      currentWorld = worlds.find((world) => world.id === worldId);
+
+      if (!currentWorld) {
+        return;
+      }
+
+      currentIndex = 0;
+      activityStars = 0;
+      answered = false;
+
+      worldLabel.textContent = currentWorld.icon + " " + currentWorld.title;
+      showScreen(gameScreen);
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      const question = currentWorld.questions[currentIndex];
+
+      if (!question) {
+        finishWorld();
+        return;
+      }
+
+      answered = false;
+
+      questionCount.textContent =
+        "Question " + (currentIndex + 1) +
+        " of " + currentWorld.questions.length;
+
+      questionTitle.textContent = question.prompt;
+
+      const progress = Math.round(
+        (currentIndex / currentWorld.questions.length) * 100
+      );
+
+      progressFill.style.width = progress + "%";
+      progressTrack.setAttribute("aria-valuenow", String(progress));
+
+      renderVisual(question);
+      renderAnswers(question);
+
+      feedback.textContent = "Choose the best answer!";
+      feedback.className = "feedback";
+
+      nextButton.disabled = true;
+      nextButton.textContent = "Choose an Answer";
+    }
+
+    function renderVisual(question) {
+      questionVisual.innerHTML = "";
+
+      if (question.count && question.visual) {
+        for (let i = 0; i < question.count; i++) {
+          const object = document.createElement("span");
+          object.className = "count-object";
+          object.textContent = question.visual;
+          questionVisual.appendChild(object);
+        }
+      } else {
+        const visual = document.createElement("span");
+        visual.textContent = question.visual || "🌟";
+        questionVisual.appendChild(visual);
+      }
+    }
+
+    function renderAnswers(question) {
+      answerGrid.innerHTML = "";
+
+      question.options.forEach((option) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "answer-button";
+
+        if (option.color) {
+          const dot = document.createElement("span");
+          dot.className = "color-dot";
+          dot.style.backgroundColor = option.color;
+          dot.setAttribute("aria-hidden", "true");
+          button.appendChild(dot);
+        } else if (option.icon) {
+          const icon = document.createElement("span");
+          icon.className = "option-icon";
+          icon.textContent = option.icon;
+          icon.setAttribute("aria-hidden", "true");
+          button.appendChild(icon);
+        }
+
+        const label = document.createElement("span");
+        label.textContent = option.label;
+        button.appendChild(label);
+
+        button.addEventListener("click", () => {
+          chooseAnswer(option.label, button);
+        });
+
+        answerGrid.appendChild(button);
+      });
+    }
+
+    // -----------------------------
+    // ANSWERS AND REWARDS
+    // -----------------------------
+
+    function chooseAnswer(selected, selectedButton) {
+      if (answered) {
+        return;
+      }
+
+      const question = currentWorld.questions[currentIndex];
+
+      if (selected === question.answer) {
+        answered = true;
+        activityStars += 1;
+        totalStars += 1;
+
+        saveStars();
+        updateStarCounter();
+
+        selectedButton.classList.add("correct");
+
+        answerGrid.querySelectorAll("button").forEach((button) => {
+          button.disabled = true;
+
+          const label = button.querySelector("span:last-child");
+          if (label && label.textContent === question.answer) {
+            button.classList.add("correct");
+          }
+        });
+
+        feedback.textContent = "⭐ Correct! " + question.fact;
+        feedback.className = "feedback good";
+
+        nextButton.disabled = false;
+
+        if (currentIndex === currentWorld.questions.length - 1) {
+          nextButton.textContent = "See My Reward! 🎉";
+        } else {
+          nextButton.textContent = "Next Question →";
+        }
+
+        speak("Great job! " + question.fact);
+      } else {
+        selectedButton.classList.add("incorrect");
+        feedback.textContent = "Almost! Try again. You can do it! 💛";
+        feedback.className = "feedback try-again";
+
+        speak("Try again. You can do it!");
+      }
+    }
+
+    function nextQuestion() {
+      if (!answered) {
+        return;
+      }
+
+      currentIndex += 1;
+
+      if (currentIndex >= currentWorld.questions.length) {
+        finishWorld();
+      } else {
+        renderQuestion();
+      }
+    }
+
+    function finishWorld() {
+      showScreen(rewardScreen);
+
+      progressFill.style.width = "100%";
+      progressTrack.setAttribute("aria-valuenow", "100");
+
+      document.getElementById("completionText").textContent =
+        "You completed " + currentWorld.title +
+        "! You answered " + activityStars +
+        " out of " + currentWorld.questions.length +
+        " questions correctly on your first try.";
+
+      document.getElementById("earnedText").textContent =
+        "You earned " + activityStars +
+        (activityStars === 1 ? " star!" : " stars!");
+
+      const starsDisplay = document.getElementById("rewardStars");
+      starsDisplay.textContent =
+        activityStars > 0
+          ? Array(activityStars).fill("⭐").join(" ")
+          : "🌱 Keep practising!";
+
+      speak("Amazing job! You finished " + currentWorld.title + "!");
+    }
+
+    function saveStars() {
+      try {
+        localStorage.setItem("theizPreschoolStars", String(totalStars));
+      } catch (error) {
+        // Scoring still works for the current session.
+      }
+    }
+
+    function updateStarCounter() {
+      totalStarsDisplay.textContent = String(totalStars);
+    }
+
+    // -----------------------------
+    // OPTIONAL SPEECH
+    // -----------------------------
+
+    function speak(text) {
+      if (!soundEnabled || !("speechSynthesis" in window)) {
+        return;
+      }
+
+      window.speechSynthesis.cancel();
+
+      const message = new SpeechSynthesisUtterance(text);
+      message.lang = "en-US";
+      message.rate = 0.85;
+      message.pitch = 1.1;
+
+      window.speechSynthesis.speak(message);
+    }
+
+    soundButton.addEventListener("click", () => {
+      soundEnabled = !soundEnabled;
+
+      soundButton.textContent = soundEnabled ? "🔊" : "🔇";
+      soundButton.setAttribute("aria-pressed", String(soundEnabled));
+      soundButton.setAttribute(
+        "aria-label",
+        soundEnabled ? "Turn sound off" : "Turn sound on"
+      );
+
+      if (!soundEnabled && "speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+      } else if (soundEnabled) {
+        speak("Hello, little learner!");
+      }
+    });
+
+    // -----------------------------
+    // NAVIGATION
+    // -----------------------------
+
+    backButton.addEventListener("click", () => {
+      showScreen(homeScreen);
+    });
+
+    nextButton.addEventListener("click", nextQuestion);
+
+    document.getElementById("replayButton").addEventListener("click", () => {
+      if (currentWorld) {
+        startWorld(currentWorld.id);
+      }
+    });
+
+    document.getElementById("homeButton").addEventListener("click", () => {
+      showScreen(homeScreen);
+    });
+
+    // Start the game.
+    buildWorldCards();
+  </script>
+</body>
+</html>
